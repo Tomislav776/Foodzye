@@ -103,7 +103,7 @@ public class loginActivity extends AppCompatActivity  {
                     }catch (JSONException e){
                         e.printStackTrace();
                     }
-                    Toast.makeText(loginActivity.this, "You have succesfully logged in.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(loginActivity.this, "You have successfully logged in.", Toast.LENGTH_LONG).show();
                     onLoginSuccess();
                 }
             }

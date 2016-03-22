@@ -85,7 +85,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void processFinish(String result) {
                 if(result.equals("success")) {
-                    Toast.makeText(SignupActivity.this, "You have succesfully registered and logged in.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignupActivity.this, "You have successfully registered and logged in.", Toast.LENGTH_LONG).show();
                     progressDialog.dismiss();
                     onSignupSuccess(postData);
                 }
