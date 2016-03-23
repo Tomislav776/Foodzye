@@ -17,6 +17,7 @@ public class UserLocalStore {
         SharedPreferences.Editor userLocalDatabaseEditor = userLocalDatabase.edit();
         userLocalDatabaseEditor.putString("username", user.username);
         userLocalDatabaseEditor.putString("email", user.email);
+        userLocalDatabaseEditor.putString("role", user.role);
         userLocalDatabaseEditor.commit();
     }
 
@@ -39,8 +40,9 @@ public class UserLocalStore {
 
         String username = userLocalDatabase.getString("username", "");
         String email = userLocalDatabase.getString("email", "");
+        String role = userLocalDatabase.getString("role", "");
 
-        User user = new User(username, email);
+        User user = new User(username, email, role);
         return user;
     }
 

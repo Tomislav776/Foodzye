@@ -3,12 +3,16 @@ package com.example.tomipc.foodzye;
 
 public class User {
 
-    String username, password, email;
+    String username, email, role;
 
-    public User(String username, String password, String email){
+    public User(String username, String email, String role){
         this.username = username;
-        this.password = password;
         this.email = email;
+        if(role.equals("1")){
+            this.role = "User";
+        }else{
+            this.role = "Food Service Provider";
+        }
     }
 
     public User(String username, String email){

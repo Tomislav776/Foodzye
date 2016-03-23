@@ -115,7 +115,8 @@ public class SignupActivity extends AppCompatActivity {
     public void onSignupSuccess(HashMap postData) {
         String name = (String)postData.get("name");
         String email = (String)postData.get("email");
-        User user = new User(name, email);
+        String role = (String)postData.get("role");
+        User user = new User(name, email, role);
         logUserIn(user);
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);

@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setVisibility(View.GONE);
         logoutButton.setVisibility(View.VISIBLE);
         ETusername.setVisibility(View.VISIBLE);
-        ETusername.setText(user.username);
+        ETusername.setText(user.username + " (" + user.role + ")");
     }
 
     public void onLoginButtonClick(View v){

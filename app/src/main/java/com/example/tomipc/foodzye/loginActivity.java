@@ -98,7 +98,8 @@ public class loginActivity extends AppCompatActivity  {
                         JSONObject jObject = obj.getJSONObject(0);
                         String name = jObject.getString("name");
                         String email = jObject.getString("email");
-                        User user = new User(name, email);
+                        String role = jObject.getString("role");
+                        User user = new User(name, email, role);
                         logUserIn(user);
                     }catch (JSONException e){
                         e.printStackTrace();
