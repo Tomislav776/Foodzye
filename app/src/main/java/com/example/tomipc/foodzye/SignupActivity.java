@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class SignupActivity extends AppCompatActivity {
     @Bind(R.id.input_name) TextInputEditText _nameText;
     @Bind(R.id.input_email) TextInputEditText _emailText;
     @Bind(R.id.input_password) TextInputEditText _passwordText;
+    @Bind(R.id.RoleSpinner) Spinner RoleSpinner;
     @Bind(R.id.btn_signup) Button _signupButton;
     @Bind(R.id.link_login) TextView _loginLink;
 
@@ -74,12 +76,21 @@ public class SignupActivity extends AppCompatActivity {
         String username = _nameText.getText().toString();
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
+        String StringRole = RoleSpinner.getSelectedItem().toString();
 
+        String role;
+
+        if(StringRole.equals("User")){
+            role = "1";
+        }else{
+            role = "2";
+        }
 
         final HashMap postData = new HashMap();
         postData.put("name", username);
         postData.put("email", email);
         postData.put("password", password);
+        postData.put("role", role);
 
         PostResponseAsyncTask task = new PostResponseAsyncTask(SignupActivity.this, postData , new AsyncResponse() {
             @Override
