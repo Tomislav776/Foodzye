@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         mTitle = mDrawerTitle = getTitle();
 
@@ -86,21 +88,21 @@ public class MainActivity extends AppCompatActivity {
                 navDrawerItems);
         mDrawerList.setAdapter(adapter);
 // enabling action bar app icon and behaving it as toggle button
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.app_name, // nav drawer open - description for accessibility
                 R.string.app_name // nav drawer close - description for accessibility
         ){
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(mTitle);
+                getSupportActionBar().setTitle(mTitle);
                 // calling onPrepareOptionsMenu() to show action bar icons
                 invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(mDrawerTitle);
+                getSupportActionBar().setTitle(mDrawerTitle);
                 // calling onPrepareOptionsMenu() to hide action bar icons
                 invalidateOptionsMenu();
             }
@@ -111,9 +113,6 @@ public class MainActivity extends AppCompatActivity {
             // on first time display view for first nav item
             //displayView(0);
         }
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         loginButton = (Button) findViewById(R.id.LoginButton);
         logoutButton = (Button) findViewById(R.id.LogoutButton);
         ETusername = (EditText) findViewById(R.id.username);
