@@ -15,25 +15,22 @@
 
         <ImageView android:src="@drawable/logo2"
             android:layout_width="wrap_content"
-            android:layout_height="102dp"
+            android:layout_height="80dp"
             android:layout_marginBottom="24dp"
             android:layout_gravity="center_horizontal" />
 
-        <EditText
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
-            android:layout_gravity="center_horizontal"
             android:text="WELCOME"
-            android:allowUndo="true"
-            android:gravity="center"
-            android:fontFamily="sans-serif-medium"
-            android:textStyle="bold"
-            android:textSize="30dp"
+            android:id="@+id/textView"
+            android:layout_gravity="center_horizontal"
             android:textColor="#ffffff"
-            android:background="#c0392b" />
+            android:textStyle="bold"
+            android:textSize="30dp" />
 
         <!--  Email Label -->
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
