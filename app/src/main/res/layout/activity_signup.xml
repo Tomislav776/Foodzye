@@ -11,25 +11,45 @@
         android:layout_height="wrap_content"
         android:paddingTop="56dp"
         android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+        android:paddingRight="24dp"
+        android:background="@drawable/bckg">
 
         <ImageView android:src="@drawable/logo2"
             android:layout_width="wrap_content"
-            android:layout_height="72dp"
+            android:layout_height="102dp"
             android:layout_marginBottom="24dp"
             android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText"
+            android:layout_gravity="center_horizontal"
+            android:allowUndo="true"
+            android:gravity="center"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="bold"
+            android:textSize="30dp"
+            android:textColor="#ffffff"
+            android:background="#c0392b"
+            android:text="JOIN THE TEAM" />
 
         <!-- Name Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="70dp"
             android:layout_marginBottom="8dp">
             <android.support.design.widget.TextInputEditText android:id="@+id/input_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
-                android:hint="Name" />
+                android:hint="Name"
+                android:background="@drawable/input"
+                android:autoText="true"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:padding="15dp" />
         </android.support.design.widget.TextInputLayout>
 
         <!--  Email Label -->
@@ -42,7 +62,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:hint="Email" />
+                android:hint="Email"
+                android:fontFamily="sans-serif-medium"
+                android:padding="15dp"
+                android:gravity="center"
+                android:background="@drawable/input" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Label -->
@@ -55,7 +79,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="Password"/>
+                android:hint="Password"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:padding="15dp"
+                android:background="@drawable/input" />
         </android.support.design.widget.TextInputLayout>
 
         <Spinner
@@ -72,13 +100,17 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:padding="12dp"
+            android:gravity="center"
+            android:background="@drawable/button"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
             android:text="Create Account"/>
 
         <TextView android:id="@+id/link_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="Already a member? Login"
+            android:text="Already a member? Login..."
             android:gravity="center"
             android:textSize="16dip"/>
 
