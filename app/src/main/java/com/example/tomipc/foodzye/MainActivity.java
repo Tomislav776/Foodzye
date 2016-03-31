@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,12 +21,21 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.tomipc.foodzye.adapter.NavDrawerListAdapter;
+import com.example.tomipc.foodzye.fragments.FoodFragment;
+import com.example.tomipc.foodzye.fragments.HomeFragment;
+import com.example.tomipc.foodzye.fragments.LoginFragment;
 import com.example.tomipc.foodzye.model.NavDrawerItem;
 
 import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    // Tabovi
+    private android.support.v7.widget.Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    // Tabovi End
 
     UserLocalStore userLocalStore;
     Button loginButton;
@@ -117,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             // on first time display view for first nav item
             displayView(0);
         }
-        loginButton = (Button) findViewById(R.id.LoginButton);
+
         logoutButton = (Button) findViewById(R.id.LogoutButton);
         ETusername = (EditText) findViewById(R.id.username);
         userLocalStore = new UserLocalStore(this);
@@ -147,13 +158,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 1:
                 fragment = new LoginFragment();
-                /*Intent i = new Intent(this, loginActivity.class);
-                startActivity(i);*/
                 break;
-            /*case 2:
-                fragment = new PhotosFragment();
+            case 2:
+                fragment = new FoodFragment();
                 break;
-            case 3:
+            /*case 3:
                 fragment = new CommunityFragment();
                 break;
             case 4:
@@ -207,10 +216,7 @@ public class MainActivity extends AppCompatActivity {
         ETusername.setText(user.username + " (" + user.role + ")");
     }
 
-    public void onLoginButtonClick(View v){
-        Intent i = new Intent(this, loginActivity.class);
-        startActivity(i);
-    }
+
 
     public void onLogoutButtonClick(View v){
         userLocalStore.clearUserData();
