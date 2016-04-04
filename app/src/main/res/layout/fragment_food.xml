@@ -14,12 +14,60 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="#c0392b">
+
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/imageView"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/logo_mini"
+                    android:layout_marginTop="10dp" />
+
+                <EditText
+                    android:layout_width="280dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/editText"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/input"
+                    android:textColor="#c0392b"
+                    android:hint="Search..."
+                    android:paddingLeft="10dp" />
+
+                <Spinner
+                    android:layout_width="150dp"
+                    android:layout_height="29dp"
+                    android:id="@+id/spinner2"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="20dp"
+                    android:textColor="#c0392b"
+                    android:background="@drawable/kat"
+                    android:layout_marginRight="20dp" />
+
+                <Spinner
+                    android:layout_width="150dp"
+                    android:layout_height="29dp"
+                    android:id="@+id/spinner"
+                    android:layout_marginTop="-30dp"
+                    android:background="@drawable/kat"
+                    android:textColor="#c0392b"
+                    android:layout_marginLeft="20dp" />
+
+            </LinearLayout>
+
 
             <TabWidget
-                android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></TabWidget>
+                android:layout_height="47dp"
+                android:background="@drawable/bckg3"></TabWidget>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"

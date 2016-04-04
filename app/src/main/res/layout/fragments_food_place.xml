@@ -2,7 +2,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="info.androidhive.materialtabs.fragments.OneFragment">
+    tools:context="info.androidhive.materialtabs.fragments.OneFragment"
+    android:background="@drawable/bckg2">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="70dp"
+            android:id="@+id/imageView"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/logo_mini"
+            android:layout_marginTop="40dp" />
+
+        <EditText
+            android:layout_width="280dp"
+            android:layout_height="30dp"
+            android:id="@+id/editText"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/input"
+            android:hint="Search..."
+            android:paddingLeft="10dp" />
+
+        <Spinner
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:id="@+id/spinner2"
+            android:layout_gravity="right"
+            android:background="@drawable/kat"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp" />
+
+        <Spinner
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:id="@+id/spinner"
+            android:background="@drawable/kat"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="-30dp" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -10,6 +54,8 @@
         android:text="Some tekst 2"
         android:textSize="40dp"
         android:textStyle="bold"
-        android:layout_centerInParent="true"/>
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="139dp" />
 
 </RelativeLayout>
