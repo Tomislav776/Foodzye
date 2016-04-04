@@ -24,5 +24,8 @@
         <color name="counter_text_bg">#ecf0f1</color>
         <color name="counter_text_color">#34495e</color>
 
+    <!-- Navigacija v2-->
+    <color name="orange">#FA0</color>
+
 
 </resources>
