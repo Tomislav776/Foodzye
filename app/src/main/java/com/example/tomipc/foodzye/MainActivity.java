@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.tomipc.foodzye.fragments.AddFoodFragment;
 import com.example.tomipc.foodzye.fragments.FoodFragmentTab;
 import com.example.tomipc.foodzye.fragments.LoginFragment;
 import com.example.tomipc.foodzye.fragments.SentFragment;
@@ -76,6 +77,11 @@ public class MainActivity extends AppCompatActivity {
                 if (menuItem.getItemId() == R.id.nav_item_inbox) {
                     FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
                     xfragmentTransaction.replace(R.id.containerView,new FoodFragmentTab()).commit();
+                }
+
+                if (menuItem.getItemId() == R.id.nav_item_food) {
+                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
+                    xfragmentTransaction.replace(R.id.containerView,new AddFoodFragment()).commit();
                 }
 
                 return false;

@@ -14,6 +14,10 @@
         android:id="@+id/nav_item_draft"
        />
 
+    <item android:title="Add Food"
+        android:id="@+id/nav_item_food"
+        />
+
 
 
     <item android:title="Others">

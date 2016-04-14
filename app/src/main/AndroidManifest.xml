@@ -10,7 +10,8 @@
         android:debuggable="true"> <!-- TODO: u releasu ovo maknuti debuggable -->
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,6 +25,10 @@
         <activity
             android:name=".SignupActivity"
             android:label="@string/title_activity_signup"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".AddFoodActivity"
+            android:label="@string/title_activity_add_food"
             android:theme="@style/AppTheme.Dark" />
     </application>
 
