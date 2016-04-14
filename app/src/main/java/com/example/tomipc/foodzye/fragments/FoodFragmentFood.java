@@ -1,5 +1,6 @@
 package com.example.tomipc.foodzye.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import com.example.tomipc.foodzye.R;
 public class FoodFragmentFood extends Fragment {
     EditText unosProba;
     Database baza;
+    Context c;
 
     @Nullable
     @Override
@@ -22,9 +24,24 @@ public class FoodFragmentFood extends Fragment {
 
         unosProba = (EditText) x.findViewById(R.id.unosProba);
 
-         baza = new Database();
-        baza.sendPostRequest();
+
+
+
+        baza = new Database();
+        baza.insert(c);
 
         return x;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        c = context;
+        /*if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }*/
     }
 }

@@ -26,4 +26,13 @@
         android:layout_below="@+id/textView"
         android:textStyle="italic"/>
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="New Text"
+        android:id="@+id/unosProba"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
+
 </RelativeLayout>

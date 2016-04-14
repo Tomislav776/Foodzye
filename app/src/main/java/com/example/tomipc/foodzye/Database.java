@@ -1,12 +1,20 @@
 package com.example.tomipc.foodzye;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.example.tomipc.foodzye.fragments.FoodFragmentFood;
+import com.kosalgeek.genasync12.AsyncResponse;
+import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,25 +24,49 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Down on 14.4.2016..
  */
-public class Database extends Activity {
+public class Database extends AppCompatActivity {
 
-    private static final String FOOD_URL = "http://10.0.3.2/food/";
+    private static final String FOOD_URL = "http://10.0.3.2/food2/";
 
     HttpURLConnection connection;
-    AutoCompleteTextView ACText;
-    Button addNewFood;
-    ListView listView;
-    ArrayList<Food> arrayOfFood;
-    ArrayList<String> foodName;
+
     String foodJSON;
-    String[] nameOfFood;
-    String chosenFood;
 
 
+    public void insert (Context c) {
+
+        System.out.println("Teeeest");
+
+        String food = "nesto";
+
+
+        final HashMap postData = new HashMap();
+        postData.put("food", food);
+
+
+
+        PostResponseAsyncTask task = new PostResponseAsyncTask(c, postData, new AsyncResponse() {
+            @Override
+            public void processFinish(String result) {
+                System.out.println(result);
+                if (result.equals("success")) {
+                   // Toast.makeText(FoodFragmentFood, "You have successfully registered and logged in.", Toast.LENGTH_LONG).show();
+
+                } else {
+
+                }
+            }
+        });
+
+        task.execute(FOOD_URL);
+    }
+
+/*
     public void sendPostRequest() {
         new JSON(this).execute();
     }
@@ -97,6 +129,6 @@ public class Database extends Activity {
             return "Error. Please try again later.";
         }
     }
-
+*/
 
 }
