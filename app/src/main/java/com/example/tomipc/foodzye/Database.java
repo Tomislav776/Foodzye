@@ -1,29 +1,12 @@
 package com.example.tomipc.foodzye;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.tomipc.foodzye.fragments.FoodFragmentFood;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -31,7 +14,7 @@ import java.util.HashMap;
  */
 public class Database extends AppCompatActivity {
 
-    private static final String FOOD_URL = "http://10.0.3.2/food2/";
+    private static final String FOOD_URL = "http://10.0.3.2/food2";
 
     HttpURLConnection connection;
 
