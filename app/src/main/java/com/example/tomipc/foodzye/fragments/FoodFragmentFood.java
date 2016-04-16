@@ -10,7 +10,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.tomipc.foodzye.Database;
+import com.example.tomipc.foodzye.Food;
 import com.example.tomipc.foodzye.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FoodFragmentFood extends Fragment {
     EditText unosProba;
@@ -27,8 +31,21 @@ public class FoodFragmentFood extends Fragment {
 
 
 
-        baza = new Database();
-        baza.insert(c);
+        baza = new Database(c);
+
+        HashMap data = new HashMap();
+        data.put("name", "Ime");
+
+        ArrayList<Food> arrayOfFood;
+
+        arrayOfFood = baza.readFood("getFood");
+        baza.insert(data , "postFood");
+
+
+        System.out.println("Tets5 ");
+        for(Food value: arrayOfFood){
+           System.out.println("Tets5 "+value.name);
+        }
 
         return x;
     }
@@ -37,11 +54,5 @@ public class FoodFragmentFood extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         c = context;
-        /*if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }*/
     }
 }
