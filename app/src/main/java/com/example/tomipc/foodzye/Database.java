@@ -70,7 +70,7 @@ public class Database {
 
 
     public ArrayList<Food> readFood (String route) {
-
+System.out.println("Teest: "+route);
                 try {
                     String foodJSON;
                     foodJSON = new Read().execute(URL+route+"/").get();
@@ -105,6 +105,7 @@ public class Database {
             try {
                 URL url = null;
                 String response = null;
+                System.out.println("Teest: "+urls[0]);
                 url = new URL(urls[0]);
 
                 //create the connection

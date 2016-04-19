@@ -26,7 +26,7 @@ public class FoodFragmentFood extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View x = inflater.inflate(R.layout.fragments_food_food,null);
 
-        unosProba = (EditText) x.findViewById(R.id.unosProba);
+        //unosProba = (EditText) x.findViewById(R.id.unosProba);
 
 
 

@@ -62,26 +62,28 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                if (menuItem.getItemId() == R.id.nav_item_sent) {
-                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.containerView,new SentFragment()).commit();
-
+                if (menuItem.getItemId() == R.id.nav_item_home) {
+                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
+                    xfragmentTransaction.replace(R.id.containerView,new FoodFragmentTab()).commit();
                 }
 
-                if (menuItem.getItemId() == R.id.nav_item_draft) {
+                if (menuItem.getItemId() == R.id.nav_item_login) {
                     FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.containerView,new LoginFragment()).commit();
 
                 }
 
-                if (menuItem.getItemId() == R.id.nav_item_inbox) {
-                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.containerView,new FoodFragmentTab()).commit();
-                }
-
                 if (menuItem.getItemId() == R.id.nav_item_food) {
                     FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
                     xfragmentTransaction.replace(R.id.containerView,new AddFoodFragment()).commit();
+                }
+
+                if (menuItem.getItemId() == R.id.nav_item_logout) {
+                    userLocalStore.clearUserData();
+                    userLocalStore.setUserLoggedIn(false);
+
+                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.containerView,new FoodFragmentTab()).commit();
                 }
 
                 return false;
@@ -103,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerToggle.syncState();
 
-        logoutButton = (Button) findViewById(R.id.LogoutButton);
+        logoutButton = (Button) findViewById(R.id.nav_item_logout);
         userLocalStore = new UserLocalStore(this);
 
     }
@@ -118,18 +120,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayUserDetails() {
         User user = userLocalStore.getLoggedInUser();
-        logoutButton.setVisibility(View.VISIBLE);
+        //logoutButton.setVisibility(View.VISIBLE);
 
     }
 
-
- //TODO:Stavi u fragment
-    public void onLogoutButtonClick(View v){
-        userLocalStore.clearUserData();
-        userLocalStore.setUserLoggedIn(false);
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-    }
 
     @Override
     protected void onStart() {

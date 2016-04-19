@@ -2,24 +2,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <item android:title="Inbox"
-        android:id="@+id/nav_item_inbox"
+    <item android:title="Home"
+        android:id="@+id/nav_item_home"
         />
 
     <item android:title="Sent"
         android:id="@+id/nav_item_sent"
       />
 
-    <item android:title="Drafts"
-        android:id="@+id/nav_item_draft"
+    <item android:title="Login"
+        android:id="@+id/nav_item_login"
        />
 
     <item android:title="Add Food"
         android:id="@+id/nav_item_food"
         />
 
+    <item
+        android:title="Logout"
+        android:id="@+id/nav_item_logout"
+        android:visibility="gone"
+        />
 
-
+<!--
     <item android:title="Others">
         <menu>
             <item
@@ -39,5 +44,5 @@
            />
     </group>
 
-
+-->
 </menu>
