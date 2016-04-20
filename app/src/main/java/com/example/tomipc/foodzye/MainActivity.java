@@ -131,6 +131,16 @@ public class MainActivity extends AppCompatActivity {
         if (authenticate() == true) {
             displayUserDetails();
         }
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.containerView,new FoodFragmentTab()).commit();
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        System.out.println("ON STOP");
+    }
+
+
 
 }

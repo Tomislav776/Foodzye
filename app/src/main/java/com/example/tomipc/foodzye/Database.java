@@ -2,13 +2,10 @@ package com.example.tomipc.foodzye;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.tomipc.foodzye.model.Menu;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
@@ -20,13 +17,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-/**
- * Created by Down on 14.4.2016..
- */
 public class Database {
 
 
@@ -36,6 +29,7 @@ public class Database {
     private final Context context;
 
     public ArrayList<Food> arrayOfFood = new ArrayList<>();
+    public ArrayList<Menu> arrayOfMenu = new ArrayList<>();
 
 
     public Database(Context c){
@@ -70,7 +64,6 @@ public class Database {
 
 
     public ArrayList<Food> readFood (String route) {
-System.out.println("Teest: "+route);
                 try {
                     String foodJSON;
                     foodJSON = new Read().execute(URL+route+"/").get();
@@ -93,6 +86,35 @@ System.out.println("Teest: "+route);
                 }
 
         return arrayOfFood;
+    }
+
+    //TODO: Znam da mogu imat univerzalnu read funkciju samo moram imat poziv konstruktora koji prima univerzalni parametar, mozak mi ne radi trenutno glupo rijesenje.
+    public ArrayList<Menu> readMenu (String route) {
+        try {
+            String foodJSON;
+            foodJSON = new Read().execute(URL+route+"/").get();
+            JSONArray obj = new JSONArray(foodJSON);
+
+            for (int i = 0; i < obj.length(); i++) {
+                JSONObject jObject = obj.getJSONObject(i);
+
+                int id = jObject.getInt("id");
+                String name = jObject.getString("name");
+                String description = jObject.getString("description");
+                String currency = jObject.getString("currency");
+                String image = jObject.getString("food_image");
+                double price = jObject.getDouble("price");
+                double rate = jObject.getDouble("rate_total");
+
+                Menu food = new Menu(id, name, description,  currency,  image,  rate,  price);
+                arrayOfMenu.add(food);
+            }
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return arrayOfMenu;
     }
 
 

@@ -26,20 +26,17 @@ public class FoodAdapter extends ArrayAdapter<Food> implements Filterable {
     public FoodAdapter(Context context, ArrayList<Food> AllFood) {
         super(context, R.layout.item_food, AllFood);
         /*itemsAll = AllFood;
-
         for (Food element : itemsAll) {
             System.out.println(element.name);
         }*/
 
     }
 
-   /*public FoodAdapter(Context context, int resource,
+   /*public MenuAdapter(Context context, int resource,
                                int textViewResourceId, ArrayList<Food> fullList) {
-
         super(context, resource, textViewResourceId, fullList);
         this.fullList = fullList;
         mOriginalValues = new ArrayList<Food>(fullList);
-
     }*/
 
     @Override
@@ -96,7 +93,6 @@ public class FoodAdapter extends ArrayAdapter<Food> implements Filterable {
             ArrayList<Food> filteredList = (ArrayList<Food>) results.values;
             /*if(results != null && results.count > 0) {
                 clear();
-
                 for (Food c : filteredList) {
                     add(c);
                     System.out.println(c.name);

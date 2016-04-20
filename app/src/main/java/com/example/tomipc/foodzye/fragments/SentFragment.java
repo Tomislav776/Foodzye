@@ -8,9 +8,8 @@ package com.example.tomipc.foodzye.fragments;
         import android.view.ViewGroup;
 
         import com.example.tomipc.foodzye.R;
-/**
- * Created by Ratan on 7/29/2015.
- */
+
+
 public class SentFragment extends Fragment {
 
     @Nullable

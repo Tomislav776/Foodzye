@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 public class loginActivity extends AppCompatActivity  {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
-    private static final String LOGIN_URL = "http://164.132.228.255/login";
+    private static final String LOGIN_URL = "http://10.0.3.2/login";
 
     UserLocalStore userLocalStore;
 

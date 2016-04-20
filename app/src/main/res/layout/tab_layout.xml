@@ -17,42 +17,7 @@
         android:background="#c0392b"
         android:paddingBottom="20dp">
 
-        <ImageView
-            android:layout_width="250dp"
-            android:layout_height="80dp"
-            android:id="@+id/imageView"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/logo_mini"
-            android:layout_marginTop="10dp" />
 
-        <EditText
-            android:layout_width="280dp"
-            android:layout_height="40dp"
-            android:id="@+id/editText"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/input"
-            android:hint="Search..."
-            android:textColor="#c0392b"
-            android:paddingLeft="10dp" />
-
-        <Spinner
-            android:layout_width="150dp"
-            android:layout_height="30dp"
-            android:id="@+id/spinner2"
-            android:layout_gravity="right"
-            android:background="@drawable/kat"
-            android:layout_marginRight="20dp"
-            android:textColor="#c0392b"
-            android:layout_marginTop="20dp" />
-
-        <Spinner
-            android:layout_width="150dp"
-            android:layout_height="30dp"
-            android:id="@+id/spinner"
-            android:background="@drawable/kat"
-            android:layout_marginLeft="20dp"
-            android:textColor="#c0392b"
-            android:layout_marginTop="-30dp" />
     </LinearLayout>
 
     <android.support.design.widget.TabLayout
