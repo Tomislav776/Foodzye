@@ -40,7 +40,7 @@ public class FoodFragmentTab extends Fragment {
          * Maybe a Support Library Bug .
          */
 
-        tabLayout.post(new Runnable() {
+      tabLayout.post(new Runnable() {
             @Override
             public void run() {
                 tabLayout.setupWithViewPager(viewPager);
