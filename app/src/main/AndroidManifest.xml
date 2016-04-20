@@ -32,6 +32,10 @@
             android:theme="@style/AppTheme.Dark" />
     </application>
 
-    <!--  Internet Permissions -->
+    <!--  Internet Permission -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--  Camera Permission -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!--  External storage Permission -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 </manifest>

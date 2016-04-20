@@ -1,34 +1,56 @@
 package com.example.tomipc.foodzye.fragments;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tomipc.foodzye.Food;
 import com.example.tomipc.foodzye.FoodAdapter;
 import com.example.tomipc.foodzye.R;
+import com.example.tomipc.foodzye.loginActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,13 +76,18 @@ public class AddFoodFragment extends Fragment {
 
     HttpURLConnection connection;
     AutoCompleteTextView ACText;
-    Button addNewFood;
-    ListView listView;
+    Button addNewFood, CapturePicture;
+    ProgressDialog progressDialog;
+    ImageView imgPreview;
     ArrayList<Food> arrayOfFood;
-    ArrayList<String> foodName;
     String foodJSON;
-    String[] nameOfFood;
-    String chosenFood;
+    String foodImage;
+    Food chosenFood;
+    private String encoded_string, image_name;
+    private String filePath = null;
+    private Bitmap bitmap;
+    private File file;
+    private Uri file_uri;
 
     public AddFoodFragment() {
         // Required empty public constructor
@@ -109,18 +136,6 @@ public class AddFoodFragment extends Fragment {
             e.printStackTrace();
         }
 
-
-
-        foodName = new ArrayList<String>();
-        for(Food value: arrayOfFood){
-            foodName.add(value.name);
-        }
-
-        foodName.add("Add new food");
-
-        nameOfFood = new String[foodName.size()];
-        nameOfFood = foodName.toArray(nameOfFood);
-
     }
 
     @Override
@@ -131,51 +146,34 @@ public class AddFoodFragment extends Fragment {
 
         ACText = (AutoCompleteTextView) x.findViewById(R.id.acText);
         addNewFood = (Button) x.findViewById(R.id.AddFoodButton2);
+        CapturePicture = (Button) x.findViewById(R.id.take_picture);
+        progressDialog = new ProgressDialog(getActivity(), R.style.AppTheme_Dark_Dialog);
+        imgPreview = (ImageView) x.findViewById(R.id.imgPreview);
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getActivity(), R.layout.item_food2, nameOfFood);
-        //ArrayAdapter<Food> adapter2 = new ArrayAdapter<Food>(this, R.layout.item_food2, arrayOfFood);
-
-        // Create the adapter to convert the array to views
-        FoodAdapter adapter = new FoodAdapter(getActivity(), arrayOfFood);
-        // Attach the adapter to a ListView
-        listView = (ListView) x.findViewById(R.id.lvFood);
-        listView.setAdapter(adapter);
-        //listView.setOnItemClickListener(this);
-        ACText.setAdapter(adapter2);
-
-        System.out.println("bla bla1");
-        System.out.println("bla bla2 " + adapter2.getCount());
-        ACText.addTextChangedListener(new TextWatcher() {
+        CapturePicture.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() > 10) {
-                    if (!ACText.isPerformingCompletion()) {
-                        addNewFood.setVisibility(View.VISIBLE);
-                        Toast.makeText(getActivity(), "No Item Found", Toast.LENGTH_LONG).show();
-                    }
-                }
+            public void onClick(View view) {
+                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                file_uri = Uri.fromFile(getOutputMediaFile());
+                i.putExtra(MediaStore.EXTRA_OUTPUT, file_uri);
+                startActivityForResult(i, 10);
             }
         });
+
+        // Create the adapter to convert the array to views
+        FoodAdapter adapter = new FoodAdapter(getActivity(), R.layout.item_food2, arrayOfFood);
+        // Attach the adapter to a AutoCompleteTextView
+        ACText.setAdapter(adapter);
 
         //OnItemClickListener for the AutoCompleteTextView
         ACText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-                chosenFood = (String) parent.getItemAtPosition(position);
-                Toast.makeText(getActivity(), chosenFood, Toast.LENGTH_LONG).show();
-                //int pos = Arrays.asList(foodName).indexOf(chosenFood);
-                /*Food object = (Food) parent.getItemAtPosition(position);
-                Toast.makeText(AddFoodActivity.this, object.name + " row id " + rowId + " pozicija " + object.id, Toast.LENGTH_LONG).show();*/
-                //AddNewFoodButtonVisibility(chosenFood);
+                chosenFood = (Food) parent.getItemAtPosition(position);
+                if(chosenFood.name.equals("There is no such food. Click me if you want to add it.")){
+                    addNewFood.setVisibility(View.VISIBLE);
+                }else{
+                    Toast.makeText(getContext(),chosenFood.name, Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -256,4 +254,151 @@ public class AddFoodFragment extends Fragment {
             return "Error. Please try again later.";
         }
     }
+
+    private File getOutputMediaFile() {
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.getDefault()).format(new Date());
+
+        foodImage = "IMG_" + timeStamp + ".jpg";
+
+
+        // External sdcard location
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + foodImage);
+
+        // Create the storage directory if it does not exist
+        /*if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d("Error", "Oops! Failed create "
+                        + "Foodzye" + " directory");
+                return null;
+            }
+        }*/
+
+        // Create a media file name
+        /*String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.getDefault()).format(new Date());
+        file = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");*/
+
+
+        return file;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 10 && resultCode == Activity.RESULT_OK) {
+            new Upload_image().execute("http://164.132.228.255/food_image");
+        }
+    }
+
+    private void previewMedia() {
+        imgPreview.setVisibility(View.VISIBLE);
+        // bitmap factory
+        BitmapFactory.Options options = new BitmapFactory.Options();
+
+        // down sizing image as it throws OutOfMemory Exception for larger images
+        options.inSampleSize = 8;
+
+        final Bitmap bitmap = BitmapFactory.decodeFile(filePath, options);
+
+        imgPreview.setImageBitmap(bitmap);
+    }
+
+    private class Upload_image extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Uploading the image...");
+            progressDialog.show();
+            super.onPreExecute();
+        }
+
+        private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
+            StringBuilder result = new StringBuilder();
+            boolean first = true;
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                if (first)
+                    first = false;
+                else
+                    result.append("&");
+
+                result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            }
+
+            return result.toString();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            bitmap = BitmapFactory.decodeFile(file_uri.getPath());
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+            byte[] imageBytes = stream.toByteArray();
+            encoded_string = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
+            HashMap<String,String> data = new HashMap<>();
+            data.put("encoded_string", encoded_string);
+            //data.put("image_name", foodImage);
+
+            URL url;
+            String response = "";
+            try {
+                url = new URL(params[0]);
+
+                Log.d("Debug", "URL je " + url);
+                Log.d("Debug", "Podaci su " + data.get("encoded_string"));
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(getPostDataString(data));
+
+                writer.flush();
+                writer.close();
+                os.close();
+
+                Log.d("Debug", "poslano");
+
+                int responseCode = conn.getResponseCode();
+
+                Log.d("Debug", "Response code je " + responseCode);
+
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    response = br.readLine();
+                } else {
+                    response = "Error";
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return response;
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Log.e("Debug", "Response from server: " + result);
+            progressDialog.dismiss();
+            //previewMedia();
+            super.onPostExecute(result);
+        }
+
+    }
+
 }

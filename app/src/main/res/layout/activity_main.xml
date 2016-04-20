@@ -1,4 +1,3 @@
-
 <LinearLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,8 +20,7 @@ android:orientation="vertical">
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:id="@+id/drawerLayout"
-    >
+    android:id="@+id/drawerLayout">
 
 
 
@@ -31,19 +29,6 @@ android:orientation="vertical">
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/containerView">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Logout"
-            android:id="@+id/LogoutButton"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:nestedScrollingEnabled="false"
-            android:onClick="onLogoutButtonClick"
-            android:visibility="gone"/>
-
     </FrameLayout>
 
 
@@ -58,8 +43,7 @@ android:orientation="vertical">
         app:menu="@menu/drawermenu"
         app:headerLayout="@layout/nav_header"
         android:layout_gravity="start"
-        android:layout_marginTop="-24dp"
-        />
+        android:layout_marginTop="-24dp"/>
 
 
 
