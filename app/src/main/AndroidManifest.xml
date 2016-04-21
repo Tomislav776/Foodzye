@@ -41,6 +41,10 @@
             android:name=".addFoodActivity"
             android:label="@string/title_activity_add_food"
              />
+        <activity
+            android:name=".ReviewActivity"
+            android:label="Review"
+            />
         <activity android:name=".AddFoodActivity"/>
     </application>
 
