@@ -104,7 +104,7 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 mDrawerLayout.closeDrawers();
-                
+
                 if (menuItem.getItemId() == R.id.nav_item_home) {
                     Intent i = new Intent(addFoodActivity.this, MainActivity.class);
                     startActivity(i);
