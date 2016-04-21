@@ -86,7 +86,7 @@ public class FoodFragmentFood extends Fragment {
     }
 
     private void prepareMenuData() {
-        ArrayList<Menu> arrayOfFood;
+        /*ArrayList<Menu> arrayOfFood;
 
         baza = new Database(c);
         arrayOfFood = baza.readMenu("getMenu");
@@ -96,7 +96,7 @@ public class FoodFragmentFood extends Fragment {
             menuList.add(menu);
         }
 
-        mAdapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();*/
 
     }
 

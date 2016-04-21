@@ -100,7 +100,9 @@ public class loginActivity extends AppCompatActivity  {
                         String name = jObject.getString("name");
                         String email = jObject.getString("email");
                         String role = jObject.getString("role");
-                        User user = new User(name, email, role);
+                        String user_slug = jObject.getString("slug");
+                        int user_id = jObject.getInt("id");
+                        User user = new User(user_id, name, user_slug, email, role);
                         logUserIn(user);
                     }catch (JSONException e){
                         e.printStackTrace();

@@ -40,55 +40,53 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Choose food"
-                    android:id="@+id/acText2"
+                    android:id="@+id/acText"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:completionThreshold="1"
                     android:inputType="textPhonetic"/>
 
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Text"
-                    android:id="@+id/NewFoodEditTextView"
-                    android:layout_below="@+id/acText2"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:visibility="gone"/>
-
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Add new food"
-                    android:id="@+id/AddFoodButton3"
-                    android:layout_below="@+id/NewFoodEditTextView"
+                    android:id="@+id/AddNewFoodButton"
+                    android:layout_below="@+id/acText"
                     android:visibility="invisible"/>
 
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/IngredientEditText2"
-                    android:layout_below="@+id/AddFoodButton3"
-                    android:hint="Ingredient"
-                    android:visibility="gone"/>
+                    android:id="@+id/FoodDescription"
+                    android:layout_below="@+id/AddNewFoodButton"
+                    android:hint="Food description"
+                    android:visibility="visible"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/FoodPrice"
+                    android:layout_below="@+id/FoodDescription"
+                    android:hint="Food price"
+                    android:visibility="visible"/>
 
                 <Button
                     android:text="TAKE PICTURE"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/take_picture2"
-                    android:layout_below="@+id/IngredientEditText2" />
+                    android:id="@+id/take_picture"
+                    android:layout_below="@+id/FoodPrice" />
 
                 <Button
                     android:text="CHOOSE PICTURE FROM THE PHONE"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/choose_picture"
-                    android:layout_below="@+id/take_picture2"/>
+                    android:layout_below="@+id/take_picture"/>
 
                 <ImageView
-                    android:id="@+id/imgPreview3"
+                    android:id="@+id/imgPreview"
                     android:layout_width="fill_parent"
                     android:layout_height="200dp"
                     android:visibility="invisible"
@@ -99,10 +97,18 @@
                     android:text="ADD FOOD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/AddFoodButton4"
+                    android:id="@+id/AddFoodButton"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/imgPreview3"/>
+                    android:layout_below="@+id/imgPreview"/>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinnerCurrency"
+                    android:layout_below="@+id/FoodDescription"
+                    android:layout_toRightOf="@+id/FoodPrice"
+                    android:layout_toEndOf="@+id/FoodPrice" />
 
             </RelativeLayout>
         </ScrollView>

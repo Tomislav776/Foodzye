@@ -15,6 +15,10 @@ import com.example.tomipc.foodzye.model.User;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 import butterknife.Bind;
@@ -22,7 +26,7 @@ import butterknife.ButterKnife;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
-    private static final String REGISTER_URL = "http://10.0.3.2/register";
+    private static final String REGISTER_URL = "http://164.132.228.255/register";
 
     UserLocalStore userLocalStore;
 
@@ -94,7 +98,7 @@ public class SignupActivity extends AppCompatActivity {
         postData.put("role", role);
 
         PostResponseAsyncTask task = new PostResponseAsyncTask(SignupActivity.this, postData , new AsyncResponse() {
-            @Override
+            /*@Override
             public void processFinish(String result) {
                 if(result.equals("success")) {
                     Toast.makeText(SignupActivity.this, "You have successfully registered and logged in.", Toast.LENGTH_LONG).show();
@@ -105,6 +109,32 @@ public class SignupActivity extends AppCompatActivity {
                     onSignupFailed();
                     progressDialog.dismiss();
                 }
+            }*/
+            @Override
+            public void processFinish(String result) {
+                System.out.println(result);
+                if(result.equals("fail")) {
+                    progressDialog.dismiss();
+                    onSignupFailed();
+                }
+                else{
+                    try {
+                        JSONArray obj = new JSONArray(result);
+                        JSONObject jObject = obj.getJSONObject(0);
+                        String name = jObject.getString("name");
+                        String email = jObject.getString("email");
+                        String role = jObject.getString("role");
+                        String user_slug = jObject.getString("slug");
+                        int user_id = jObject.getInt("id");
+                        User user = new User(user_id, name, user_slug, email, role);
+                        logUserIn(user);
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                    progressDialog.dismiss();
+                    Toast.makeText(SignupActivity.this, "You have successfully registered and logged in.", Toast.LENGTH_LONG).show();
+                    onSignupSuccess();
+                }
             }
         });
 
@@ -113,12 +143,12 @@ public class SignupActivity extends AppCompatActivity {
     }
 
 
-    public void onSignupSuccess(HashMap postData) {
-        String name = (String)postData.get("name");
+    public void onSignupSuccess() {
+        /*String name = (String)postData.get("name");
         String email = (String)postData.get("email");
         String role = (String)postData.get("role");
         User user = new User(name, email, role);
-        logUserIn(user);
+        logUserIn(user);*/
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();

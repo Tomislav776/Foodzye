@@ -22,9 +22,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.tomipc.foodzye.adapter.FoodAdapter;
@@ -52,10 +55,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class addFoodActivity extends AppCompatActivity {
+public class addFoodActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private static final String FOOD_URL = "http://164.132.228.255/getFood";
 
@@ -63,14 +67,17 @@ public class addFoodActivity extends AppCompatActivity {
     User user;
     HttpURLConnection connection;
     AutoCompleteTextView ACText;
+    EditText FoodPrice, FoodDescription;
     Button addFoodButton, addNewFoodButton, CapturePictureButton, ChoosePictureButton;
+    Spinner spinner;
     DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
     FragmentManager mFragmentManager;
     ProgressDialog progressDialog;
     ImageView imgPreview;
     ArrayList<Food> arrayOfFood;
-    private String foodJSON, foodImage, encoded_string, filePath;
+    private String foodJSON, foodImage, encoded_string, filePath, description, price, currency;
+    private int food_id;
     Food chosenFood;
     private Bitmap bitmap;
     private File file;
@@ -160,15 +167,36 @@ public class addFoodActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        ACText = (AutoCompleteTextView) findViewById(R.id.acText2);
-        addFoodButton = (Button) findViewById(R.id.AddFoodButton4);
-        addNewFoodButton = (Button) findViewById(R.id.AddFoodButton3);
-        CapturePictureButton = (Button) findViewById(R.id.take_picture2);
+        ACText = (AutoCompleteTextView) findViewById(R.id.acText);
+        FoodPrice = (EditText) findViewById(R.id.FoodPrice);
+        FoodDescription = (EditText) findViewById(R.id.FoodDescription);
+        addFoodButton = (Button) findViewById(R.id.AddFoodButton);
+        addNewFoodButton = (Button) findViewById(R.id.AddNewFoodButton);
+        CapturePictureButton = (Button) findViewById(R.id.take_picture);
         ChoosePictureButton = (Button) findViewById(R.id.choose_picture);
         progressDialog = new ProgressDialog(addFoodActivity.this, R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Uploading the menu...");
-        imgPreview = (ImageView) findViewById(R.id.imgPreview3);
+        imgPreview = (ImageView) findViewById(R.id.imgPreview);
+        spinner = (Spinner) findViewById(R.id.spinnerCurrency);
+
+        // Spinner click listener
+        spinner.setOnItemSelectedListener(this);
+
+        // Spinner Drop down elements
+        List<String> currency = new ArrayList<String>();
+        currency.add("HRK");
+        currency.add("EUR");
+        currency.add("USD");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, currency);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner.setAdapter(dataAdapter);
 
         CapturePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,8 +221,10 @@ public class addFoodActivity extends AppCompatActivity {
         addFoodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                price = FoodPrice.getText().toString();
+                description = FoodPrice.getText().toString();
                 progressDialog.show();
-                new Upload_Food().execute("http://164.132.228.255/food_image");
+                new Upload_Food().execute("http://164.132.228.255/postMenu");
             }
         });
 
@@ -211,9 +241,21 @@ public class addFoodActivity extends AppCompatActivity {
                     addNewFoodButton.setVisibility(View.VISIBLE);
                 }else{
                     Toast.makeText(addFoodActivity.this, chosenFood.name, Toast.LENGTH_LONG).show();
+                    //foodName = chosenFood.name;
+                    food_id = chosenFood.id;
                 }
             }
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        currency = parent.getItemAtPosition(position).toString();
+    }
+
+    public void onNothingSelected(AdapterView<?> arg0) {
+        currency = "HRK";
     }
 
     @Override
@@ -389,8 +431,13 @@ public class addFoodActivity extends AppCompatActivity {
 
             HashMap<String,String> data = new HashMap<>();
             data.put("encoded_string", encoded_string);
+            data.put("food_id", Integer.toString(food_id));
             data.put("image_name", foodImage);
-            data.put("username", user.username);
+            data.put("user_id", Integer.toString(user.id));
+            data.put("user_slug", user.slug);
+            data.put("price", price);
+            data.put("currency", currency);
+            data.put("description", description);
 
             URL url;
             String response = "";
