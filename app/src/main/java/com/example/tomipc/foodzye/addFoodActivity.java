@@ -2,6 +2,7 @@ package com.example.tomipc.foodzye;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -42,6 +43,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -102,25 +104,19 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 mDrawerLayout.closeDrawers();
-
-
-
+                
                 if (menuItem.getItemId() == R.id.nav_item_home) {
-                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.containerView,new FoodFragmentTab()).commit();
+                    Intent i = new Intent(addFoodActivity.this, MainActivity.class);
+                    startActivity(i);
                 }
 
                 if (menuItem.getItemId() == R.id.nav_item_login) {
-                    /*FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.containerView,new LoginFragment()).commit();*/
                     Intent i = new Intent(addFoodActivity.this, loginActivity.class);
                     startActivity(i);
 
                 }
 
                 if (menuItem.getItemId() == R.id.nav_item_food) {
-                    /*FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.containerView,new AddFoodFragment()).commit();*/
                     Intent i = new Intent(addFoodActivity.this, MainActivity.class);
                     startActivity(i);
                 }
@@ -241,7 +237,6 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
                     addNewFoodButton.setVisibility(View.VISIBLE);
                 }else{
                     Toast.makeText(addFoodActivity.this, chosenFood.name, Toast.LENGTH_LONG).show();
-                    //foodName = chosenFood.name;
                     food_id = chosenFood.id;
                 }
             }
@@ -345,11 +340,29 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
         if (requestCode == 100 && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
             file_uri = data.getData();
+            foodImage = getFileName(file_uri);
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), file_uri);
+                //bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), file_uri);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 8;
+                AssetFileDescriptor fileDescriptor =null;
+                try {
+                    fileDescriptor = this.getContentResolver().openAssetFileDescriptor(file_uri, "r");
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                finally{
+                    try {
+                        bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor.getFileDescriptor(), null, options);
+                        fileDescriptor.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 imgPreview.setVisibility(View.VISIBLE);
                 imgPreview.setImageBitmap(bitmap);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -365,18 +378,14 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
 
         filePath = file_uri.getPath();
 
-        final Bitmap bitmap = BitmapFactory.decodeFile(filePath, options);
+
+
+        bitmap = BitmapFactory.decodeFile(filePath, options);
 
         imgPreview.setImageBitmap(bitmap);
     }
 
     private class Upload_Food extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPreExecute() {
-            //super.onPreExecute();
-
-        }
 
         private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
             StringBuilder result = new StringBuilder();
@@ -399,16 +408,9 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
             return result.toString();
         }
 
+
         @Override
         protected String doInBackground(String... params) {
-
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), file_uri);
-                foodImage = getFileName(file_uri);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
             final int maxSize = 1280;
             int outWidth;
             int outHeight;
@@ -447,7 +449,6 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
                 Log.d("Debug", "URL je " + url);
                 Log.d("Debug", "Slika " + data.get("encoded_string"));
                 Log.d("Debug", "Ime " + data.get("image_name"));
-                Log.d("Debug", "Username " + data.get("username"));
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(15000);
@@ -489,6 +490,7 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
         @Override
         protected void onPostExecute(String result) {
             Log.e("Debug", "Response from server: " + result);
+            //bitmap.recycle();
             progressDialog.dismiss();
             if(result.equals("success")){
                 Toast.makeText(addFoodActivity.this, "Your menu has been added", Toast.LENGTH_LONG).show();
