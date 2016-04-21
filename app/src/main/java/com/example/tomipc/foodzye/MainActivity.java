@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.tomipc.foodzye.fragments.FoodFragmentTab;
-import com.example.tomipc.foodzye.fragments.LoginFragment;
 import com.example.tomipc.foodzye.model.User;
 
 
@@ -76,8 +75,10 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (menuItem.getItemId() == R.id.nav_item_login) {
-                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.containerView,new LoginFragment()).commit();
+                    /*FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.containerView,new LoginFragment()).commit();*/
+                    Intent i = new Intent(MainActivity.this, loginActivity.class);
+                    startActivity(i);
 
                 }
 

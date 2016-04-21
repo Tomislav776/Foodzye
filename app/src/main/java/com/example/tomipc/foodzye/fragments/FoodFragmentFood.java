@@ -13,24 +13,16 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.tomipc.foodzye.Database;
 import com.example.tomipc.foodzye.DividerItemDecoration;
-import com.example.tomipc.foodzye.Food;
 import com.example.tomipc.foodzye.FoodActivity;
-import com.example.tomipc.foodzye.FoodAdapter;
 import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.adapter.MenuAdapter;
-import com.example.tomipc.foodzye.loginActivity;
 import com.example.tomipc.foodzye.model.Menu;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class FoodFragmentFood extends Fragment {
