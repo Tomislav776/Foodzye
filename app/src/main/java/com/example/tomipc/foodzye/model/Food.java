@@ -1,4 +1,4 @@
-package com.example.tomipc.foodzye;
+package com.example.tomipc.foodzye.model;
 
 public class Food {
     public int id;

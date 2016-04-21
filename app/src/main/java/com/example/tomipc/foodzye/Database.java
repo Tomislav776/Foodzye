@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.tomipc.foodzye.model.Food;
 import com.example.tomipc.foodzye.model.Menu;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
@@ -26,11 +27,13 @@ public class Database {
     HttpURLConnection connection;
     private static String URL = "http://10.0.3.2/";
 
-    private final Context context;
+    private Context context;
 
     public ArrayList<Food> arrayOfFood = new ArrayList<>();
     public ArrayList<Menu> arrayOfMenu = new ArrayList<>();
 
+    public Database(){
+    }
 
     public Database(Context c){
         this.context = c;

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tomipc.foodzye.model.User;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
@@ -26,7 +27,7 @@ import butterknife.ButterKnife;
 public class loginActivity extends AppCompatActivity  {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
-    private static final String LOGIN_URL = "http://10.0.3.2/login";
+    private static final String LOGIN_URL = "http://164.132.228.255/login";
 
     UserLocalStore userLocalStore;
 
@@ -104,6 +105,7 @@ public class loginActivity extends AppCompatActivity  {
                     }catch (JSONException e){
                         e.printStackTrace();
                     }
+                    progressDialog.dismiss();
                     Toast.makeText(loginActivity.this, "You have successfully logged in.", Toast.LENGTH_LONG).show();
                     onLoginSuccess();
                 }

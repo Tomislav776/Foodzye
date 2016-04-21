@@ -21,13 +21,11 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.tomipc.foodzye.Food;
-import com.example.tomipc.foodzye.FoodAdapter;
+import com.example.tomipc.foodzye.model.Food;
+import com.example.tomipc.foodzye.adapter.FoodAdapter;
 import com.example.tomipc.foodzye.R;
-import com.example.tomipc.foodzye.loginActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -50,8 +48,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -72,7 +68,7 @@ public class AddFoodFragment extends Fragment {
 
     //private OnFragmentInteractionListener mListener;
 
-    private static final String FOOD_URL = "http://164.132.228.255/food";
+    private static final String FOOD_URL = "http://164.132.228.255/getFood";
 
     HttpURLConnection connection;
     AutoCompleteTextView ACText;
@@ -288,7 +284,8 @@ public class AddFoodFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 10 && resultCode == Activity.RESULT_OK) {
-            new Upload_image().execute("http://164.132.228.255/food_image");
+            //new Upload_image().execute("http://164.132.228.255/food_image");
+            previewMedia();
         }
     }
 

@@ -2,6 +2,7 @@ package com.example.tomipc.foodzye;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -16,17 +17,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.tomipc.foodzye.fragments.AddFoodFragment;
 import com.example.tomipc.foodzye.fragments.FoodFragmentTab;
 import com.example.tomipc.foodzye.fragments.LoginFragment;
+import com.example.tomipc.foodzye.model.User;
 
 
 public class MainActivity extends AppCompatActivity {
 
     UserLocalStore userLocalStore;
+    User user;
 
     //Navigacija
-    DrawerLayout mDrawerLayout;
+    protected DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
@@ -80,8 +82,10 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (menuItem.getItemId() == R.id.nav_item_food) {
-                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.containerView,new AddFoodFragment()).commit();
+                    /*FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
+                    xfragmentTransaction.replace(R.id.containerView,new AddFoodFragment()).commit();*/
+                    Intent i = new Intent(MainActivity.this, addFoodActivity.class);
+                    startActivity(i);
                 }
 
                 if (menuItem.getItemId() == R.id.nav_item_logout) {
@@ -177,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayUserDetails() {
-        User user = userLocalStore.getLoggedInUser();
+        user = userLocalStore.getLoggedInUser();
     }
 
 

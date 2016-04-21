@@ -1,9 +1,9 @@
-package com.example.tomipc.foodzye;
+package com.example.tomipc.foodzye.model;
 
 
 public class User {
 
-    String username, email, role;
+    public String username, email, role;
 
     public User(String username, String email, String role){
         this.username = username;

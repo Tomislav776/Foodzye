@@ -3,6 +3,8 @@ package com.example.tomipc.foodzye;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.tomipc.foodzye.model.User;
+
 public class UserLocalStore {
 
     public static final String SP_NAME = "userDetails";
