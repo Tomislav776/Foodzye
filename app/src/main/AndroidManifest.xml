@@ -34,9 +34,13 @@
             android:label="@string/title_activity_signup"
             android:theme="@style/AppTheme.Dark" />
         <activity
+            android:name=".FoodActivity"
+            android:label="Menu"
+            />
+        <activity
             android:name=".addFoodActivity"
             android:label="@string/title_activity_add_food"
-            android:theme="@style/AppTheme" />
+             />
         <activity android:name=".AddFoodActivity"/>
     </application>
 
