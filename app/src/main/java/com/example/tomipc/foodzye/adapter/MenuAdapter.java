@@ -1,5 +1,6 @@
 package com.example.tomipc.foodzye.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.model.Menu;
 
@@ -15,6 +17,7 @@ import java.util.List;
     public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> {
 
         private List<Menu> foodList;
+        private Context c;
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
             public TextView name, price;
@@ -30,8 +33,9 @@ import java.util.List;
         }
 
 
-        public MenuAdapter(List<Menu> foodList) {
+        public MenuAdapter(List<Menu> foodList, Context c) {
             this.foodList = foodList;
+            this.c = c;
         }
 
         @Override
@@ -48,6 +52,9 @@ import java.util.List;
 
             //holder.foodImage.setImageResource(food.get(position));
             holder.name.setText(food.getName());
+            Glide.with(c)
+                    .load("http://164.132.228.255/"+food.getImage())
+                    .into(holder.foodImage);
             //holder.rate.setImageResource(food.getYear());
             holder.price.setText(String.valueOf(food.getPrice()));
         }
