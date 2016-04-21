@@ -21,11 +21,9 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:contentDescription="@string/desc_list_item_icon"
-        android:src="@drawable/pancakes"
         android:layout_centerVertical="true"
         android:scaleType="fitStart"
-        android:adjustViewBounds="true"
-        android:background="@drawable/pancakes" />
+        android:adjustViewBounds="true" />
 
     <TextView
         android:id="@+id/name_food"
@@ -37,7 +35,6 @@
         android:textColor="@color/list_item_title"
         android:gravity="center_vertical"
         android:layout_centerVertical="true"
-        android:text="Palačinke"
         android:textStyle="bold"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
