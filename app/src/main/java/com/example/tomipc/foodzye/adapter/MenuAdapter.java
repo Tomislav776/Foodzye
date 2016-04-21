@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,14 +22,15 @@ import java.util.List;
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
             public TextView name, price;
-            public ImageView foodImage, rate;
+            public ImageView foodImage;
+            public RatingBar rate;
 
             public MyViewHolder(View view) {
                 super(view);
                 name = (TextView) view.findViewById(R.id.name_food);
                 price = (TextView) view.findViewById(R.id.price_food);
                 foodImage = (ImageView) view.findViewById(R.id.image_food);
-                rate = (ImageView) view.findViewById(R.id.rate_food);
+                rate = (RatingBar) view.findViewById(R.id.row_food_ratingBar);
             }
         }
 
@@ -53,10 +55,10 @@ import java.util.List;
             //holder.foodImage.setImageResource(food.get(position));
             holder.name.setText(food.getName());
             Glide.with(c)
-                    .load("http://164.132.228.255/"+food.getImage())
+                    .load("http://10.0.3.2/"+food.getImage())
                     .into(holder.foodImage);
-            //holder.rate.setImageResource(food.getYear());
-            holder.price.setText(String.valueOf(food.getPrice()));
+            holder.rate.setRating((float) food.getRate());
+            holder.price.setText(String.valueOf(food.getPrice()) + " " + food.getCurrency());
         }
 
         @Override

@@ -64,7 +64,7 @@ public class FoodFragmentFood extends Fragment {
 
                 //Mine improv
                 Intent foodActivity = new Intent(getActivity(), FoodActivity.class);
-               // foodActivity.putExtra("hello", menu);
+                foodActivity.putExtra("Menu", menu);
 
                 startActivity(foodActivity);
             }
@@ -92,7 +92,7 @@ public class FoodFragmentFood extends Fragment {
         arrayOfFood = baza.readMenu("getMenu");
 
         for(Menu value: arrayOfFood) {
-            menu = new Menu(value.getId(), value.getName(), value.getDescription(), value.getCurrency(), value.getImage(), value.getrate(), value.getPrice());
+            menu = new Menu(value.getId(), value.getName(), value.getDescription(), value.getCurrency(), value.getImage(), value.getRate(), value.getPrice());
             menuList.add(menu);
         }
 
