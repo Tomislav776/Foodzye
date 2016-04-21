@@ -1,22 +1,29 @@
 package com.example.tomipc.foodzye.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.tomipc.foodzye.Database;
+import com.example.tomipc.foodzye.DividerItemDecoration;
 import com.example.tomipc.foodzye.Food;
+import com.example.tomipc.foodzye.FoodActivity;
 import com.example.tomipc.foodzye.FoodAdapter;
 import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.adapter.MenuAdapter;
+import com.example.tomipc.foodzye.loginActivity;
 import com.example.tomipc.foodzye.model.Menu;
 
 import org.json.JSONArray;
@@ -52,10 +59,29 @@ public class FoodFragmentFood extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(c);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(c, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
 
         prepareMenuData();
-        //prepareMovieData();
+
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(c, recyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Menu menu = menuList.get(position);
+                Toast.makeText(c, menu.getName() + " is selected!", Toast.LENGTH_SHORT).show();
+
+                //Mine improv
+                Intent foodActivity = new Intent(getActivity(), FoodActivity.class);
+               // foodActivity.putExtra("hello", menu);
+
+                startActivity(foodActivity);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
 
 
         return view;
@@ -64,41 +90,6 @@ public class FoodFragmentFood extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        /*
-        ArrayList<Menu> arrayOfFood;
-
-        baza = new Database(c);
-        arrayOfFood = baza.readMenu("getMenu");
-
-        for(Menu value: arrayOfFood) {
-            menu = new Menu(value.getId(), value.getName(), value.getDescription(), value.getCurrency(), value.getImage(), value.getrate(), value.getPrice());
-            menuList.add(menu);
-        }
-
-        mAdapter.notifyDataSetChanged();*/
-
-        /*
-        System.out.println("Menu: ");
-        for(Menu value: arrayOfFood){
-            System.out.println("Menu " + value.getName());
-            System.out.println("Menu " + value.getPrice());
-        }*/
-
-/*
-        menuName = new ArrayList<String>();
-        menuPrice = new ArrayList<Double>();
-
-        for(Menu value: arrayOfFood){
-            menuName.add(value.getName());
-            menuPrice.add(value.getPrice());
-        }
-
-
-        menu = new String[menuName.size()];
-        menu = menuName.toArray(menu);
-*/
-
 
     }
 
@@ -123,4 +114,54 @@ public class FoodFragmentFood extends Fragment {
         super.onAttach(context);
         c = context;
     }
+
+    public interface ClickListener {
+        void onClick(View view, int position);
+
+        void onLongClick(View view, int position);
+    }
+
+    public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+
+        private GestureDetector gestureDetector;
+        private FoodFragmentFood.ClickListener clickListener;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final FoodFragmentFood.ClickListener clickListener) {
+            this.clickListener = clickListener;
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && clickListener != null) {
+                        clickListener.onLongClick(child, recyclerView.getChildAdapterPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            View child = rv.findChildViewUnder(e.getX(), e.getY());
+            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+                clickListener.onClick(child, rv.getChildAdapterPosition(child));
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+    }
 }
+
