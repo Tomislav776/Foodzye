@@ -15,6 +15,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+
         <!-- TODO: u releasu ovo maknuti debuggable -->
         <activity
             android:name=".MainActivity"
@@ -35,17 +36,17 @@
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".FoodActivity"
-            android:label="Menu"
-            />
+            android:label="Menu" />
         <activity
             android:name=".addFoodActivity"
-            android:label="@string/title_activity_add_food"
-             />
+            android:label="@string/title_activity_add_food" />
         <activity
             android:name=".ReviewActivity"
-            android:label="Review"
-            />
-        <activity android:name=".AddFoodActivity"/>
+            android:label="Review" />
+        <activity
+            android:name=".ProfileActivity"
+            android:label="Profile"
+            android:theme="@style/AppTheme.Dark"/>
     </application>
 
 </manifest>

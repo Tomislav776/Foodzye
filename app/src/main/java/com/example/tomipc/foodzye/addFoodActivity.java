@@ -110,6 +110,11 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
                     startActivity(i);
                 }
 
+                if (menuItem.getItemId() == R.id.nav_item_profile) {
+                    Intent i = new Intent(addFoodActivity.this, ProfileActivity.class);
+                    startActivity(i);
+                }
+
                 if (menuItem.getItemId() == R.id.nav_item_login) {
                     Intent i = new Intent(addFoodActivity.this, loginActivity.class);
                     startActivity(i);

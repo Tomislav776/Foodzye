@@ -3,12 +3,12 @@
 
 
     <item android:title="Home"
-        android:id="@+id/nav_item_home"
-        />
+    android:id="@+id/nav_item_home"
+    />
 
-    <item android:title="Sent"
-        android:id="@+id/nav_item_sent"
-      />
+    <item android:title="Profile"
+        android:id="@+id/nav_item_profile"
+        />
 
     <item android:title="Login"
         android:id="@+id/nav_item_login"
