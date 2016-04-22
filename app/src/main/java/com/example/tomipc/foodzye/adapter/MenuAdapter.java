@@ -52,7 +52,6 @@ import java.util.List;
         public void onBindViewHolder(MyViewHolder holder, int position) {
             Menu food = foodList.get(position);
 
-            //holder.foodImage.setImageResource(food.get(position));
             holder.name.setText(food.getName());
             Glide.with(c)
                     .load("http://164.132.228.255/"+food.getImage())
