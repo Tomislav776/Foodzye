@@ -74,17 +74,17 @@ public class MainActivity extends AppCompatActivity {
                     xfragmentTransaction.replace(R.id.containerView,new FoodFragmentTab()).commit();
                 }
 
+                if (menuItem.getItemId() == R.id.nav_item_profile) {
+                    Intent i = new Intent(MainActivity.this, ProfileActivity.class);
+                    startActivity(i);
+                }
+
                 if (menuItem.getItemId() == R.id.nav_item_login) {
-                    /*FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.containerView,new LoginFragment()).commit();*/
                     Intent i = new Intent(MainActivity.this, loginActivity.class);
                     startActivity(i);
-
                 }
 
                 if (menuItem.getItemId() == R.id.nav_item_food) {
-                    /*FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.containerView,new AddFoodFragment()).commit();*/
                     Intent i = new Intent(MainActivity.this, addFoodActivity.class);
                     startActivity(i);
                 }
