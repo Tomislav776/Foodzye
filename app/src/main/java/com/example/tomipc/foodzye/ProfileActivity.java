@@ -31,13 +31,6 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        /*mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout2);
-        mNavigationView = (NavigationView) findViewById(R.id.shitstuff2);*/
-
-        // Set a toolbar which will replace the action bar.
-       /* Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar2);
-        setSupportActionBar(toolbar);*/
-
         // Setup the viewPager
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager2);
         MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
