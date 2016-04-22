@@ -52,6 +52,7 @@ public class Database {
         PostResponseAsyncTask task = new PostResponseAsyncTask(context, data, new AsyncResponse() {
             @Override
             public void processFinish(String result) {
+System.out.println(result);
 
                 if (result.equals("success")) {
                     Toast.makeText(context, "Success", Toast.LENGTH_LONG).show();
