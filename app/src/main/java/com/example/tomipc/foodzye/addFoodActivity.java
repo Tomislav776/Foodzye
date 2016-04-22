@@ -88,7 +88,7 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_food2);
+        setContentView(R.layout.activity_add_food);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout2);
         mNavigationView = (NavigationView) findViewById(R.id.shitstuff2);
