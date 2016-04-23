@@ -42,9 +42,9 @@
 
 
     <ImageView
-        android:layout_width="77dp"
-        android:layout_height="67dp"
-        android:layout_marginLeft="8dp"
+        android:layout_width="78dp"
+        android:layout_height="68dp"
+        android:layout_marginLeft="7dp"
         android:src="@drawable/round"/>
 
     <RatingBar
@@ -69,7 +69,8 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="8dp"
         android:text="20kn"
-        android:textColor="@color/counter_text_color"/>
+        android:textColor="@color/counter_text_color"
+        android:padding="5dp" />
 
 
 </RelativeLayout>

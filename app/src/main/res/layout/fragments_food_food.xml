@@ -17,6 +17,9 @@
         android:background="@drawable/input"
         android:hint="Search..."
         android:textColor="#c0392b"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:paddingLeft="10dp" />
 
     <android.support.v7.widget.RecyclerView

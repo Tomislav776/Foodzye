@@ -10,9 +10,11 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/orange"
+        android:background="@color/red"
         android:id="@+id/toolbar2"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
+
+    </android.support.v7.widget.Toolbar>
 
     <android.support.v4.widget.DrawerLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -38,60 +40,101 @@
 
                 <AutoCompleteTextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:hint="Choose food"
+                    android:gravity="center"
                     android:id="@+id/acText"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:completionThreshold="1"
-                    android:inputType="textPhonetic"/>
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="#c0392b"
+                    android:inputType="textPhonetic"
+                    android:background="@drawable/input"
+                    android:layout_marginTop="10dp" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Add new food"
-                    android:id="@+id/AddNewFoodButton"
-                    android:layout_below="@+id/acText"
-                    android:visibility="invisible"/>
+
 
                 <EditText
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:id="@+id/FoodDescription"
-                    android:layout_below="@+id/AddNewFoodButton"
                     android:hint="Food description"
-                    android:visibility="visible"/>
+                    android:textColor="#c0392b"
+                    android:fontFamily="sans-serif-medium"
+                    android:visibility="visible"
+                    android:gravity="center"
+                    android:background="@drawable/input"
+                    android:layout_below="@+id/acText"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp" />
 
                 <EditText
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:id="@+id/FoodPrice"
                     android:layout_below="@+id/FoodDescription"
                     android:hint="Food price"
-                    android:visibility="visible"/>
+                    android:gravity="center"
+                    android:textColor="#c0392b"
+                    android:fontFamily="sans-serif-medium"
+                    android:visibility="visible"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/input"
+                    android:layout_toStartOf="@+id/AddNewFoodButton"
+                    android:layout_alignRight="@+id/take_picture"
+                    android:layout_alignEnd="@+id/take_picture"
+                    android:layout_marginTop="10dp" />
 
-                <Button
-                    android:text="TAKE PICTURE"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/take_picture"
-                    android:layout_below="@+id/FoodPrice" />
-
-                <Button
-                    android:text="CHOOSE PICTURE FROM THE PHONE"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/choose_picture"
-                    android:layout_below="@+id/take_picture"/>
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_alignTop="@+id/imgPreview"
+                    android:layout_alignRight="@+id/spinnerCurrency"
+                    android:layout_alignEnd="@+id/spinnerCurrency"
+                    android:id="@+id/imageView2"
+                    android:background="@drawable/round" />
 
                 <ImageView
                     android:id="@+id/imgPreview"
-                    android:layout_width="fill_parent"
-                    android:layout_height="200dp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     android:visibility="invisible"
-                    android:layout_marginTop="10dp"
-                    android:layout_below="@+id/choose_picture"/>
+                    android:layout_below="@+id/spinnerCurrency"
+                    android:layout_alignLeft="@+id/imageView2"
+                    android:layout_alignStart="@+id/imageView2"
+                    android:layout_marginTop="28dp" />
+
+                <Button
+                    android:text="TAKE PICTURE"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/take_picture"
+                    android:background="@drawable/button"
+                    android:padding="12dp"
+                    android:textColor="#ffffff"
+                    android:layout_alignTop="@+id/imageView2"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp" />
+
+                <Button
+                    android:text="CHOOSE PICTURE FROM THE PHONE"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/choose_picture"
+                    android:background="@drawable/button"
+                    android:padding="12dp"
+                    android:textColor="#ffffff"
+                    android:layout_below="@+id/take_picture"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp" />
 
                 <Button
                     android:text="ADD FOOD"
@@ -99,16 +142,37 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/AddFoodButton"
                     android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/imgPreview"/>
+                    android:layout_below="@+id/imgPreview"
+                    android:background="@drawable/button"
+                    android:textColor="#ffffff"
+                    android:padding="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_alignRight="@+id/choose_picture"
+                    android:layout_alignEnd="@+id/choose_picture" />
 
-                <Spinner
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Add new food"
+                    android:id="@+id/AddNewFoodButton"
+                    android:visibility="invisible"
+                    android:background="@drawable/button"
+                    android:textColor="#ffffff"
+                    android:padding="12dp"
+                    android:textStyle="bold"
+                    android:layout_alignTop="@+id/AddFoodButton"
+                    android:layout_alignLeft="@+id/imageView2"
+                    android:layout_alignStart="@+id/imageView2" />
+
+                <Spinner
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
                     android:id="@+id/spinnerCurrency"
                     android:layout_below="@+id/FoodDescription"
-                    android:layout_toRightOf="@+id/FoodPrice"
-                    android:layout_toEndOf="@+id/FoodPrice" />
+                    android:layout_toEndOf="@+id/take_picture"
+                    android:background="@drawable/kat"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="10dp" />
 
             </RelativeLayout>
         </ScrollView>

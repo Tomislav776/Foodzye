@@ -3,43 +3,67 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:id="@+id/activity_food_image"
+        android:layout_below="@+id/activity_food_name"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp" />
+
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_alignTop="@+id/imgPreview"
+        android:layout_alignRight="@+id/spinnerCurrency"
+        android:layout_alignEnd="@+id/spinnerCurrency"
+        android:id="@+id/imageView2"
+        android:background="@drawable/round"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="-140dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name"
         android:id="@+id/activity_food_name"
-        android:layout_gravity="center_horizontal" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/activity_food_image"
+        android:textColor="#c0392b"
+        android:fontFamily="sans-serif-medium"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/activity_food_name" />
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Description"
         android:id="@+id/activity_food_description"
+        android:textColor="#c0392b"
+        android:fontFamily="sans-serif-medium"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/activity_food_image" />
+        android:layout_below="@+id/activity_food_image"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Price"
         android:id="@+id/activity_food_price"
+        android:textColor="#c0392b"
+        android:fontFamily="sans-serif-medium"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/activity_food_description" />
+        android:layout_below="@+id/activity_food_description"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Restaurant"
         android:id="@+id/activity_food_restaurant"
+        android:textColor="#c0392b"
+        android:fontFamily="sans-serif-medium"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/activity_food_price" />
+        android:layout_below="@+id/activity_food_price"
+        android:layout_marginTop="10dp" />
 
 
     <RatingBar
@@ -47,20 +71,30 @@
         android:layout_height="wrap_content"
         android:id="@+id/activity_food_ratingBar"
         android:layout_gravity="center_horizontal"
-        />
+        android:layout_marginTop="10dp" />
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="344dp"
+        android:layout_height="50dp"
         android:id="@+id/activity_food_review"
-        android:layout_gravity="center_horizontal" />
+        android:textColor="#c0392b"
+        android:fontFamily="sans-serif-medium"
+        android:hint="Comment"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/input"
+        android:layout_marginTop="10dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send"
         android:id="@+id/activity_food_button_review"
-        android:layout_gravity="center_horizontal" />
+        android:background="@drawable/button"
+        android:padding="12dp"
+        android:textColor="#ffffff"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/activity_food_recycler_view"
