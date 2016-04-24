@@ -18,11 +18,12 @@
         android:gravity="center_vertical"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginRight="20dp"
         android:contentDescription="@string/desc_list_item_icon"
         android:layout_centerVertical="true"
         android:scaleType="fitStart"
-        android:adjustViewBounds="true" />
+        android:adjustViewBounds="true"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/review_name_user"
@@ -45,32 +46,36 @@
         android:layout_width="78dp"
         android:layout_height="68dp"
         android:layout_marginLeft="7dp"
-        android:src="@drawable/round"/>
+        android:src="@drawable/round"
+        android:id="@+id/imageView4"
+        android:layout_marginTop="20dp" />
 
 
 
     <TextView android:id="@+id/review_review_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/counter_bg"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="8dp"
         android:text="20kn"
         android:textColor="@color/counter_text_color"
-        android:layout_toRightOf="@id/review_name_user"
-        android:padding="5dp" />
+        android:padding="5dp"
+        android:layout_below="@+id/review_name_user"
+        android:layout_toRightOf="@+id/imageView4"
+        android:layout_toEndOf="@+id/imageView4"
+        android:layout_marginLeft="12dp" />
 
     <RatingBar
         android:layout_width="wrap_content"
+        android:theme="@style/RatingBar"
         android:layout_height="wrap_content"
         android:id="@+id/review_food_rate"
         android:layout_gravity="center_horizontal"
         android:isIndicator="true"
         style="?android:attr/ratingBarStyleSmall"
+        android:layout_marginLeft="59dp"
+        android:layout_marginStart="59dp"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/review_review_text"
-        />
+        android:layout_toRightOf="@+id/review_review_text"
+        android:layout_toEndOf="@+id/review_review_text" />
 
 
 </RelativeLayout>

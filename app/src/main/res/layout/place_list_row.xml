@@ -35,10 +35,10 @@
         android:gravity="center_vertical"
         android:layout_centerVertical="true"
         android:textStyle="bold"
-        android:paddingTop="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
         android:paddingBottom="20dp"
         android:paddingRight="40dp" />
-
 
 
     <ImageView
@@ -51,12 +51,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/row_place_rating_bar"
+        android:theme="@style/RatingBar"
         android:layout_gravity="center_horizontal"
         android:isIndicator="true"
         style="?android:attr/ratingBarStyleSmall"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/row_place_name"
+        android:layout_alignBottom="@+id/row_place_name"
+        android:layout_alignLeft="@+id/row_place_name"
+        android:layout_alignStart="@+id/row_place_name"
         />
+
     <!--android:scaleX="0.5"
        android:scaleY="0.5"-->
 
@@ -64,13 +67,11 @@
     <TextView android:id="@+id/row_place_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/counter_bg"
+        android:background="#ecf0f1"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="8dp"
         android:text="Makismirska"
         android:textColor="@color/counter_text_color"
         android:padding="5dp" />
-
 
 </RelativeLayout>
