@@ -26,7 +26,7 @@ import java.net.URL;
 public class Database {
 
     HttpURLConnection connection;
-    private static String URL = "http://10.0.3.2/";
+    private static String URL = "http://164.132.228.255/";
 
     private Context context;
 
