@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
-    private static final String REGISTER_URL = "http://164.132.228.255/register";
+    private static final String REGISTER_URL = "http://10.0.3.2/register";
 
     UserLocalStore userLocalStore;
 

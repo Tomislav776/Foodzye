@@ -15,6 +15,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tomipc.foodzye.fragments.FoodFragmentTab;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     NavigationView mNavigationView;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
+
+    private TextView usernameNav;
 
 
 
@@ -61,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
          * Setup click events on the Navigation View Items.
          */
 
+        /**
+         * Set name of logged user
+         */
+        setNavigationName();
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -92,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 if (menuItem.getItemId() == R.id.nav_item_logout) {
                     userLocalStore.clearUserData();
                     userLocalStore.setUserLoggedIn(false);
+                    setNavigationName();
 
                     FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.containerView,new FoodFragmentTab()).commit();
@@ -198,4 +207,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void setNavigationName() {
+        userLocalStore = new UserLocalStore(this);
+        user = userLocalStore.getLoggedInUser();
+
+        View header = mNavigationView.getHeaderView(0);
+
+        usernameNav = (TextView) header.findViewById(R.id.navigation_name);
+
+        if (user == null) {
+            usernameNav.setText("Guest");
+        } else {
+            usernameNav.setText(user.username);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setNavigationName();
+    }
 }

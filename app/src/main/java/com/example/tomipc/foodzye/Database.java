@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.example.tomipc.foodzye.model.Food;
 import com.example.tomipc.foodzye.model.Menu;
+import com.example.tomipc.foodzye.model.Review;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
@@ -24,12 +25,14 @@ import java.net.URL;
 public class Database {
 
     HttpURLConnection connection;
-    private static String URL = "http://164.132.228.255/";
+    private static String URL = "http://10.0.3.2/";
 
     private Context context;
 
-    public ArrayList<Food> arrayOfFood = new ArrayList<>();
-    public ArrayList<Menu> arrayOfMenu = new ArrayList<>();
+    private ArrayList<Food> arrayOfFood = new ArrayList<>();
+    private ArrayList<Menu> arrayOfMenu = new ArrayList<>();
+    private ArrayList<Review> arrayOfReview = new ArrayList<>();
+    private ArrayList<Review> arrayOfSingleReview = new ArrayList<>();
 
     public Database(){
     }
@@ -51,7 +54,6 @@ public class Database {
         PostResponseAsyncTask task = new PostResponseAsyncTask(context, data, new AsyncResponse() {
             @Override
             public void processFinish(String result) {
-System.out.println(result);
 
                 if (result.equals("success")) {
                     Toast.makeText(context, "Success", Toast.LENGTH_LONG).show();
@@ -65,6 +67,58 @@ System.out.println(result);
         task.execute(URL + route);
     }
 
+
+    public ArrayList<Review> readUserReview (String route, String menu_idIn, String user_idIn) {
+        try {
+            String foodJSON;
+            foodJSON = new Read().execute(URL+route+"/"+menu_idIn+"/"+user_idIn).get();
+            JSONArray obj = new JSONArray(foodJSON);
+
+            for (int i = 0; i < obj.length(); i++) {
+                JSONObject jObject = obj.getJSONObject(i);
+
+                String comment = jObject.getString("comment");
+                double rate = jObject.getDouble("rate");
+
+                Review review = new Review(comment, rate );
+
+                arrayOfSingleReview.add(review);
+            }
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return arrayOfSingleReview;
+    }
+
+    public ArrayList<Review> readReview (String route, String menu_idIn) {
+        try {
+            String foodJSON;
+            foodJSON = new Read().execute(URL+route+"/"+menu_idIn).get();
+            JSONArray obj = new JSONArray(foodJSON);
+
+            for (int i = 0; i < obj.length(); i++) {
+                JSONObject jObject = obj.getJSONObject(i);
+
+                String comment = jObject.getString("comment");
+                double rate = jObject.getDouble("rate");
+                String name = jObject.getString("name");
+                String picture = jObject.getString("user_picture");
+
+                Review review = new Review(comment, rate, name, picture );
+
+                arrayOfReview.add(review);
+            }
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return arrayOfReview;
+    }
 
     public ArrayList<Food> readFood (String route) {
                 try {
@@ -130,7 +184,7 @@ System.out.println(result);
             try {
                 URL url = null;
                 String response = null;
-                System.out.println("Teest: "+urls[0]);
+                //System.out.println("Teest: "+urls[0]);
                 url = new URL(urls[0]);
 
                 //create the connection

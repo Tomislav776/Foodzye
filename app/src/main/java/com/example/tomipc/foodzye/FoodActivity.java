@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -12,29 +14,42 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.tomipc.foodzye.adapter.MenuAdapter;
+import com.example.tomipc.foodzye.adapter.ReviewAdapter;
 import com.example.tomipc.foodzye.model.Menu;
+import com.example.tomipc.foodzye.model.Review;
 import com.example.tomipc.foodzye.model.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class FoodActivity extends AppCompatActivity {
 
     private TextView name;
     private Button reviewButton;
+    private Button logInButton;
     private TextView description;
     private TextView price;
     private TextView restaurant;
     private RatingBar rating;
     private ImageView imageFood;
-    private RecyclerView reviewList;
+    private RecyclerView recycleReviewList;
     private EditText review;
 
     Database data;
     UserLocalStore userLocalStore;
     User user;
 
+    private Review reviewObj;
     private Menu food;
     private float ratingSelected;
+
+    public ArrayList<Review> arrayOfReview = new ArrayList<>();
+    public ArrayList<Review> arrayOfAllReview = new ArrayList<>();
+
+    private List<Review> reviewList = new ArrayList<>();
+    private ReviewAdapter mAdapter;
 
 
     @Override
@@ -48,40 +63,82 @@ public class FoodActivity extends AppCompatActivity {
         restaurant = (TextView) findViewById(R.id.activity_food_restaurant);
         rating = (RatingBar) findViewById(R.id.activity_food_ratingBar);
         imageFood = (ImageView) findViewById(R.id.activity_food_image);
-        reviewList = (RecyclerView) findViewById(R.id.activity_food_recycler_view);
+        recycleReviewList = (RecyclerView) findViewById(R.id.activity_food_recycler_view);
         reviewButton = (Button) findViewById(R.id.activity_food_button_review);
+        logInButton = (Button) findViewById(R.id.activity_food_button_login);
         review = (EditText) findViewById(R.id.activity_food_review);
+
+        //Recycler view
+        mAdapter = new ReviewAdapter(reviewList, this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        recycleReviewList.setLayoutManager(mLayoutManager);
+        recycleReviewList.setItemAnimator(new DefaultItemAnimator());
+        recycleReviewList.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        recycleReviewList.setAdapter(mAdapter);
+
 
         data = new Database(this);
 
         Intent i = getIntent();
         food = (Menu)i.getSerializableExtra("Menu");
 
+        prepareReviewData(food.getId());
+
+        userLocalStore = new UserLocalStore(this);
+        user = userLocalStore.getLoggedInUser();
+
+
+
+
+        if (user == null){
+            reviewButton.setVisibility(View.GONE);
+            review.setVisibility(View.GONE);
+            logInButton.setVisibility(View.VISIBLE);
+            rating.setIsIndicator(true);
+
+            logInButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(FoodActivity.this, loginActivity.class);
+                    startActivity(i);
+                }
+            });
+
+            rating.setRating((float) food.getRate());
+
+        }
+        else{
+            reviewButton.setVisibility(View.VISIBLE);
+            review.setVisibility(View.VISIBLE);
+            logInButton.setVisibility(View.GONE);
+            rating.setIsIndicator(false);
+
+            arrayOfReview = data.readUserReview("getUsersReview", String.valueOf(food.getId()), String.valueOf(user.id));
+
+            if (!(arrayOfReview.isEmpty())) {
+                rating.setRating((float) arrayOfReview.get(0).getRate());
+                review.setText(arrayOfReview.get(0).getComment());
+            }
+        }
 
         name.setText(food.getName());
         description.setText(food.getDescription());
         price.setText(String.valueOf(food.getPrice()) + " " + food.getCurrency());
 
 
-
-        //rating.setRating((float) food.getRate());
         rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
                 //System.out.println(rating);
-                ratingSelected=rating;
+                ratingSelected = rating;
             }
         });
 
-        userLocalStore = new UserLocalStore(this);
-        user = userLocalStore.getLoggedInUser();
 
         reviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
-//System.out.println(user.id);
                 HashMap<String, String> dataSend = new HashMap<>();
                 //TODO: tu stavi ako nije logiran da se logira
                 dataSend.put("user_id", Integer.toString(user.id));
@@ -94,10 +151,44 @@ public class FoodActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    private void prepareReviewData( int id) {
+        ArrayList<Review> arrayOfFood;
 
+        data = new Database(this);
+        arrayOfAllReview = data.readReview("getReview", String.valueOf(id));
+
+        for(Review value: arrayOfAllReview) {
+            reviewObj = new Review(value.getComment(), value.getRate(), value.getUsername(), value.getUserPicture());
+
+            reviewList.add(reviewObj);
+        }
+
+        mAdapter.notifyDataSetChanged();
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        user = userLocalStore.getLoggedInUser();
+        if (user != null) {
+            reviewButton.setVisibility(View.VISIBLE);
+            review.setVisibility(View.VISIBLE);
+            logInButton.setVisibility(View.GONE);
+            rating.setIsIndicator(false);
+
+            arrayOfReview = data.readUserReview("getUsersReview", String.valueOf(food.getId()), String.valueOf(user.id));
+
+            if (!(arrayOfReview.isEmpty())) {
+                rating.setRating((float) arrayOfReview.get(0).getRate());
+                review.setText(arrayOfReview.get(0).getComment());
+            }
+            else{
+                rating.setRating(0);
+            }
+        }
+    }
 }
