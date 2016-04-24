@@ -2,9 +2,7 @@ package com.example.tomipc.foodzye.model;
 
 import java.io.Serializable;
 
-/**
- * Created by Tomi PC on 20.4.2016..
- */
+
 public class Menu implements Serializable {
     private int id,img;
     private String name, description, currency, image;

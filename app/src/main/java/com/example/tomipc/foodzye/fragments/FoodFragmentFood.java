@@ -31,8 +31,6 @@ public class FoodFragmentFood extends Fragment {
     private RecyclerView recyclerView;
     private MenuAdapter mAdapter;
 
-    ArrayList<String> menuName;
-    ArrayList<Double> menuPrice;
     Menu menu;
 
     Database baza;

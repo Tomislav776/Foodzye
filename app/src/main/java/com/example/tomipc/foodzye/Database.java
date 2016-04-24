@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.example.tomipc.foodzye.model.Food;
 import com.example.tomipc.foodzye.model.Menu;
+import com.example.tomipc.foodzye.model.Place;
 import com.example.tomipc.foodzye.model.Review;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
@@ -31,6 +32,7 @@ public class Database {
 
     private ArrayList<Food> arrayOfFood = new ArrayList<>();
     private ArrayList<Menu> arrayOfMenu = new ArrayList<>();
+    private ArrayList<Place> arrayOfPlace = new ArrayList<>();
     private ArrayList<Review> arrayOfReview = new ArrayList<>();
     private ArrayList<Review> arrayOfSingleReview = new ArrayList<>();
 
@@ -172,6 +174,38 @@ public class Database {
             e.printStackTrace();
         }
         return arrayOfMenu;
+    }
+
+
+    public ArrayList<Place> readPlace (String route) {
+        try {
+            String foodJSON;
+            foodJSON = new Read().execute(URL+route+"/").get();
+            JSONArray obj = new JSONArray(foodJSON);
+
+            for (int i = 0; i < obj.length(); i++) {
+                JSONObject jObject = obj.getJSONObject(i);
+
+                int id = jObject.getInt("id");
+                int role = jObject.getInt("role");
+                String name = jObject.getString("name");
+                String email = jObject.getString("email");
+                String address = jObject.getString("location");
+                String phone = jObject.getString("phone");
+                String picture = jObject.getString("user_picture");
+                String time = jObject.getString("work_time");
+                double rate = jObject.getDouble("rate_total");
+
+                Place place = new Place(id, role, name, email, address, phone, picture, time, rate);
+
+                arrayOfPlace.add(place);
+            }
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return arrayOfPlace;
     }
 
 
