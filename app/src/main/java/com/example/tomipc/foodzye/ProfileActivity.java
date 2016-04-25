@@ -7,14 +7,12 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.example.tomipc.foodzye.fragments.FoodFragmentTab;
 import com.example.tomipc.foodzye.fragments.ProfileFragmentMenuTab;
 import com.example.tomipc.foodzye.fragments.ProfileFragmentProfileTab;
 import com.example.tomipc.foodzye.model.User;
@@ -59,10 +57,14 @@ public class ProfileActivity extends AppCompatActivity {
                     startActivity(i);
                 }
 
+                if (menuItem.getItemId() == R.id.nav_item_edit_profile) {
+                    Intent i = new Intent(ProfileActivity.this, EditProfileActivity.class);
+                    startActivity(i);
+                }
+
                 if (menuItem.getItemId() == R.id.nav_item_login) {
                     Intent i = new Intent(ProfileActivity.this, loginActivity.class);
                     startActivity(i);
-
                 }
 
                 if (menuItem.getItemId() == R.id.nav_item_food) {
@@ -73,9 +75,8 @@ public class ProfileActivity extends AppCompatActivity {
                 if (menuItem.getItemId() == R.id.nav_item_logout) {
                     userLocalStore.clearUserData();
                     userLocalStore.setUserLoggedIn(false);
-
-                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.containerView,new FoodFragmentTab()).commit();
+                    Intent i = new Intent(ProfileActivity.this, MainActivity.class);
+                    startActivity(i);
                 }
 
                 return false;

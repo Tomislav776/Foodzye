@@ -14,7 +14,6 @@ import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +31,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.tomipc.foodzye.adapter.FoodAdapter;
-import com.example.tomipc.foodzye.fragments.FoodFragmentTab;
 import com.example.tomipc.foodzye.model.Food;
 import com.example.tomipc.foodzye.model.User;
 
@@ -115,6 +113,11 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
                     startActivity(i);
                 }
 
+                if (menuItem.getItemId() == R.id.nav_item_edit_profile) {
+                    Intent i = new Intent(addFoodActivity.this, EditProfileActivity.class);
+                    startActivity(i);
+                }
+
                 if (menuItem.getItemId() == R.id.nav_item_login) {
                     Intent i = new Intent(addFoodActivity.this, loginActivity.class);
                     startActivity(i);
@@ -129,9 +132,8 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
                 if (menuItem.getItemId() == R.id.nav_item_logout) {
                     userLocalStore.clearUserData();
                     userLocalStore.setUserLoggedIn(false);
-
-                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.containerView,new FoodFragmentTab()).commit();
+                    Intent i = new Intent(addFoodActivity.this, MainActivity.class);
+                    startActivity(i);
                 }
 
                 return false;

@@ -87,6 +87,11 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(i);
                 }
 
+                if (menuItem.getItemId() == R.id.nav_item_edit_profile) {
+                    Intent i = new Intent(MainActivity.this, EditProfileActivity.class);
+                    startActivity(i);
+                }
+
                 if (menuItem.getItemId() == R.id.nav_item_login) {
                     Intent i = new Intent(MainActivity.this, loginActivity.class);
                     startActivity(i);

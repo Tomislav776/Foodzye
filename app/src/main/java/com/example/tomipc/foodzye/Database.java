@@ -9,6 +9,7 @@ import com.example.tomipc.foodzye.model.Food;
 import com.example.tomipc.foodzye.model.Menu;
 import com.example.tomipc.foodzye.model.Place;
 import com.example.tomipc.foodzye.model.Review;
+import com.example.tomipc.foodzye.model.User;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
@@ -18,9 +19,9 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.net.URL;
 
 
 public class Database {
@@ -56,7 +57,7 @@ public class Database {
         PostResponseAsyncTask task = new PostResponseAsyncTask(context, data, new AsyncResponse() {
             @Override
             public void processFinish(String result) {
-
+                System.out.println(result);
                 if (result.equals("success")) {
                     Toast.makeText(context, "Success", Toast.LENGTH_LONG).show();
 
@@ -67,6 +68,33 @@ public class Database {
         });
 
         task.execute(URL + route);
+    }
+
+    public User getUserData (String route, String user_id) {
+        User user = null;
+        try {
+            String userJSON;
+            userJSON = new Read().execute(URL+route+"/"+user_id).get();
+            JSONArray obj = new JSONArray(userJSON);
+
+            for (int i = 0; i < obj.length(); i++) {
+                JSONObject jObject = obj.getJSONObject(i);
+
+                String email = jObject.getString("email");
+                String location = jObject.getString("location");
+                String phone = jObject.getString("phone");
+                String picture = jObject.getString("user_picture");
+                String work_time = jObject.getString("work_time");
+
+                user = new User(email, location, phone, picture, work_time);
+            }
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return user;
     }
 
 
