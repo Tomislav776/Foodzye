@@ -17,38 +17,41 @@
         android:layout_height="60dp"
         android:gravity="center_vertical"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="12dp"
         android:layout_marginRight="20dp"
         android:contentDescription="@string/desc_list_item_icon"
         android:layout_centerVertical="true"
-        android:scaleType="fitStart"
+        android:scaleType="fitXY"
         android:adjustViewBounds="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginLeft="5dp" />
 
     <TextView
         android:id="@+id/review_name_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/review_image_user"
+        android:maxWidth="180dp"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="@color/list_item_title"
         android:gravity="center_vertical"
-        android:layout_centerVertical="true"
         android:textStyle="bold"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
-        android:paddingRight="40dp" />
+        android:paddingRight="40dp"
+        android:layout_alignBottom="@+id/review_review_text"
+        android:layout_toRightOf="@+id/review_image_user"
+        android:layout_toEndOf="@+id/review_image_user"
+        android:layout_marginBottom="13dp" />
 
 
 
     <ImageView
-        android:layout_width="78dp"
-        android:layout_height="68dp"
-        android:layout_marginLeft="7dp"
+        android:layout_width="79dp"
+        android:layout_height="69dp"
         android:src="@drawable/round"
         android:id="@+id/imageView4"
-        android:layout_marginTop="20dp" />
+        android:layout_alignTop="@+id/review_image_user"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 
@@ -58,10 +61,9 @@
         android:text="20kn"
         android:textColor="@color/counter_text_color"
         android:padding="5dp"
-        android:layout_below="@+id/review_name_user"
-        android:layout_toRightOf="@+id/imageView4"
-        android:layout_toEndOf="@+id/imageView4"
-        android:layout_marginLeft="12dp" />
+        android:layout_alignBottom="@+id/review_image_user"
+        android:layout_alignLeft="@+id/review_name_user"
+        android:layout_alignStart="@+id/review_name_user" />
 
     <RatingBar
         android:layout_width="wrap_content"
@@ -71,11 +73,10 @@
         android:layout_gravity="center_horizontal"
         android:isIndicator="true"
         style="?android:attr/ratingBarStyleSmall"
-        android:layout_marginLeft="59dp"
-        android:layout_marginStart="59dp"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/review_review_text"
-        android:layout_toEndOf="@+id/review_review_text" />
+        android:layout_alignTop="@+id/review_image_user"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp" />
 
 
 </RelativeLayout>
