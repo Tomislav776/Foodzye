@@ -21,39 +21,42 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 public class SignupActivity extends AppCompatActivity {
+
     private static final String TAG = "SignupActivity";
     private static final String REGISTER_URL = "http://164.132.228.255/register";
 
     UserLocalStore userLocalStore;
-
-
-    @Bind(R.id.input_name) TextInputEditText _nameText;
-    @Bind(R.id.input_email) TextInputEditText _emailText;
-    @Bind(R.id.input_password) TextInputEditText _passwordText;
-    @Bind(R.id.RoleSpinner) Spinner RoleSpinner;
-    @Bind(R.id.btn_signup) Button _signupButton;
-    @Bind(R.id.link_login) TextView _loginLink;
+    TextInputEditText UsernameText;
+    TextInputEditText EmailText;
+    TextInputEditText PasswordText;
+    Spinner RoleSpinner;
+    Button SignUpButton;
+    TextView LoginLink;
+    ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        ButterKnife.bind(this);
+
+        UsernameText = (TextInputEditText) findViewById(R.id.input_name);
+        EmailText = (TextInputEditText) findViewById(R.id.input_email);
+        PasswordText = (TextInputEditText) findViewById(R.id.input_password);
+        RoleSpinner = (Spinner) findViewById(R.id.RoleSpinner);
+        SignUpButton = (Button) findViewById(R.id.btn_signup);
+        LoginLink = (TextView) findViewById(R.id.link_login);
 
         userLocalStore = new UserLocalStore(this);
 
-        _signupButton.setOnClickListener(new View.OnClickListener() {
+        SignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signup();
             }
         });
 
-        _loginLink.setOnClickListener(new View.OnClickListener() {
+        LoginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Finish the registration screen and return to the Login activity
@@ -70,17 +73,16 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-        _signupButton.setEnabled(false);
+        SignUpButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
-                R.style.AppTheme_Dark_Dialog);
+        progressDialog = new ProgressDialog(SignupActivity.this, R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-        String username = _nameText.getText().toString();
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
+        String username = UsernameText.getText().toString();
+        String email = EmailText.getText().toString();
+        String password = PasswordText.getText().toString();
         String StringRole = RoleSpinner.getSelectedItem().toString();
 
         String role;
@@ -123,7 +125,7 @@ public class SignupActivity extends AppCompatActivity {
                         JSONObject jObject = obj.getJSONObject(0);
                         String name = jObject.getString("name");
                         String email = jObject.getString("email");
-                        String role = jObject.getString("role");
+                        int role = jObject.getInt("role");
                         String user_slug = jObject.getString("slug");
                         int user_id = jObject.getInt("id");
                         User user = new User(user_id, name, user_slug, email, role);
@@ -144,47 +146,42 @@ public class SignupActivity extends AppCompatActivity {
 
 
     public void onSignupSuccess() {
-        /*String name = (String)postData.get("name");
-        String email = (String)postData.get("email");
-        String role = (String)postData.get("role");
-        User user = new User(name, email, role);
-        logUserIn(user);*/
-        _signupButton.setEnabled(true);
+        SignUpButton.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();
     }
 
     public void onSignupFailed() {
         Toast.makeText(getBaseContext(), "An error happened. Please try again later.", Toast.LENGTH_LONG).show();
-        _signupButton.setEnabled(true);
+        SignUpButton.setEnabled(true);
     }
 
     public boolean validate() {
         boolean valid = true;
 
-        String name = _nameText.getText().toString();
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
+        String name = UsernameText.getText().toString();
+        String email = EmailText.getText().toString();
+        String password = PasswordText.getText().toString();
 
         if (name.isEmpty() || name.length() < 4) {
-            _nameText.setError("Your name must have at least 4 characters.");
+            UsernameText.setError("Your name must have at least 4 characters.");
             valid = false;
         } else {
-            _nameText.setError(null);
+            UsernameText.setError(null);
         }
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("Enter a valid email address.");
+            EmailText.setError("Enter a valid email address.");
             valid = false;
         } else {
-            _emailText.setError(null);
+            EmailText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 5 || password.length() > 15) {
-            _passwordText.setError("Your password must be between 5 and 15 alphanumeric characters.");
+            PasswordText.setError("Your password must be between 5 and 15 alphanumeric characters.");
             valid = false;
         } else {
-            _passwordText.setError(null);
+            PasswordText.setError(null);
         }
 
         return valid;

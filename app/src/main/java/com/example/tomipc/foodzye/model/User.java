@@ -1,31 +1,50 @@
 package com.example.tomipc.foodzye.model;
 
 
-public class User {
+import java.io.Serializable;
 
-    public int id;
-    public String username, email, role, slug, location, phone, picture, work_time;
+public class User implements Serializable {
 
-    public User(String username, String email, String role){
+    public int id, role;
+    public String username, email, slug, location, phone, picture, work_time;
+    private double rate;
+
+    public User(String username, String email, int role){
         this.username = username;
         this.email = email;
-        if(role.equals("1")){
-            this.role = "User";
-        }else{
-            this.role = "Food Service Provider";
-        }
+        this.role = role;
     }
 
-    public User(int id, String name, String slug, String email, String role){
+    public User(int id, int role, String name, String email, String location, String phone, String picture, String work_time, double rate){
+        this.id = id;
+        this.role = role;
+        this.username = name;
+        this.email = email;
+        this.location = location;
+        this.phone = phone;
+        this.picture = picture;
+        this.work_time = work_time;
+        this.rate = rate;
+    }
+
+    public User(int id, String name, String slug, String email, int role){
         this.id = id;
         username = name;
         this.email = email;
-        if(role.equals("1")){
-            this.role = "User";
-        }else{
-            this.role = "Food Service Provider";
-        }
+        this.role = role;
         this.slug = slug;
+    }
+
+    public User(int id, String name, String slug, String email, int role, String location, String phone, String work_time, String user_picture){
+        this.id = id;
+        username = name;
+        this.email = email;
+        this.role = role;
+        this.slug = slug;
+        this.location = location;
+        this.phone = phone;
+        this.work_time = work_time;
+        picture = user_picture;
     }
 
     public User(String email, String location, String phone, String picture, String work_time){
@@ -76,11 +95,11 @@ public class User {
         this.location = location;
     }
 
-    public String getRole() {
+    public int getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(int role) {
         this.role = role;
     }
 
@@ -106,5 +125,13 @@ public class User {
 
     public void setWork_time(String work_time) {
         this.work_time = work_time;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 }

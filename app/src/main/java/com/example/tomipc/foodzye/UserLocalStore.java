@@ -17,11 +17,15 @@ public class UserLocalStore {
 
     public void storeUserData(User user) {
         SharedPreferences.Editor userLocalDatabaseEditor = userLocalDatabase.edit();
-        userLocalDatabaseEditor.putInt("id", user.id);
-        userLocalDatabaseEditor.putString("slug", user.slug);
-        userLocalDatabaseEditor.putString("username", user.username);
-        userLocalDatabaseEditor.putString("email", user.email);
-        userLocalDatabaseEditor.putString("role", user.role);
+        userLocalDatabaseEditor.putInt("id", user.getId());
+        userLocalDatabaseEditor.putString("slug", user.getSlug());
+        userLocalDatabaseEditor.putString("username", user.getUsername());
+        userLocalDatabaseEditor.putString("email", user.getEmail());
+        userLocalDatabaseEditor.putInt("role", user.getRole());
+        userLocalDatabaseEditor.putString("location", user.getLocation());
+        userLocalDatabaseEditor.putString("phone", user.getPhone());
+        userLocalDatabaseEditor.putString("work_time", user.getWork_time());
+        userLocalDatabaseEditor.putString("user_picture", user.getPicture());
         userLocalDatabaseEditor.commit();
     }
 
@@ -46,9 +50,16 @@ public class UserLocalStore {
         String username = userLocalDatabase.getString("username", "");
         String slug = userLocalDatabase.getString("slug", "");
         String email = userLocalDatabase.getString("email", "");
-        String role = userLocalDatabase.getString("role", "");
+        int role = userLocalDatabase.getInt("role", 1);
 
-        User user = new User(id, username, slug, email, role);
+
+        String location = userLocalDatabase.getString("location", "");
+        String phone = userLocalDatabase.getString("phone", "");
+        String work_time = userLocalDatabase.getString("work_time", "");
+        String user_picture = userLocalDatabase.getString("user_picture", "");
+
+
+        User user = new User(id, username, slug, email, role, location, phone, work_time, user_picture);
         return user;
     }
 

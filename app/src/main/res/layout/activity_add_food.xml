@@ -170,6 +170,7 @@
                     android:id="@+id/spinnerCurrency"
                     android:layout_below="@+id/FoodDescription"
                     android:layout_toEndOf="@+id/take_picture"
+                    android:layout_toRightOf="@+id/take_picture"
                     android:background="@drawable/kat"
                     android:layout_marginTop="17dp"
                     android:layout_marginLeft="10dp" />

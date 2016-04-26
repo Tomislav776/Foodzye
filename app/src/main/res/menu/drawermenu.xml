@@ -10,6 +10,10 @@
         android:id="@+id/nav_item_profile"
         />
 
+    <item android:title="Edit Profile"
+        android:id="@+id/nav_item_edit_profile"
+        />
+
     <item android:title="Login"
         android:id="@+id/nav_item_login"
        />

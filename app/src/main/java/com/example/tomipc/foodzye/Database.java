@@ -204,6 +204,34 @@ public class Database {
         return arrayOfMenu;
     }
 
+    public ArrayList<Menu> readUserMenu (String route) {
+        try {
+            String foodJSON;
+            foodJSON = new Read().execute(URL+route+"/").get();
+            JSONArray obj = new JSONArray(foodJSON);
+
+            for (int i = 0; i < obj.length(); i++) {
+                JSONObject jObject = obj.getJSONObject(i);
+
+                int id = jObject.getInt("id");
+                String name = jObject.getString("name");
+                String description = jObject.getString("description");
+                String currency = jObject.getString("currency");
+                String image = jObject.getString("food_image");
+                double price = jObject.getDouble("price");
+                double rate = jObject.getDouble("rate_total");
+
+                Menu food = new Menu(id, name, description,  currency,  image,  rate,  price);
+                arrayOfMenu.add(food);
+            }
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return arrayOfMenu;
+    }
+
 
     public ArrayList<Place> readPlace (String route) {
         try {

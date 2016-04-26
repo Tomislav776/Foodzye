@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        userLocalStore = new UserLocalStore(this);
+
         /**
          *Setup the DrawerLayout and NavigationView
          */
@@ -74,8 +76,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 mDrawerLayout.closeDrawers();
-
-
 
                 if (menuItem.getItemId() == R.id.nav_item_home) {
                     FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
@@ -130,8 +130,6 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerToggle.syncState();
 
-        userLocalStore = new UserLocalStore(this);
-
     }
 
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
@@ -177,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                     // Permission Granted
                 } else {
                     // Permission Denied
-                    Toast.makeText(MainActivity.this, "WRITE_CONTACTS Denied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "CAMERA Denied", Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:
@@ -207,13 +205,12 @@ public class MainActivity extends AppCompatActivity {
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.containerView,new FoodFragmentTab()).commit();
 
-        if (authenticate() == true) {
+        if (authenticate()) {
             displayUserDetails();
         }
     }
 
     public void setNavigationName() {
-        userLocalStore = new UserLocalStore(this);
         user = userLocalStore.getLoggedInUser();
 
         View header = mNavigationView.getHeaderView(0);
@@ -223,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
         if (user == null) {
             usernameNav.setText("Guest");
         } else {
-            usernameNav.setText(user.username);
+            usernameNav.setText(user.getUsername());
         }
     }
 

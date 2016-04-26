@@ -21,31 +21,32 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 public class loginActivity extends AppCompatActivity  {
+
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     private static final String LOGIN_URL = "http://164.132.228.255/login";
 
     UserLocalStore userLocalStore;
-
-    @Bind(R.id.input_email) TextInputEditText _emailText;
-    @Bind(R.id.input_password) TextInputEditText _passwordText;
-    @Bind(R.id.btn_login) Button _loginButton;
-    @Bind(R.id.link_signup) TextView _signupLink;
+    TextInputEditText EmailText, PasswordText;
+    Button LoginButton;
+    TextView SignupLink;
+    ProgressDialog progressDialog;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
+
+        EmailText = (TextInputEditText) findViewById(R.id.input_email);
+        PasswordText = (TextInputEditText) findViewById(R.id.input_password);
+        LoginButton = (Button) findViewById(R.id.btn_login);
+        SignupLink = (TextView) findViewById(R.id.link_signup);
 
         userLocalStore = new UserLocalStore(this);
 
-        _loginButton.setOnClickListener(new View.OnClickListener() {
+        LoginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -53,7 +54,7 @@ public class loginActivity extends AppCompatActivity  {
             }
         });
 
-        _signupLink.setOnClickListener(new View.OnClickListener() {
+        SignupLink.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -72,16 +73,15 @@ public class loginActivity extends AppCompatActivity  {
             return;
         }
 
-        _loginButton.setEnabled(false);
+        LoginButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(loginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
+        progressDialog = new ProgressDialog(loginActivity.this, R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
+        String email = EmailText.getText().toString();
+        String password = PasswordText.getText().toString();
 
         HashMap postData = new HashMap();
         postData.put("email", email);
@@ -100,10 +100,14 @@ public class loginActivity extends AppCompatActivity  {
                         JSONObject jObject = obj.getJSONObject(0);
                         String name = jObject.getString("name");
                         String email = jObject.getString("email");
-                        String role = jObject.getString("role");
+                        int role = jObject.getInt("role");
                         String user_slug = jObject.getString("slug");
+                        String user_picture = jObject.getString("user_picture");
+                        String location = jObject.getString("location");
+                        String phone = jObject.getString("phone");
+                        String work_time = jObject.getString("work_time");
                         int user_id = jObject.getInt("id");
-                        User user = new User(user_id, name, user_slug, email, role);
+                        User user = new User(user_id, name, user_slug, email, role, location, phone, work_time, user_picture);
                         logUserIn(user);
                     }catch (JSONException e){
                         e.printStackTrace();
@@ -132,7 +136,7 @@ public class loginActivity extends AppCompatActivity  {
 
 
     public void onLoginSuccess() {
-        _loginButton.setEnabled(true);
+        LoginButton.setEnabled(true);
 
         finish();
     }
@@ -140,27 +144,27 @@ public class loginActivity extends AppCompatActivity  {
     public void onLoginFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
 
-        _loginButton.setEnabled(true);
+        LoginButton.setEnabled(true);
     }
 
     public boolean validate() {
         boolean valid = true;
 
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
+        String email = EmailText.getText().toString();
+        String password = PasswordText.getText().toString();
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("Enter a valid email address.");
+            EmailText.setError("Enter a valid email address.");
             valid = false;
         } else {
-            _emailText.setError(null);
+            EmailText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 5 || password.length() > 15) {
-            _passwordText.setError("Your password must be between 5 and 15 alphanumeric characters.");
+            PasswordText.setError("Your password must be between 5 and 15 alphanumeric characters.");
             valid = false;
         } else {
-            _passwordText.setError(null);
+            PasswordText.setError(null);
         }
 
         return valid;
@@ -170,8 +174,5 @@ public class loginActivity extends AppCompatActivity  {
         userLocalStore.storeUserData(user);
         userLocalStore.setUserLoggedIn(true);
     }
-
-
-
 
 }
