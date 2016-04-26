@@ -1,9 +1,9 @@
 package com.example.tomipc.foodzye;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.example.tomipc.foodzye.adapter.MenuAdapter;
 import com.example.tomipc.foodzye.adapter.ReviewAdapter;
 import com.example.tomipc.foodzye.model.Menu;
 import com.example.tomipc.foodzye.model.Review;
@@ -32,7 +31,7 @@ public class FoodActivity extends AppCompatActivity {
     private TextView description;
     private TextView price;
     private TextView restaurant;
-    private RatingBar rating;
+    private AppCompatRatingBar rating;
     private ImageView imageFood;
     private RecyclerView recycleReviewList;
     private EditText review;
@@ -61,7 +60,7 @@ public class FoodActivity extends AppCompatActivity {
         description = (TextView) findViewById(R.id.activity_food_description);
         price = (TextView) findViewById(R.id.activity_food_price);
         restaurant = (TextView) findViewById(R.id.activity_food_restaurant);
-        rating = (RatingBar) findViewById(R.id.activity_food_ratingBar);
+        rating = (AppCompatRatingBar) findViewById(R.id.activity_food_ratingBar);
         imageFood = (ImageView) findViewById(R.id.activity_food_image);
         recycleReviewList = (RecyclerView) findViewById(R.id.activity_food_recycler_view);
         reviewButton = (Button) findViewById(R.id.activity_food_button_review);

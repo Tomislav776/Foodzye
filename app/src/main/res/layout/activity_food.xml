@@ -49,13 +49,13 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp" />
 
-    <RatingBar
+    <android.support.v7.widget.AppCompatRatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ratingBar"
         android:theme="@style/RatingBar"
         android:isIndicator="true"
-        style="?android:attr/ratingBarStyleSmall"
+        style="@style/Base.Widget.AppCompat.RatingBar.Small"
         android:layout_centerVertical="true"
         android:layout_gravity="center_horizontal" />
 
@@ -102,10 +102,11 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp" />
 
-    <RatingBar
+    <android.support.v7.widget.AppCompatRatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:theme="@style/RatingBar"
+        style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
         android:id="@+id/activity_food_ratingBar"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp" />

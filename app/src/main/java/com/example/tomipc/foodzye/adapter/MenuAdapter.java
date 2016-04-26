@@ -1,6 +1,7 @@
 package com.example.tomipc.foodzye.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,14 +23,14 @@ import java.util.List;
         public class MyViewHolder extends RecyclerView.ViewHolder {
             public TextView name, price;
             public ImageView foodImage;
-            public android.support.v7.widget.AppCompatRatingBar rate;
+            public AppCompatRatingBar rate;
 
             public MyViewHolder(View view) {
                 super(view);
                 name = (TextView) view.findViewById(R.id.name_food);
                 price = (TextView) view.findViewById(R.id.price_food);
                 foodImage = (ImageView) view.findViewById(R.id.image_food);
-                rate = (android.support.v7.widget.AppCompatRatingBar) view.findViewById(R.id.row_food_ratingBar);
+                rate = (AppCompatRatingBar) view.findViewById(R.id.row_food_ratingBar);
             }
         }
 

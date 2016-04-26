@@ -66,13 +66,14 @@
         android:layout_toEndOf="@+id/review_image_user"
         android:layout_marginTop="30dp" />
 
-    <RatingBar
+    <android.support.v7.widget.AppCompatRatingBar
         android:layout_width="wrap_content"
         android:theme="@style/RatingBar"
+        style="@style/Base.Widget.AppCompat.RatingBar.Small"
         android:layout_height="40dp"
         android:id="@+id/review_food_rate"
-        android:scaleX="0.5"
-        android:scaleY="0.5"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
         android:transformPivotX="0dp"
         android:transformPivotY="0dp"
         android:isIndicator="true"
