@@ -147,8 +147,6 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
 
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 
-        getSupportActionBar().hide();
-
         mDrawerToggle.syncState();
 
         userLocalStore = new UserLocalStore(this);
