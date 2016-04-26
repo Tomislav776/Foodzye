@@ -48,14 +48,14 @@
         android:src="@drawable/round"
         android:id="@+id/imageView5" />
 
-    <RatingBar
+    <android.support.v7.widget.AppCompatRatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/row_food_ratingBar"
         android:theme="@style/RatingBar"
+        style="@style/Base.Widget.AppCompat.RatingBar.Small"
         android:layout_gravity="center_horizontal"
         android:isIndicator="true"
-        style="?android:attr/ratingBarStyleSmall"
         android:layout_alignBottom="@+id/name_food"
         android:layout_alignLeft="@+id/name_food"
         android:layout_alignStart="@+id/name_food" />

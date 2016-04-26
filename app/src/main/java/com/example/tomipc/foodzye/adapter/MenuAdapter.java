@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -23,14 +22,14 @@ import java.util.List;
         public class MyViewHolder extends RecyclerView.ViewHolder {
             public TextView name, price;
             public ImageView foodImage;
-            public RatingBar rate;
+            public android.support.v7.widget.AppCompatRatingBar rate;
 
             public MyViewHolder(View view) {
                 super(view);
                 name = (TextView) view.findViewById(R.id.name_food);
                 price = (TextView) view.findViewById(R.id.price_food);
                 foodImage = (ImageView) view.findViewById(R.id.image_food);
-                rate = (RatingBar) view.findViewById(R.id.row_food_ratingBar);
+                rate = (android.support.v7.widget.AppCompatRatingBar) view.findViewById(R.id.row_food_ratingBar);
             }
         }
 

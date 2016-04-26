@@ -34,4 +34,9 @@
         <item name="android:colorButtonNormal">@color/primary_darker</item>
     </style>
 
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#000000</item>
+        <item name="colorControlActivated">#f1c40f</item>
+    </style>
+
 </resources>
