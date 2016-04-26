@@ -37,11 +37,10 @@
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:paddingRight="40dp"
-        android:layout_alignBottom="@+id/review_review_text"
+        android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/review_image_user"
         android:layout_toEndOf="@+id/review_image_user"
-        android:layout_marginBottom="13dp" />
-
+        android:layout_marginTop="14dp" />
 
 
     <ImageView
@@ -51,32 +50,39 @@
         android:id="@+id/imageView4"
         android:layout_alignTop="@+id/review_image_user"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp" />
 
 
 
     <TextView android:id="@+id/review_review_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="20kn"
+        android:text="Aloha!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
         android:textColor="@color/counter_text_color"
         android:padding="5dp"
-        android:layout_alignBottom="@+id/review_image_user"
-        android:layout_alignLeft="@+id/review_name_user"
-        android:layout_alignStart="@+id/review_name_user" />
+        android:layout_alignTop="@+id/review_food_rate"
+        android:layout_toRightOf="@+id/review_image_user"
+        android:layout_toEndOf="@+id/review_image_user"
+        android:layout_marginTop="30dp" />
 
     <RatingBar
         android:layout_width="wrap_content"
         android:theme="@style/RatingBar"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/review_food_rate"
-        android:layout_gravity="center_horizontal"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:transformPivotX="0dp"
+        android:transformPivotY="0dp"
         android:isIndicator="true"
-        style="?android:attr/ratingBarStyleSmall"
+        android:max="5"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="55dp"
         android:layout_alignTop="@+id/review_image_user"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp" />
+        android:layout_toRightOf="@+id/review_image_user"
+        android:layout_toEndOf="@+id/review_image_user" />
+
 
 
 </RelativeLayout>
