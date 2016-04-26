@@ -29,17 +29,21 @@
         <activity
             android:name=".loginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.Dark" />
+            android:theme="@style/HiddenTitleTheme"
+            />
         <activity
             android:name=".SignupActivity"
             android:label="@string/title_activity_signup"
-            android:theme="@style/AppTheme.Dark" />
+            android:theme="@style/HiddenTitleTheme"        />
         <activity
             android:name=".FoodActivity"
-            android:label="Menu" />
+            android:label="Menu"
+            android:theme="@style/HiddenTitleTheme"
+            />
         <activity
             android:name=".addFoodActivity"
-            android:label="@string/title_activity_add_food" />
+            android:label="@string/title_activity_add_food"
+            android:theme="@style/HiddenTitleTheme"/>
         <activity
             android:name=".ReviewActivity"
             android:label="Review" />

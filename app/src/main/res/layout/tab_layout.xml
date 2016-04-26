@@ -33,9 +33,9 @@
             app:tabGravity="fill"
             app:tabMode="fixed"
             android:background="#c0392b"
-            app:tabIndicatorColor="#c0392b"
-            app:tabSelectedTextColor="#e3b8b5"
-            app:tabTextColor="@color/white"
+            app:tabIndicatorColor="#fff"
+            app:tabSelectedTextColor="#fff"
+            app:tabTextColor="#e3b8b5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </android.support.design.widget.TabLayout>

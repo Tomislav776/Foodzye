@@ -14,6 +14,11 @@
         android:id="@+id/toolbar2"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
 
+        <ImageView
+            android:src="@drawable/logo_mini"
+            android:layout_width="100dp"
+            android:layout_height="50dp" />
+
     </android.support.v7.widget.Toolbar>
 
     <android.support.v4.widget.DrawerLayout
@@ -53,7 +58,6 @@
                     android:inputType="textPhonetic"
                     android:background="@drawable/input"
                     android:layout_marginTop="10dp" />
-
 
 
                 <EditText
@@ -108,6 +112,7 @@
                     android:layout_below="@+id/spinnerCurrency"
                     android:layout_alignLeft="@+id/imageView2"
                     android:layout_alignStart="@+id/imageView2"
+                    android:scaleType="fitXY"
                     android:layout_marginTop="28dp" />
 
                 <Button
@@ -118,6 +123,7 @@
                     android:background="@drawable/button"
                     android:padding="12dp"
                     android:textColor="#ffffff"
+                    android:textStyle="bold"
                     android:layout_alignTop="@+id/imageView2"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
@@ -131,6 +137,7 @@
                     android:background="@drawable/button"
                     android:padding="12dp"
                     android:textColor="#ffffff"
+                    android:textStyle="bold"
                     android:layout_below="@+id/take_picture"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
@@ -171,9 +178,10 @@
                     android:layout_below="@+id/FoodDescription"
                     android:layout_toEndOf="@+id/take_picture"
                     android:layout_toRightOf="@+id/take_picture"
-                    android:background="@drawable/kat"
                     android:layout_marginTop="17dp"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/kat" />
+
 
             </RelativeLayout>
         </ScrollView>

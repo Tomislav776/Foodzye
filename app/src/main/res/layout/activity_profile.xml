@@ -10,7 +10,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#000000"
+        android:background="@color/red"
         android:id="@+id/toolbar2"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
@@ -37,7 +37,6 @@
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary_dark"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
@@ -50,22 +49,38 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:context="com.example.tomipc.foodzye.ProfileActivity">
+                tools:context="com.example.tomipc.foodzye.ProfileActivity"
+                android:background="@color/red">
 
         <ImageView
-            android:layout_width="250dp"
-            android:layout_height="80dp"
+            android:layout_width="150dp"
+            android:layout_height="140dp"
             android:id="@+id/ProfilePictureImageView"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/logo_mini"
+            android:scaleType="fitXY"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp" />
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="150dp"
+            android:id="@+id/imageView2"
+            android:background="@drawable/round_red"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentTop="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/UserNameTextView"
                 android:layout_centerHorizontal="true"
+                android:textColor="#ffffff"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="20dp"
                 android:layout_below="@+id/ProfilePictureImageView"/>
 
             </RelativeLayout>
@@ -75,13 +90,18 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:tabIndicatorColor="#fff"
+            app:tabSelectedTextColor="#fff"
+            app:tabTextColor="#e3b8b5"
+            android:background="@color/red" />
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager2"
         android:layout_width="match_parent"
+        android:background="#fafafa"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
@@ -97,6 +117,7 @@
             app:itemTextColor="@color/black"
             app:menu="@menu/drawermenu"
             app:headerLayout="@layout/nav_header"
+            android:background="#ffffff"
             android:layout_gravity="start"
             android:layout_marginTop="-24dp"/>
 

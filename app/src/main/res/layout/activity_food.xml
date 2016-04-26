@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     >
 
-
     <android.support.v7.widget.Toolbar
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -16,6 +15,7 @@
         android:background="@color/red"
         android:id="@+id/toolbar2"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
+
 
     </android.support.v7.widget.Toolbar>
 
@@ -95,6 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ADD YOUR OWN REVIEW"
+        android:textStyle="bold"
         android:textColor="#c0392b"
         android:fontFamily="sans-serif-medium"
         android:textSize="20dp"
@@ -142,12 +143,14 @@
         android:background="@drawable/button"
         android:padding="12dp"
         android:textColor="#ffffff"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="REVIEWS"
+        android:textStyle="bold"
         android:id="@+id/textView2"
         android:textColor="#c0392b"
         android:fontFamily="sans-serif-medium"
@@ -163,6 +166,7 @@
         android:layout_below="@+id/activity_food_ratingBar"
 
         android:layout_marginTop="10dp" />
+
 
 
 </LinearLayout>
