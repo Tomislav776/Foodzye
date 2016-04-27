@@ -45,14 +45,14 @@
         android:paddingBottom="20dp"
         android:paddingRight="40dp" />
 
-    <RatingBar
+    <android.support.v7.widget.AppCompatRatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/row_place_rating_bar"
         android:theme="@style/RatingBar"
+        style="@style/Base.Widget.AppCompat.RatingBar.Small"
         android:layout_gravity="center_horizontal"
         android:isIndicator="true"
-        style="?android:attr/ratingBarStyleSmall"
         android:layout_alignBottom="@+id/row_place_name"
         android:layout_alignLeft="@+id/row_place_name"
         android:layout_alignStart="@+id/row_place_name"

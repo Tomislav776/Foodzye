@@ -2,17 +2,16 @@ package com.example.tomipc.foodzye.adapter;
 
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.tomipc.foodzye.R;
-import com.example.tomipc.foodzye.model.Menu;
 import com.example.tomipc.foodzye.model.Place;
 
 import java.util.List;
@@ -25,14 +24,14 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, address;
         public ImageView placeImage;
-        public RatingBar rate;
+        public AppCompatRatingBar rate;
 
         public MyViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.row_place_name);
             address = (TextView) view.findViewById(R.id.row_place_location);
             placeImage = (ImageView) view.findViewById(R.id.row_place_picture);
-            rate = (RatingBar) view.findViewById(R.id.row_place_rating_bar);
+            rate = (android.support.v7.widget.AppCompatRatingBar) view.findViewById(R.id.row_place_rating_bar);
         }
     }
 
