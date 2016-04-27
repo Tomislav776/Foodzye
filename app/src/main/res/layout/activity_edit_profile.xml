@@ -29,6 +29,13 @@
         android:layout_width="match_parent"
         android:id="@+id/drawerLayout3">
 
+
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fitsSystemWindows="true">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -78,9 +85,10 @@
         android:hint="Location"
         android:background="@drawable/input"
         android:gravity="center"
-        android:layout_toStartOf="@+id/imageView2"
+        android:layout_toStartOf="@+id/PhoneEditText"
         android:layout_marginTop="10dp"
-        android:layout_toLeftOf="@+id/imageView2" />
+        android:layout_alignRight="@+id/EmailEditText"
+        android:layout_alignEnd="@+id/EmailEditText" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -93,11 +101,12 @@
         android:textColor="@color/red"
         android:background="@drawable/input"
         android:gravity="center"
-        android:layout_below="@+id/EmailEditText"
+        android:layout_below="@+id/LocationEditText"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/LocationEditText"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -114,18 +123,6 @@
         android:background="@drawable/input"
         android:gravity="center"
         android:layout_marginTop="10dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SAVE CHANGES"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:id="@+id/EditProfileButton"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:padding="12dp"
-        android:background="@drawable/button" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -175,7 +172,23 @@
         android:layout_below="@+id/TakePictureButton"
         android:layout_centerHorizontal="true"
         android:visibility="gone" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SAVE CHANGES"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:id="@+id/EditProfileButton"
+        android:padding="12dp"
+        android:background="@drawable/button"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 </RelativeLayout>
+
+        </ScrollView>
 
         <android.support.design.widget.NavigationView
             xmlns:android="http://schemas.android.com/apk/res/android"
