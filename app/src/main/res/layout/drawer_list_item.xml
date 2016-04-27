@@ -4,7 +4,9 @@
     android:layout_height="48dp"
     android:background="@drawable/list_selector">
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:riv_corner_radius="100dip"
         android:id="@+id/icon"
         android:layout_width="25dp"
         android:layout_height="wrap_content"

@@ -26,6 +26,7 @@ import com.example.tomipc.foodzye.model.User;
 
 public class MainActivity extends AppCompatActivity {
 
+
     UserLocalStore userLocalStore;
     User user;
 

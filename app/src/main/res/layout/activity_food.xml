@@ -16,27 +16,26 @@
         android:id="@+id/toolbar2"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
 
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:src="@drawable/logo_mini"/>
+
 
     </android.support.v7.widget.Toolbar>
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:riv_corner_radius="100dip"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:id="@+id/activity_food_image"
-        android:layout_below="@+id/activity_food_name"
         android:layout_gravity="center_horizontal"
+        android:src="@drawable/food_def"
+        android:scaleType="fitXY"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp" />
 
-    <ImageView
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_alignTop="@+id/imgPreview"
-        android:layout_alignRight="@+id/spinnerCurrency"
-        android:layout_alignEnd="@+id/spinnerCurrency"
-        android:id="@+id/imageView2"
-        android:background="@drawable/round"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="-140dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -165,7 +164,7 @@
         android:scrollbars="vertical"
         android:layout_below="@+id/activity_food_ratingBar"
 
-        android:layout_marginTop="10dp" />
+        />
 
 
 

@@ -59,25 +59,18 @@
                 tools:context="com.example.tomipc.foodzye.ProfileActivity"
                 android:background="@color/red">
 
-        <ImageView
-            android:layout_width="150dp"
+        <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:riv_corner_radius="100dip"
+            android:layout_width="140dp"
             android:layout_height="140dp"
             android:id="@+id/ProfilePictureImageView"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/logo_mini"
+            android:src="@drawable/user_def"
             android:scaleType="fitXY"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp" />
 
-        <ImageView
-            android:layout_width="160dp"
-            android:layout_height="150dp"
-            android:id="@+id/imageView2"
-            android:background="@drawable/round_red"
-            android:layout_centerHorizontal="true"
-            android:layout_marginRight="5dp"
-            android:layout_alignParentTop="true" />
 
             <TextView
                 android:layout_width="wrap_content"

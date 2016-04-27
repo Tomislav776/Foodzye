@@ -90,30 +90,24 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:background="@drawable/input"
-                    android:layout_toStartOf="@+id/AddNewFoodButton"
                     android:layout_alignRight="@+id/take_picture"
                     android:layout_alignEnd="@+id/take_picture"
                     android:layout_marginTop="10dp" />
 
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_alignTop="@+id/imgPreview"
-                    android:layout_alignRight="@+id/spinnerCurrency"
-                    android:layout_alignEnd="@+id/spinnerCurrency"
-                    android:id="@+id/imageView2"
-                    android:background="@drawable/round" />
-
-                <ImageView
+                <com.makeramen.roundedimageview.RoundedImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    app:riv_corner_radius="15dip"
                     android:id="@+id/imgPreview"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:visibility="invisible"
-                    android:layout_below="@+id/spinnerCurrency"
-                    android:layout_alignLeft="@+id/imageView2"
-                    android:layout_alignStart="@+id/imageView2"
                     android:scaleType="fitXY"
-                    android:layout_marginTop="28dp" />
+                    android:src="@drawable/food_def"
+                    android:layout_below="@+id/FoodPrice"
+                    android:layout_alignRight="@+id/spinnerCurrency"
+                    android:layout_alignEnd="@+id/spinnerCurrency"
+                    android:layout_marginTop="20dp"
+                    />
 
                 <Button
                     android:text="TAKE PICTURE"
@@ -124,10 +118,9 @@
                     android:padding="12dp"
                     android:textColor="#ffffff"
                     android:textStyle="bold"
-                    android:layout_alignTop="@+id/imageView2"
+                    android:layout_alignTop="@+id/imgPreview"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginTop="10dp" />
+                    android:layout_alignParentStart="true" />
 
                 <Button
                     android:text="CHOOSE PICTURE FROM THE PHONE"
@@ -138,10 +131,9 @@
                     android:padding="12dp"
                     android:textColor="#ffffff"
                     android:textStyle="bold"
-                    android:layout_below="@+id/take_picture"
+                    android:layout_above="@+id/AddFoodButton"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginTop="10dp" />
+                    android:layout_alignParentStart="true" />
 
                 <Button
                     android:text="ADD FOOD"
@@ -167,9 +159,9 @@
                     android:textColor="#ffffff"
                     android:padding="12dp"
                     android:textStyle="bold"
-                    android:layout_alignTop="@+id/AddFoodButton"
-                    android:layout_alignLeft="@+id/imageView2"
-                    android:layout_alignStart="@+id/imageView2" />
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignLeft="@+id/imgPreview"
+                    android:layout_alignStart="@+id/imgPreview" />
 
                 <Spinner
                     android:layout_width="200dp"
