@@ -27,7 +27,7 @@ import java.util.HashMap;
 public class Database {
 
     HttpURLConnection connection;
-    private static String URL = "http://164.132.228.255/";
+    private static String URL = "http://10.0.3.2/";
 
     private Context context;
 
@@ -187,13 +187,15 @@ public class Database {
 
                 int id = jObject.getInt("id");
                 String name = jObject.getString("name");
+                String nameFood = jObject.getString("foodName");
                 String description = jObject.getString("description");
                 String currency = jObject.getString("currency");
                 String image = jObject.getString("food_image");
                 double price = jObject.getDouble("price");
                 double rate = jObject.getDouble("rate_total");
+                int food_id = jObject.getInt("food_id");
 
-                Menu food = new Menu(id, name, description,  currency,  image,  rate,  price);
+                Menu food = new Menu(id, name, description,  currency,  image,  rate,  price, food_id, nameFood);
                 arrayOfMenu.add(food);
             }
 
@@ -215,13 +217,15 @@ public class Database {
 
                 int id = jObject.getInt("id");
                 String name = jObject.getString("name");
+                String nameFood = jObject.getString("foodName");
                 String description = jObject.getString("description");
                 String currency = jObject.getString("currency");
                 String image = jObject.getString("food_image");
                 double price = jObject.getDouble("price");
                 double rate = jObject.getDouble("rate_total");
+                int food_id = jObject.getInt("food_id");
 
-                Menu food = new Menu(id, name, description,  currency,  image,  rate,  price);
+                Menu food = new Menu(id, name, description,  currency,  image,  rate,  price, food_id, nameFood);
                 arrayOfMenu.add(food);
             }
 

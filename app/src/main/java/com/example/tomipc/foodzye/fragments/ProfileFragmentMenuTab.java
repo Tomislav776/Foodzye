@@ -97,7 +97,7 @@ public class ProfileFragmentMenuTab extends Fragment {
         arrayOfFood = baza.readMenu("getMenu/"+Integer.toString(user_id));
 
         for(Menu value: arrayOfFood) {
-            menu = new Menu(value.getId(), value.getName(), value.getDescription(), value.getCurrency(), value.getImage(), value.getRate(), value.getPrice());
+            menu = new Menu(value.getId(), value.getName(), value.getDescription(), value.getCurrency(), value.getImage(), value.getRate(), value.getPrice(), value.getFood_id(), value.getNameFood());
             menuList.add(menu);
         }
 

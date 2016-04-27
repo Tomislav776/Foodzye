@@ -4,12 +4,11 @@ import java.io.Serializable;
 
 
 public class Menu implements Serializable {
-    private int id,img;
-    private String name, description, currency, image;
+    private int id, food_id;
+    private String name, nameFood, description, currency, image;
     private double price, rate;
 
-
-    public Menu(int id, String name, String description, String currency, String image, double rate, double price){
+    public Menu(int id, String name, String description, String currency, String image, double rate, double price, int food_id, String nameFood){
         this.id = id;
         this.name = name;
         this.description = description;
@@ -17,6 +16,28 @@ public class Menu implements Serializable {
         this.image = image;
         this.rate = rate;
         this.price = price;
+        this.food_id = food_id;
+        this.nameFood = nameFood;
+    }
+
+    public String getNameFood() {
+        return nameFood;
+    }
+
+    public void setNameFood(String nameFood) {
+        this.nameFood = nameFood;
+    }
+
+    public int getFood_id() {
+        return food_id;
+    }
+
+    public void setFood_id(int food_id) {
+        this.food_id = food_id;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void setId(int id){
@@ -59,9 +80,7 @@ public class Menu implements Serializable {
         return currency;
     }
 
-    public void setImage(int img){
-        this.img = img;
-    }
+
 
     public String getImage() {
         return image;

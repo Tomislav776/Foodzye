@@ -9,10 +9,15 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.tomipc.foodzye.Database;
@@ -20,16 +25,28 @@ import com.example.tomipc.foodzye.DividerItemDecoration;
 import com.example.tomipc.foodzye.FoodActivity;
 import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.adapter.MenuAdapter;
+import com.example.tomipc.foodzye.model.Food;
 import com.example.tomipc.foodzye.model.Menu;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class FoodFragmentFood extends Fragment {
+public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private List<Menu> menuList = new ArrayList<>();
     private RecyclerView recyclerView;
     private MenuAdapter mAdapter;
+    private Spinner sort;
+
+    AutoCompleteTextView search;
+    ArrayList<Menu> arrayOfFood;
+    ArrayList<Menu> arrayOfFoodHolder;
+
+    ArrayAdapter<String> adapter;
+    private String[] food;
+    String sortBy="";
 
     Menu menu;
 
@@ -44,6 +61,9 @@ public class FoodFragmentFood extends Fragment {
         baza = new Database(c);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        sort = (Spinner) view.findViewById(R.id.food_fragment_sort);
+
+        setSpinner();
 
         mAdapter = new MenuAdapter(menuList, c);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(c);
@@ -52,7 +72,21 @@ public class FoodFragmentFood extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(c, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
 
-        prepareMenuData();
+        //Autocomplete
+        prepareFoodData();
+        search = (AutoCompleteTextView) view.findViewById(R.id.food_fragment_search);
+        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, food);
+        search.setAdapter(adapter);
+
+        search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String s = parent.getItemAtPosition(position).toString();
+                prepareMenuData(s);
+            }
+        });
+
+        prepareMenuData("");
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(c, recyclerView, new ClickListener() {
             @Override
@@ -78,23 +112,100 @@ public class FoodFragmentFood extends Fragment {
     }
 
 
+
+    private void setSpinner (){
+        // Spinner Drop down elements
+        sort.setOnItemSelectedListener(this);
+
+        List<String> currency = new ArrayList<String>();
+        currency.add("Name");
+        currency.add("Price");
+        currency.add("Rating");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, currency);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        sort.setAdapter(dataAdapter);
+
+    }
+
+    public class CustomComparator implements Comparator<Menu> {
+        @Override
+        public int compare(Menu left, Menu right) {
+            System.out.println(sortBy);
+            if (sortBy.equals("Price")){
+                return String.valueOf(left.getPrice()).compareTo(String.valueOf(right.getPrice()));
+            }
+            else if (sortBy.equals("Rating")){
+                return String.valueOf(right.getRate()).compareTo(String.valueOf(left.getRate()));
+            }
+            else {
+                return left.getName().compareTo(right.getName());
+            }
+        }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        sortBy = parent.getItemAtPosition(position).toString();
+
+        Collections.sort(menuList, new CustomComparator());
+
+        mAdapter.notifyDataSetChanged();
+    }
+
+    public void onNothingSelected(AdapterView<?> arg0) {
+        sortBy = "";
+    }
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
-    private void prepareMenuData() {
-        ArrayList<Menu> arrayOfFood;
+    private void prepareMenuData(String search) {
 
-        baza = new Database(c);
-        arrayOfFood = baza.readMenu("getMenu");
+        if (search.equals("")) {
+            baza = new Database(c);
+            arrayOfFood = baza.readMenu("getMenu");
 
-        for(Menu value: arrayOfFood) {
-            menu = new Menu(value.getId(), value.getName(), value.getDescription(), value.getCurrency(), value.getImage(), value.getRate(), value.getPrice());
-            menuList.add(menu);
+            for (Menu value : arrayOfFood) {
+                menu = new Menu(value.getId(), value.getName(), value.getDescription(), value.getCurrency(), value.getImage(), value.getRate(), value.getPrice(), value.getFood_id(), value.getNameFood());
+                menuList.add(menu);
+            }
+        }
+        else
+        {
+            menuList.clear();
+            for (int i = 0 ; i<arrayOfFood.size();i++){
+                if (search.equals(arrayOfFood.get(i).getNameFood()))
+                    menuList.add(arrayOfFood.get(i));
+            }
         }
 
+
         mAdapter.notifyDataSetChanged();
+    }
+
+    private void prepareFoodData() {
+        int i=0;
+        ArrayList<Food> arrayOfFood2;
+        baza = new Database(c);
+
+        arrayOfFood2 = baza.readFood("getFood");
+
+        food = new String[arrayOfFood2.size()];
+
+        for(Food value: arrayOfFood2) {
+           System.out.println(value.name);
+            food[i]=value.name;
+            i++;
+        }
 
     }
 

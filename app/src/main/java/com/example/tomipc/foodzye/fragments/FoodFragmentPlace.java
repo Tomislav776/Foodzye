@@ -9,10 +9,15 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.tomipc.foodzye.Database;
@@ -21,16 +26,29 @@ import com.example.tomipc.foodzye.FoodActivity;
 import com.example.tomipc.foodzye.ProfileActivity;
 import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.adapter.PlaceAdapter;
+import com.example.tomipc.foodzye.model.Food;
+import com.example.tomipc.foodzye.model.Menu;
 import com.example.tomipc.foodzye.model.Place;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class FoodFragmentPlace extends Fragment {
+public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSelectedListener{
 
     private List<Place> placeList = new ArrayList<>();
     private RecyclerView recyclerView;
     private PlaceAdapter mAdapter;
+
+    private Spinner sort;
+
+    AutoCompleteTextView search;
+    ArrayList<Place> arrayOfPlace;
+
+    ArrayAdapter<String> adapter;
+    private String[] placeSearch;
+    String sortBy="";
 
     Place place;
 
@@ -44,6 +62,10 @@ public class FoodFragmentPlace extends Fragment {
 
         baza = new Database(c);
 
+        sort = (Spinner) view.findViewById(R.id.place_fragment_sort);
+
+        setSpinner();
+
         recyclerView = (RecyclerView) view.findViewById(R.id.place_fragment_recycler_view);
 
         mAdapter = new PlaceAdapter(placeList, c);
@@ -53,7 +75,19 @@ public class FoodFragmentPlace extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(c, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
 
-        preparePlaceData();
+        preparePlaceData("");
+
+        search = (AutoCompleteTextView) view.findViewById(R.id.place_fragment_search);
+        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, placeSearch);
+        search.setAdapter(adapter);
+
+        search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String s = parent.getItemAtPosition(position).toString();
+                preparePlaceData(s);
+            }
+        });
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(c, recyclerView, new ClickListener() {
             @Override
@@ -78,26 +112,86 @@ public class FoodFragmentPlace extends Fragment {
         return view;
     }
 
+    private void setSpinner (){
+        // Spinner Drop down elements
+        sort.setOnItemSelectedListener(this);
+
+        List<String> currency = new ArrayList<String>();
+        currency.add("Name");
+        currency.add("Rating");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, currency);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        sort.setAdapter(dataAdapter);
+
+    }
+
+    public class CustomComparator implements Comparator<Place> {
+        @Override
+        public int compare(Place left, Place right) {
+            System.out.println(sortBy);
+            if (sortBy.equals("Rating")){
+                return String.valueOf(right.getRate()).compareTo(String.valueOf(left.getRate()));
+            }
+            else {
+                return left.getName().compareTo(right.getName());
+            }
+        }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        sortBy = parent.getItemAtPosition(position).toString();
+
+        Collections.sort(placeList, new CustomComparator());
+
+        mAdapter.notifyDataSetChanged();
+    }
+
+    public void onNothingSelected(AdapterView<?> arg0) {
+        sortBy = "";
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
-    private void preparePlaceData() {
-        ArrayList<Place> arrayOfPlace;
+    private void preparePlaceData(String search) {
+    int i = 0;
 
-        baza = new Database(c);
-        arrayOfPlace = baza.readPlace("getPlace");
+        if (search.equals("")) {
+            baza = new Database(c);
+            arrayOfPlace = baza.readPlace("getPlace");
 
-        for(Place value: arrayOfPlace) {
-            place = new Place(value.getId(), value.getRole(), value.getName(), value.getEmail(), value.getLocation(), value.getPhone(), value.getPicture(), value.getWork_time(), value.getRate());
+            placeSearch = new String[arrayOfPlace.size()];
+            for(Place value: arrayOfPlace) {
+                System.out.println(value.getName());
+                placeSearch[i]=value.getName();
+                i++;
+            }
 
-            placeList.add(place);
+            for (Place value : arrayOfPlace) {
+                place = new Place(value.getId(), value.getRole(), value.getName(), value.getEmail(), value.getLocation(), value.getPhone(), value.getPicture(), value.getWork_time(), value.getRate());
+
+                placeList.add(place);
+            }
+        }else
+        {
+            placeList.clear();
+            for (i = 0 ; i<arrayOfPlace.size();i++){
+                if (search.equals(arrayOfPlace.get(i).getName()))
+                    placeList.add(arrayOfPlace.get(i));
+            }
         }
 
         mAdapter.notifyDataSetChanged();
-
     }
 
 
