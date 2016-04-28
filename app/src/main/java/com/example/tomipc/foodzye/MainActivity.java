@@ -1,27 +1,30 @@
 package com.example.tomipc.foodzye;
 
 import android.Manifest;
-import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.tomipc.foodzye.fragments.FoodFragmentTab;
+import com.example.tomipc.foodzye.fragments.FoodFragmentFood;
+import com.example.tomipc.foodzye.fragments.FoodFragmentPlace;
 import com.example.tomipc.foodzye.model.User;
 
 
@@ -60,9 +63,6 @@ public class MainActivity extends AppCompatActivity {
          * Here , we are inflating the TabFragment as the first Fragment
          */
 
-        mFragmentManager = getSupportFragmentManager();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.containerView,new FoodFragmentTab()).commit();
 
         checkForPermissions();
 
@@ -70,6 +70,17 @@ public class MainActivity extends AppCompatActivity {
         /**
          * Setup click events on the Navigation View Items.
          */
+
+        // Setup the viewPager
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
+
+        // Setup the Tabs
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+
+        // This method ensures that tab selection events update the ViewPager and page changes update the selected tab.
+        tabLayout.setupWithViewPager(viewPager);
 
         /**
          * Set name of logged user
@@ -80,11 +91,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 mDrawerLayout.closeDrawers();
-
-                if (menuItem.getItemId() == R.id.nav_item_home) {
-                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.containerView,new FoodFragmentTab()).commit();
-                }
 
                 if (menuItem.getItemId() == R.id.nav_item_profile) {
                     Intent i = new Intent(MainActivity.this, ProfileActivity.class);
@@ -109,10 +115,8 @@ public class MainActivity extends AppCompatActivity {
                 if (menuItem.getItemId() == R.id.nav_item_logout) {
                     userLocalStore.clearUserData();
                     userLocalStore.setUserLoggedIn(false);
-                    setNavigationName();
 
-                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.containerView,new FoodFragmentTab()).commit();
+                    onResume();
                 }
 
                 return false;
@@ -207,9 +211,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.containerView,new FoodFragmentTab()).commit();
-
         if (authenticate()) {
             displayUserDetails();
         }
@@ -221,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
         View header = mNavigationView.getHeaderView(0);
 
         usernameNav = (TextView) header.findViewById(R.id.navigation_name);
+        mNavigationView.getMenu().findItem(R.id.nav_item_home).setVisible(false);
 
         if (user == null) {
             usernameNav.setText("Guest");
@@ -251,6 +253,41 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setNavigationName();
+    }
+
+
+    private class MyPagerAdapter extends FragmentStatePagerAdapter {
+
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+        @Override
+        public Fragment getItem(int pos) {
+
+                switch(pos) {
+                    case 0: return FoodFragmentFood.newInstance();
+                    case 1: return FoodFragmentPlace.newInstance();
+                    default: return FoodFragmentFood.newInstance();
+
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        public CharSequence getPageTitle(int position) {
+
+            switch (position){
+                case 0 :
+                    return "Food";
+                case 1 :
+                    return "Place";
+            }
+            return null;
+        }
+
     }
 
 

@@ -37,6 +37,10 @@ import java.util.List;
 
 public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSelectedListener{
 
+    public static FoodFragmentPlace newInstance() {
+        return new FoodFragmentPlace();
+    }
+
     private List<Place> placeList = new ArrayList<>();
     private RecyclerView recyclerView;
     private PlaceAdapter mAdapter;

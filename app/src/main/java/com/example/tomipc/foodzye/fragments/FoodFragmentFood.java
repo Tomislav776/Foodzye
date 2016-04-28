@@ -35,6 +35,10 @@ import java.util.List;
 
 public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSelectedListener {
 
+    public static FoodFragmentFood newInstance() {
+        return new FoodFragmentFood();
+    }
+
     private List<Menu> menuList = new ArrayList<>();
     private RecyclerView recyclerView;
     private MenuAdapter mAdapter;
@@ -263,6 +267,7 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
         public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
 
         }
+
     }
 }
 
