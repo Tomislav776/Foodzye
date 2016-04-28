@@ -123,7 +123,8 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
 
         List<String> currency = new ArrayList<String>();
         currency.add("Name");
-        currency.add("Price");
+        currency.add("Price ASC");
+        currency.add("Price DSC");
         currency.add("Rating");
 
         // Creating adapter for spinner
@@ -141,8 +142,11 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
         @Override
         public int compare(Menu left, Menu right) {
 
-            if (sortBy.equals("Price")){
+            if (sortBy.equals("Price ASC")){
                 return (left.getPrice() < right.getPrice()) ? -1 : (left.getPrice() > right.getPrice()) ? 1:0 ;
+            }
+            else if (sortBy.equals("Price DSC")){
+                return (left.getPrice() > right.getPrice()) ? -1 : (left.getPrice() > right.getPrice()) ? 1:0 ;
             }
             else if (sortBy.equals("Rating")){
                 return String.valueOf(right.getRate()).compareTo(String.valueOf(left.getRate()));
