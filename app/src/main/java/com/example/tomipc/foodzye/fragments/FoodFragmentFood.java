@@ -140,9 +140,9 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
     public class CustomComparator implements Comparator<Menu> {
         @Override
         public int compare(Menu left, Menu right) {
-            System.out.println(sortBy);
+
             if (sortBy.equals("Price")){
-                return String.valueOf(left.getPrice()).compareTo(String.valueOf(right.getPrice()));
+                return (left.getPrice() < right.getPrice()) ? -1 : (left.getPrice() > right.getPrice()) ? 1:0 ;
             }
             else if (sortBy.equals("Rating")){
                 return String.valueOf(right.getRate()).compareTo(String.valueOf(left.getRate()));
