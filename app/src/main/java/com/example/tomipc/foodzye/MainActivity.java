@@ -1,6 +1,7 @@
 package com.example.tomipc.foodzye;
 
 import android.Manifest;
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     NavigationView mNavigationView;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
+    MenuItem item;
 
     private TextView usernameNav;
 
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         mFragmentTransaction.replace(R.id.containerView,new FoodFragmentTab()).commit();
 
         checkForPermissions();
+
 
         /**
          * Setup click events on the Navigation View Items.
@@ -188,9 +191,10 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean authenticate() {
         if (userLocalStore.getLoggedInUser() == null) {
-            // do something if you want
+
             return false;
         }
+
         return true;
     }
 
@@ -220,9 +224,22 @@ public class MainActivity extends AppCompatActivity {
 
         if (user == null) {
             usernameNav.setText("Guest");
+            mNavigationView.getMenu().findItem(R.id.nav_item_login).setVisible(true);
+            mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
         } else {
             usernameNav.setText(user.getUsername());
+            mNavigationView.getMenu().findItem(R.id.nav_item_login).setVisible(false);
+            mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(true);
+
+            if (user.getRole() == 1){
+                mNavigationView.getMenu().findItem(R.id.nav_item_food).setVisible(false);
+            }
+            else
+            {
+                mNavigationView.getMenu().findItem(R.id.nav_item_food).setVisible(true);
+            }
         }
+
     }
 
     @Override

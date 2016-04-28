@@ -13,14 +13,14 @@
         android:id="@+id/nav_item_edit_profile"
         />
 
-    <item android:title="Login"
-        android:id="@+id/nav_item_login"
-       />
 
     <item android:title="Add Food"
         android:id="@+id/nav_item_food"
         />
 
+    <item android:title="Login"
+        android:id="@+id/nav_item_login"
+        />
     <item
         android:title="Logout"
         android:id="@+id/nav_item_logout"

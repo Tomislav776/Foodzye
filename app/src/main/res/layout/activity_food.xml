@@ -51,7 +51,7 @@
     <android.support.v7.widget.AppCompatRatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/ratingBar"
+        android:id="@+id/activity_food_ratingBar_total"
         android:theme="@style/RatingBar"
         android:isIndicator="true"
         style="@style/Base.Widget.AppCompat.RatingBar.Small"
@@ -98,7 +98,7 @@
         android:textColor="#c0392b"
         android:fontFamily="sans-serif-medium"
         android:textSize="20dp"
-        android:id="@+id/textView4"
+        android:id="@+id/activity_food_text_add_your_review"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp" />
 
@@ -109,6 +109,7 @@
         style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
         android:id="@+id/activity_food_ratingBar"
         android:layout_gravity="center_horizontal"
+        android:isIndicator="false"
         android:layout_marginTop="10dp" />
 
     <EditText

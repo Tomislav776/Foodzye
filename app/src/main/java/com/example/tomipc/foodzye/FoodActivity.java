@@ -32,7 +32,9 @@ public class FoodActivity extends AppCompatActivity {
     private TextView description;
     private TextView price;
     private TextView restaurant;
+    private TextView textAddYour;
     private AppCompatRatingBar rating;
+    private AppCompatRatingBar ratingTotal;
     private ImageView imageFood;
     private RecyclerView recycleReviewList;
     private EditText review;
@@ -62,7 +64,9 @@ public class FoodActivity extends AppCompatActivity {
         description = (TextView) findViewById(R.id.activity_food_description);
         price = (TextView) findViewById(R.id.activity_food_price);
         restaurant = (TextView) findViewById(R.id.activity_food_restaurant);
+        textAddYour = (TextView) findViewById(R.id.activity_food_text_add_your_review);
         rating = (AppCompatRatingBar) findViewById(R.id.activity_food_ratingBar);
+        ratingTotal = (AppCompatRatingBar) findViewById(R.id.activity_food_ratingBar_total);
         imageFood = (ImageView) findViewById(R.id.activity_food_image);
         recycleReviewList = (RecyclerView) findViewById(R.id.activity_food_recycler_view);
         reviewButton = (Button) findViewById(R.id.activity_food_button_review);
@@ -95,12 +99,13 @@ public class FoodActivity extends AppCompatActivity {
 
 
 
-
+        ratingTotal.setRating((float) food.getRate());
         if (user == null){
             reviewButton.setVisibility(View.GONE);
             review.setVisibility(View.GONE);
             logInButton.setVisibility(View.VISIBLE);
-            rating.setIsIndicator(true);
+            textAddYour.setVisibility(View.GONE);
+            rating.setVisibility(View.GONE);
 
             logInButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -110,14 +115,14 @@ public class FoodActivity extends AppCompatActivity {
                 }
             });
 
-            rating.setRating((float) food.getRate());
 
         }
         else{
             reviewButton.setVisibility(View.VISIBLE);
             review.setVisibility(View.VISIBLE);
             logInButton.setVisibility(View.GONE);
-            rating.setIsIndicator(false);
+            rating.setVisibility(View.VISIBLE);
+            textAddYour.setVisibility(View.VISIBLE);
 
             arrayOfReview = data.readUserReview("getUsersReview", String.valueOf(food.getId()), String.valueOf(user.id));
 
@@ -184,7 +189,9 @@ public class FoodActivity extends AppCompatActivity {
             reviewButton.setVisibility(View.VISIBLE);
             review.setVisibility(View.VISIBLE);
             logInButton.setVisibility(View.GONE);
-            rating.setIsIndicator(false);
+            rating.setVisibility(View.VISIBLE);
+            textAddYour.setVisibility(View.VISIBLE);
+
 
             arrayOfReview = data.readUserReview("getUsersReview", String.valueOf(food.getId()), String.valueOf(user.id));
 

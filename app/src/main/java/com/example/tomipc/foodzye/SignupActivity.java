@@ -24,7 +24,6 @@ import java.util.HashMap;
 public class SignupActivity extends AppCompatActivity {
 
     private static final String TAG = "SignupActivity";
-    private static final String REGISTER_URL = "http://164.132.228.255/register";
 
     UserLocalStore userLocalStore;
     TextInputEditText UsernameText;
