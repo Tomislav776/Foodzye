@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.tomipc.foodzye.Database;
 import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.model.Review;
 
@@ -55,7 +56,7 @@ import java.util.List;
 
             holder.comment.setText(review.getComment());
             Glide.with(c)
-                    .load("http://164.132.228.255/"+review.getUserPicture())
+                    .load(Database.URL+review.getUserPicture())
                     .into(holder.userImage);
             holder.rate.setRating((float) review.getRate());
             holder.username.setText(review.getUsername());

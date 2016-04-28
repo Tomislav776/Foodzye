@@ -119,7 +119,7 @@ public class loginActivity extends AppCompatActivity  {
             }
         });
 
-        task.execute(LOGIN_URL);
+        task.execute(Database.URL+"login");
 
     }
 

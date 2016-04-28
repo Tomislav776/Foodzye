@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.tomipc.foodzye.adapter.ReviewAdapter;
 import com.example.tomipc.foodzye.model.Menu;
 import com.example.tomipc.foodzye.model.Review;
@@ -39,6 +40,7 @@ public class FoodActivity extends AppCompatActivity {
     Database data;
     UserLocalStore userLocalStore;
     User user;
+
 
     private Review reviewObj;
     private Menu food;
@@ -67,6 +69,7 @@ public class FoodActivity extends AppCompatActivity {
         logInButton = (Button) findViewById(R.id.activity_food_button_login);
         review = (EditText) findViewById(R.id.activity_food_review);
 
+
         //Recycler view
         mAdapter = new ReviewAdapter(reviewList, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -80,6 +83,10 @@ public class FoodActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         food = (Menu)i.getSerializableExtra("Menu");
+
+        Glide.with(this)
+                .load(Database.URL+food.getImage())
+                .into(imageFood);
 
         prepareReviewData(food.getId());
 

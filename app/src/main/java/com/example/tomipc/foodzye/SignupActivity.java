@@ -140,7 +140,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        task.execute(REGISTER_URL);
+        task.execute(Database.URL+"register");
 
     }
 

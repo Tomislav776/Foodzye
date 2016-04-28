@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.tomipc.foodzye.Database;
 import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.model.Place;
 
@@ -55,7 +56,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
 
         holder.name.setText(place.getName());
         Glide.with(c)
-                .load("http://164.132.228.255/"+place.getPicture())
+                .load(Database.URL+place.getPicture())
                 .into(holder.placeImage);
         holder.rate.setRating((float) place.getRate());
         holder.address.setText(String.valueOf(place.getLocation()));

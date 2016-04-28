@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.tomipc.foodzye.Database;
 import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.model.Menu;
 
@@ -54,7 +55,7 @@ import java.util.List;
 
             holder.name.setText(food.getName());
             Glide.with(c)
-                    .load("http://164.132.228.255/"+food.getImage())
+                    .load(Database.URL+food.getImage())
                     .into(holder.foodImage);
             holder.rate.setRating((float) food.getRate());
             holder.price.setText(String.valueOf(food.getPrice()) + " " + food.getCurrency());

@@ -238,14 +238,15 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
         ACText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
                 chosenFood = (Food) parent.getItemAtPosition(position);
-                if(chosenFood.name.equals("There is no such food. Click me if you want to add it.")){
+                if (chosenFood.name.equals("There is no such food. Click me if you want to add it.")) {
                     addNewFoodButton.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     Toast.makeText(addFoodActivity.this, chosenFood.name, Toast.LENGTH_LONG).show();
                     food_id = chosenFood.id;
                 }
             }
         });
+
     }
 
     @Override
