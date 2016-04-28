@@ -350,8 +350,9 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
             try {
                 //bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), file_uri);
                 BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 8;
-                AssetFileDescriptor fileDescriptor =null;
+                options.inSampleSize = 7;
+                options.inPurgeable = true;
+                AssetFileDescriptor fileDescriptor = null;
                 try {
                     fileDescriptor = this.getContentResolver().openAssetFileDescriptor(file_uri, "r");
                 } catch (FileNotFoundException e) {
@@ -380,7 +381,8 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
         BitmapFactory.Options options = new BitmapFactory.Options();
 
         // down sizing image as it throws OutOfMemory Exception for larger images
-        options.inSampleSize = 8;
+        options.inSampleSize = 7;
+        options.inPurgeable = true;
 
         filePath = file_uri.getPath();
 
