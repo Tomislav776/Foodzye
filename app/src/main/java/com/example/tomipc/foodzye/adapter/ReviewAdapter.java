@@ -57,6 +57,7 @@ import java.util.List;
             holder.comment.setText(review.getComment());
             Glide.with(c)
                     .load(Database.URL+review.getUserPicture())
+                    .thumbnail(0.3f)
                     .into(holder.userImage);
             holder.rate.setRating((float) review.getRate());
             holder.username.setText(review.getUsername());

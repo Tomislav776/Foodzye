@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,17 +26,19 @@ import com.example.tomipc.foodzye.model.User;
 public class ProfileActivity extends AppCompatActivity {
     protected DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
+    Toolbar toolbar;
+    ActionBarDrawerToggle mDrawerToggle;
     UserLocalStore userLocalStore;
     User user;
     ImageView ProfileImageView;
-    TextView UserNameTextView;
+    TextView UserNameTextView, x;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
 
         userLocalStore = new UserLocalStore(this);
+        user = userLocalStore.getLoggedInUser();
 
         Place place = (Place) getIntent().getSerializableExtra("Place");
 
@@ -48,25 +51,53 @@ public class ProfileActivity extends AppCompatActivity {
             System.out.println("User id wasn't passed to this activity.");
         }
 
+        //if conditions to render the proper profile layout depending on the role of the user whose profile you are opening
         if (user_id != null) {
             user = new User(place.getId(), place.getRole() ,place.getName(), place.getEmail(), place.getLocation(), place.getPhone(), place.getPicture(), place.getWork_time(), place.getRate());
-        }else{
-            user = userLocalStore.getLoggedInUser();
+            setContentView(R.layout.activity_profile);
+            // Setup the viewPager
+            ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager2);
+            MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
+            viewPager.setAdapter(pagerAdapter);
+
+            // Setup the Tabs
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs2);
+
+            // This method ensures that tab selection events update the ViewPager and page changes update the selected tab.
+            tabLayout.setupWithViewPager(viewPager);
+            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout2);
+            mNavigationView = (NavigationView) findViewById(R.id.shitstuff2);
+            toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar2);
+            ProfileImageView = (ImageView) findViewById(R.id.ProfilePictureImageView);
+            UserNameTextView = (TextView) findViewById(R.id.UserNameTextView);
+        }else if(user.getRole() == 2){
+            setContentView(R.layout.activity_profile);
+            // Setup the viewPager
+            ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager2);
+            MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
+            viewPager.setAdapter(pagerAdapter);
+
+            // Setup the Tabs
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs2);
+
+            // This method ensures that tab selection events update the ViewPager and page changes update the selected tab.
+            tabLayout.setupWithViewPager(viewPager);
+            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout2);
+            mNavigationView = (NavigationView) findViewById(R.id.shitstuff2);
+            toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar2);
+            ProfileImageView = (ImageView) findViewById(R.id.ProfilePictureImageView);
+            UserNameTextView = (TextView) findViewById(R.id.UserNameTextView);
         }
-
-        // Setup the viewPager
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager2);
-        MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(pagerAdapter);
-
-        // Setup the Tabs
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs2);
-
-        // This method ensures that tab selection events update the ViewPager and page changes update the selected tab.
-        tabLayout.setupWithViewPager(viewPager);
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout2);
-        mNavigationView = (NavigationView) findViewById(R.id.shitstuff2);
+        else{
+            setContentView(R.layout.activity_profile_user);
+            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayoutUserProfile);
+            mNavigationView = (NavigationView) findViewById(R.id.shitstuffUserProfile);
+            toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbarUserProfile);
+            ProfileImageView = (ImageView) findViewById(R.id.ProfilePictureImageViewUserProfile);
+            UserNameTextView = (TextView) findViewById(R.id.UserNameTextViewUserProfile);
+            x = (TextView) findViewById(R.id.textViewX);
+            x.setText("fkdsfkdsiofs");
+        }
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -108,18 +139,12 @@ public class ProfileActivity extends AppCompatActivity {
         /**
          * Setup Drawer Toggle of the Toolbar
          */
-
-        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar2);
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,R.string.app_name,
-                R.string.app_name);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
 
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 
 
         mDrawerToggle.syncState();
-
-        ProfileImageView = (ImageView) findViewById(R.id.ProfilePictureImageView);
-        UserNameTextView = (TextView) findViewById(R.id.UserNameTextView);
 
         if(user.getPicture() != null && !user.getPicture().equals("")){
             ProfileImageView.setVisibility(View.VISIBLE);
@@ -135,6 +160,8 @@ public class ProfileActivity extends AppCompatActivity {
         return user.getId();
     }
 
+    public int getLoggedInUserId() { return userLocalStore.getLoggedInUser().getId(); }
+
     public int getUserRole(){
         return user.getRole();
     }
@@ -146,24 +173,16 @@ public class ProfileActivity extends AppCompatActivity {
         }
         @Override
         public Fragment getItem(int pos) {
-            if(user.getRole() == 1){
-                switch(pos) {
-                    case 0: return ProfileFragmentProfileTab.newInstance();
-                    default: return ProfileFragmentProfileTab.newInstance();
-                }
-            }else{
                 switch(pos) {
                     case 0: return ProfileFragmentProfileTab.newInstance();
                     case 1: return ProfileFragmentMenuTab.newInstance();
                     default: return ProfileFragmentProfileTab.newInstance();
-                }
             }
         }
 
         @Override
         public int getCount() {
-            if(user.getRole() == 1) return 1;
-            else return 2;
+            return 2;
         }
 
         public CharSequence getPageTitle(int position) {

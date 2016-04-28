@@ -2,7 +2,7 @@ package com.example.tomipc.foodzye.model;
 
 
 public class Review {
-    private int id,user_id, menu_id;
+    private int id,user_id, menu_id, place_id;
     private String comment, username, userPicture;
     private double rate;
 
@@ -13,6 +13,14 @@ public class Review {
         this.menu_id = menu_id;
         this.comment = comment;
         this.rate = rate;
+    }
+
+    public Review(String comment, double rate, int user_id, String username, String userPicture){
+        this.comment = comment;
+        this.rate = rate;
+        this.user_id = user_id;
+        this.username = username;
+        this.userPicture = userPicture;
     }
 
     public Review(String comment, double rate){

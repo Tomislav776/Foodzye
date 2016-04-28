@@ -97,6 +97,37 @@ public class Database {
         return user;
     }
 
+    public ArrayList<Review> readFoodServiceProviderReviews (String route, String user_idIn) {
+        try {
+            String MenuReviewJSON;
+            MenuReviewJSON = new Read().execute(URL+route+"/"+user_idIn).get();
+            JSONArray obj = new JSONArray(MenuReviewJSON);
+
+            for (int i = 0; i < obj.length(); i++) {
+                JSONObject jObject = obj.getJSONObject(i);
+
+                String comment = jObject.getString("comment");
+                String username = jObject.getString("name");
+                String picture = jObject.getString("user_picture");
+                double rate = jObject.getDouble("rate");
+                int place_id = jObject.getInt("place_id");
+                int user_id = jObject.getInt("user_id");
+
+                System.out.println(jObject);
+
+                Review review = new Review(comment, rate, place_id, username, picture);
+
+                arrayOfReview.add(review);
+            }
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return arrayOfReview;
+    }
+
 
     public ArrayList<Review> readUserReview (String route, String menu_idIn, String user_idIn) {
         try {
@@ -110,7 +141,7 @@ public class Database {
                 String comment = jObject.getString("comment");
                 double rate = jObject.getDouble("rate");
 
-                Review review = new Review(comment, rate );
+                Review review = new Review(comment, rate);
 
                 arrayOfSingleReview.add(review);
             }
