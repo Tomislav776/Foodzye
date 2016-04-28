@@ -62,7 +62,7 @@
 
                 <EditText
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="100dp"
                     android:id="@+id/FoodDescription"
                     android:hint="Food description"
                     android:textColor="#c0392b"

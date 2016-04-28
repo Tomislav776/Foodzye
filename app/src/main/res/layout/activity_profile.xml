@@ -83,6 +83,16 @@
                 android:textSize="20dp"
                 android:layout_below="@+id/ProfilePictureImageView"/>
 
+            <android.support.v7.widget.AppCompatRatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                android:id="@+id/FoodServiceProviderRatingBar"
+                android:theme="@style/RatingBar"
+                android:layout_alignTop="@+id/UserNameTextView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp" />
+
             </RelativeLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -91,7 +101,7 @@
             android:id="@+id/tabs2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="#fff"
+            app:tabIndicatorColor="@color/red"
             app:tabSelectedTextColor="#fff"
             app:tabTextColor="#e3b8b5"
             android:background="@color/red" />

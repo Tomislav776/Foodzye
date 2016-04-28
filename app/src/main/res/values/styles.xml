@@ -35,6 +35,7 @@
     <style name="HiddenTitleTheme" parent="AppTheme">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="colorAccent">#757575</item>
     </style>
 
 </resources>

@@ -12,26 +12,27 @@
 
     <AutoCompleteTextView
         android:id="@+id/food_fragment_search"
-        android:layout_width="300dp"
+        android:layout_width="210dp"
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/input"
         android:hint="Search..."
         android:textColor="#c0392b"
+        android:textColorHint="#000000"
         android:gravity="center"
+        android:textSize="17dp"
         android:completionThreshold="1"
         android:padding="10dp" />
 
     <Spinner
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="53dp"
+        android:background="@drawable/kat_sort"
         android:id="@+id/food_fragment_sort"
-        android:textColor="#c0392b"
-
-        android:background="@android:drawable/edit_text"
+        android:padding="10dp"
+        android:gravity="center"
         android:spinnerMode="dropdown"
-        android:layout_toRightOf="@+id/food_fragment_search"
-        android:layout_toEndOf="@+id/food_fragment_search"/>
+        android:layout_toRightOf="@+id/food_fragment_search" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
