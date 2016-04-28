@@ -226,10 +226,15 @@ public class MainActivity extends AppCompatActivity {
             usernameNav.setText("Guest");
             mNavigationView.getMenu().findItem(R.id.nav_item_login).setVisible(true);
             mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
+            mNavigationView.getMenu().findItem(R.id.nav_item_food).setVisible(false);
+            mNavigationView.getMenu().findItem(R.id.nav_item_profile).setVisible(false);
+            mNavigationView.getMenu().findItem(R.id.nav_item_edit_profile).setVisible(false);
         } else {
             usernameNav.setText(user.getUsername());
             mNavigationView.getMenu().findItem(R.id.nav_item_login).setVisible(false);
             mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(true);
+            mNavigationView.getMenu().findItem(R.id.nav_item_profile).setVisible(true);
+            mNavigationView.getMenu().findItem(R.id.nav_item_edit_profile).setVisible(true);
 
             if (user.getRole() == 1){
                 mNavigationView.getMenu().findItem(R.id.nav_item_food).setVisible(false);
