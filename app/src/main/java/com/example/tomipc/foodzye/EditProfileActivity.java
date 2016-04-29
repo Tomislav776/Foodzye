@@ -338,6 +338,7 @@ public class EditProfileActivity extends AppCompatActivity {
             try {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = 8;
+                options.inPurgeable = true;
                 AssetFileDescriptor fileDescriptor = null;
                 try {
                     fileDescriptor = this.getContentResolver().openAssetFileDescriptor(file_uri, "r");
