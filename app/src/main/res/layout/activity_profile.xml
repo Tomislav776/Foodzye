@@ -69,7 +69,7 @@
             android:layout_height="140dp"
             android:id="@+id/ProfilePictureImageView"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/user_def"
+            android:src="@drawable/place_def"
             android:scaleType="fitXY"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
@@ -149,7 +149,7 @@
             android:layout_height="100dp"
             android:id="@+id/navigationProfileImage"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/user_def"
+            android:src="@drawable/food_def"
             android:layout_marginTop="35dp"
             android:layout_marginBottom="10dp"/>
 
@@ -158,7 +158,7 @@
             android:layout_height="wrap_content"
             android:text="Your name"
             android:textSize="25dp"
-            android:paddingBottom="3dp"
+            android:paddingBottom="10dp"
             android:paddingTop="3dp"
             android:gravity="center"
             android:id="@+id/navigationTextTitle"
@@ -171,7 +171,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="#1a1c25"
+            android:background="#ecf0f1"
             android:choiceMode="singleChoice"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp" />

@@ -30,7 +30,6 @@
         android:padding="10dp"
         android:gravity="center"
         android:background="@drawable/kat_sort"
-
         android:spinnerMode="dropdown"
         android:layout_toRightOf="@+id/place_fragment_search"
         android:layout_toEndOf="@+id/place_fragment_search"/>

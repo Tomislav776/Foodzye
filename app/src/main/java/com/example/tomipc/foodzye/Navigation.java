@@ -131,12 +131,12 @@ public class Navigation extends AppCompatActivity {
         }
 
         if (user == null){
-            mTitleImage.setImageResource(R.drawable.user_def);
+            mTitleImage.setImageResource(R.drawable.food_def);
         }
         else
         {
             if (user.getPicture().equals(""))
-                mTitleImage.setImageResource(R.drawable.user_def);
+                mTitleImage.setImageResource(R.drawable.food_def);
                 else
                 Glide.with(this).load(Database.URL+user.getPicture()).into(mTitleImage);
         }

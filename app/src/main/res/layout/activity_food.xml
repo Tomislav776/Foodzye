@@ -30,7 +30,7 @@
         android:layout_height="140dp"
         android:id="@+id/activity_food_image"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/food_def"
+        android:src="@drawable/user_profile"
         android:scaleType="fitXY"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
