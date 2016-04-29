@@ -64,7 +64,7 @@ public class FoodAdapter extends ArrayAdapter<Food>{
             if (constraint != null) {
                 suggestions.clear();
                 for (Food food : tempItems) {
-                    if (food.name.toLowerCase().contains(constraint.toString().toLowerCase())) {
+                    if (food.name.toLowerCase().startsWith(constraint.toString().toLowerCase())) {
                         suggestions.add(food);
                     }
                 }

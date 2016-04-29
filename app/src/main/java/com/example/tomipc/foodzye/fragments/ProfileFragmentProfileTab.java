@@ -77,8 +77,6 @@ public class ProfileFragmentProfileTab extends Fragment {
         PhoneTextView.setText(user.getPhone());
         WorkHoursTextView.setText(user.getWork_time());
 
-        System.out.println("User id je " + user_id + " logged i user id je " + logged_in_user_id);
-
         if(user_id == logged_in_user_id){
             ReviewTextView.setVisibility(View.GONE);
             ReviewEditText.setVisibility(View.GONE);

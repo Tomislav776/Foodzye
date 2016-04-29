@@ -81,12 +81,13 @@ public class Database {
                 JSONObject jObject = obj.getJSONObject(i);
 
                 String email = jObject.getString("email");
+                String description = jObject.getString("description");
                 String location = jObject.getString("location");
                 String phone = jObject.getString("phone");
                 String picture = jObject.getString("user_picture");
                 String work_time = jObject.getString("work_time");
 
-                user = new User(email, location, phone, picture, work_time);
+                user = new User(email, location, phone, picture, work_time, description);
             }
 
         }

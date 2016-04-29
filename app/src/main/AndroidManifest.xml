@@ -29,21 +29,19 @@
         <activity
             android:name=".loginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/HiddenTitleTheme"
-            />
+            android:theme="@style/HiddenTitleTheme" />
         <activity
             android:name=".SignupActivity"
             android:label="@string/title_activity_signup"
-            android:theme="@style/HiddenTitleTheme"        />
+            android:theme="@style/HiddenTitleTheme" />
         <activity
             android:name=".FoodActivity"
             android:label="Menu"
-            android:theme="@style/HiddenTitleTheme"
-            />
+            android:theme="@style/HiddenTitleTheme" />
         <activity
             android:name=".addFoodActivity"
             android:label="@string/title_activity_add_food"
-            android:theme="@style/HiddenTitleTheme"/>
+            android:theme="@style/HiddenTitleTheme" />
         <activity
             android:name=".ReviewActivity"
             android:label="Review" />
@@ -51,7 +49,12 @@
             android:name=".ProfileActivity"
             android:label="Profile"
             android:theme="@style/AppTheme.Dark" />
-        <activity android:name=".EditProfileActivity"></activity>
+        <activity android:name=".EditProfileActivity" />
+        <activity
+            android:name=".addNewFoodActivity"
+            android:label="@string/title_activity_add_new_food"
+            android:theme="@style/HiddenTitleTheme"
+        />
     </application>
 
 </manifest>

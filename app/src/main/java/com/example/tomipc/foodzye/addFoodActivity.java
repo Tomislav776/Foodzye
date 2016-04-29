@@ -70,8 +70,8 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
     User user;
     HttpURLConnection connection;
     AutoCompleteTextView ACText;
-    EditText FoodPrice, FoodDescription;
-    Button addFoodButton, addNewFoodButton, CapturePictureButton, ChoosePictureButton;
+    EditText AddFoodNameEditText, FoodPrice, FoodDescription;
+    Button addFoodButton, CapturePictureButton, ChoosePictureButton;
     Spinner spinner;
     DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
@@ -79,7 +79,7 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
     ProgressDialog progressDialog;
     ImageView imgPreview;
     ArrayList<Food> arrayOfFood;
-    private String foodJSON, foodImage, encoded_string, filePath, description, price, currency;
+    private String foodJSON, foodImage, encoded_string, filePath, name, description, price, currency;
     private int food_id;
     Food chosenFood;
     private Bitmap bitmap;
@@ -172,10 +172,10 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
         }
 
         ACText = (AutoCompleteTextView) findViewById(R.id.acText);
+        AddFoodNameEditText = (EditText) findViewById(R.id.AddFoodNameEditText);
         FoodPrice = (EditText) findViewById(R.id.FoodPrice);
         FoodDescription = (EditText) findViewById(R.id.FoodDescription);
         addFoodButton = (Button) findViewById(R.id.AddFoodButton);
-        addNewFoodButton = (Button) findViewById(R.id.AddNewFoodButton);
         CapturePictureButton = (Button) findViewById(R.id.take_picture);
         ChoosePictureButton = (Button) findViewById(R.id.choose_picture);
         progressDialog = new ProgressDialog(addFoodActivity.this, R.style.AppTheme_Dark_Dialog);
@@ -225,8 +225,9 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
         addFoodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                name = AddFoodNameEditText.getText().toString();
                 price = FoodPrice.getText().toString();
-                description = FoodPrice.getText().toString();
+                description = FoodDescription.getText().toString();
                 progressDialog.show();
                 new Upload_Food().execute("http://164.132.228.255/postMenu");
             }
@@ -242,7 +243,11 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
             public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
                 chosenFood = (Food) parent.getItemAtPosition(position);
                 if (chosenFood.name.equals("There is no such food. Click me if you want to add it.")) {
-                    addNewFoodButton.setVisibility(View.VISIBLE);
+                    //addNewFoodButton.setVisibility(View.VISIBLE);
+                    Intent i = new Intent(view.getContext(), addNewFoodActivity.class);
+                    startActivity(i);
+                    finish();
+
                 } else {
                     Toast.makeText(addFoodActivity.this, chosenFood.name, Toast.LENGTH_LONG).show();
                     food_id = chosenFood.id;
@@ -534,8 +539,9 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
             data.put("encoded_string", encoded_string);
             data.put("food_id", Integer.toString(food_id));
             data.put("image_name", foodImage);
-            data.put("user_id", Integer.toString(user.id));
-            data.put("user_slug", user.slug);
+            data.put("user_id", Integer.toString(user.getId()));
+            data.put("user_slug", user.getSlug());
+            data.put("name", name);
             data.put("price", price);
             data.put("currency", currency);
             data.put("description", description);
@@ -548,6 +554,13 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
                 Log.d("Debug", "URL je " + url);
                 Log.d("Debug", "Slika " + data.get("encoded_string"));
                 Log.d("Debug", "Ime " + data.get("image_name"));
+                Log.d("Debug", "user_id " + data.get("user_id"));
+                Log.d("Debug", "user_slug " + data.get("user_slug"));
+                Log.d("Debug", "name " + data.get("name"));
+                Log.d("Debug", "price " + data.get("price"));
+                Log.d("Debug", "currency " + data.get("currency"));
+                Log.d("Debug", "description " + data.get("description"));
+
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(15000);

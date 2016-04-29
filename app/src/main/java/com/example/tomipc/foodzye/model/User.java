@@ -49,12 +49,13 @@ public class User implements Serializable {
         this.rate = rate;
     }
 
-    public User(String email, String location, String phone, String picture, String work_time){
+    public User(String email, String location, String phone, String picture, String work_time, String description){
         this.email = email;
         this.location = location;
         this.phone = phone;
         this.picture = picture;
         this.work_time = work_time;
+        this.description = description;
     }
 
     public int getId() {

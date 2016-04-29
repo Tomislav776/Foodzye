@@ -52,7 +52,6 @@ public class ProfileActivity extends Navigation {
 
         //if conditions to render the proper profile layout depending on the role of the user whose profile you are opening
         if (user_id != null) {
-            //int id, String name, String slug, String email, int role, String location, String phone, String work_time, String user_picture, String description, float rate
             user = new User(place.getId(),place.getName(), place.getSlug() , place.getEmail(), place.getRole() , place.getLocation(), place.getPhone(), place.getWork_time(), place.getPicture(),place.getDescription(),(float) place.getRate());
             setContentView(R.layout.activity_profile);
             // Setup the viewPager

@@ -44,10 +44,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
     protected DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
-    EditText EmailEditText, LocationEditText, PhoneEditText, WorkTimeEditText;
+    EditText EmailEditText, DescriptionEditText , LocationEditText, PhoneEditText, WorkTimeEditText;
     Button EditProfileButton, TakePictureButton, ChoosePictureButton;
     ImageView imgPreview;
-    String email, location, phone, workTime, foodImage, filePath;
+    String email, description, location, phone, workTime, foodImage, filePath;
     String encoded_picture_string = null;
     UserLocalStore userLocalStore;
     User user;
@@ -130,6 +130,7 @@ public class EditProfileActivity extends AppCompatActivity {
         getUserData();
 
         EmailEditText = (EditText) findViewById(R.id.EmailEditText);
+        DescriptionEditText = (EditText) findViewById(R.id.DescriptionEditText);
         LocationEditText = (EditText) findViewById(R.id.LocationEditText);
         PhoneEditText = (EditText) findViewById(R.id.PhoneEditText);
         WorkTimeEditText = (EditText) findViewById(R.id.WorkHoursEditText);
@@ -139,6 +140,7 @@ public class EditProfileActivity extends AppCompatActivity {
         imgPreview = (ImageView) findViewById(R.id.imageView2);
 
         if(user.getEmail() != null) EmailEditText.setText(user.getEmail());
+        if(user.getDescription() != null) DescriptionEditText.setText(user.getDescription());
         if(user.getLocation() != null) LocationEditText.setText(user.getLocation());
         if(user.getPhone() != null) PhoneEditText.setText(user.getPhone());
         if(user.getWork_time() != null) WorkTimeEditText.setText(user.getWork_time());
@@ -174,11 +176,13 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 email = EmailEditText.getText().toString();
+                description = DescriptionEditText.getText().toString();
                 location = LocationEditText.getText().toString();
                 phone = PhoneEditText.getText().toString();
                 workTime = WorkTimeEditText.getText().toString();
                 data = new HashMap<String, String>();
                 data.put("email", email);
+                data.put("description", description);
                 data.put("slug", user.getSlug());
                 data.put("location", location);
                 data.put("phone", phone);
@@ -189,18 +193,40 @@ public class EditProfileActivity extends AppCompatActivity {
                     data.put("encoded_string", encoded_picture_string);
                     data.put("image_name", foodImage);
                 }
-                System.out.println(data.get("encoded_string"));
                 db.insert(data, postRoute);
+                setUserData();
             }
         });
     }
 
     private void getUserData() {
         db = new Database(EditProfileActivity.this);
-        User user2 = db.getUserData(getRoute, Integer.toString(user.id));
+        User user2 = db.getUserData(getRoute, Integer.toString(user.getId()));
         SharedPreferences.Editor userLocalDatabaseEditor = userLocalStore.userLocalDatabase.edit();
         userLocalDatabaseEditor.putString("email", user2.getEmail());
         user.setEmail(user2.getEmail());
+        userLocalDatabaseEditor.putString("description", user2.getDescription());
+        user.setDescription(user2.getDescription());
+        userLocalDatabaseEditor.putString("location", user2.getLocation());
+        user.setLocation(user2.getLocation());
+        userLocalDatabaseEditor.putString("phone", user2.getPhone());
+        user.setPhone(user2.getPhone());
+        userLocalDatabaseEditor.putString("work_time", user2.getWork_time());
+        user.setWork_time(user2.getWork_time());
+        userLocalDatabaseEditor.putString("user_picture", user2.getPicture());
+        user.setPicture(user2.getPicture());
+        userLocalDatabaseEditor.commit();
+    }
+
+    private void setUserData() {
+        db = new Database(EditProfileActivity.this);
+        User user2 = db.getUserData(getRoute, Integer.toString(user.getId()));
+        System.out.println("Opis " + user2.getDescription());
+        SharedPreferences.Editor userLocalDatabaseEditor = userLocalStore.userLocalDatabase.edit();
+        userLocalDatabaseEditor.putString("email", user2.getEmail());
+        user.setEmail(user2.getEmail());
+        userLocalDatabaseEditor.putString("description", user2.getDescription());
+        user.setDescription(user2.getDescription());
         userLocalDatabaseEditor.putString("location", user2.getLocation());
         user.setLocation(user2.getLocation());
         userLocalDatabaseEditor.putString("phone", user2.getPhone());
