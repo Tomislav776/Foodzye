@@ -112,6 +112,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if (menuItem.getItemId() == R.id.nav_item_edit_profile) {
                     Intent i = new Intent(ProfileActivity.this, EditProfileActivity.class);
                     startActivity(i);
+                    finish();
                 }
 
                 if (menuItem.getItemId() == R.id.nav_item_login) {
