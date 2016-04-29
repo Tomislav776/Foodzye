@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.tomipc.foodzye.Database;
 import com.example.tomipc.foodzye.DividerItemDecoration;
@@ -20,6 +21,7 @@ import com.example.tomipc.foodzye.ProfileActivity;
 import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.adapter.ReviewAdapter;
 import com.example.tomipc.foodzye.model.Review;
+import com.example.tomipc.foodzye.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,11 +34,13 @@ public class ProfileFragmentProfileTab extends Fragment {
 
     Database db;
     Context c;
+    User user;
 
     private RecyclerView recycleReviewList;
     private Button SendReviewButton;
     private AppCompatRatingBar FoodServiceProviderUserReviewRatingBar;
     private EditText ReviewEditText;
+    private TextView DescriptionTextView, EmailTextView, PhoneTextView, WorkHoursTextView, ReviewTextView, ReviewTextView2;
 
     private Review reviewObj;
     private int user_id, logged_in_user_id;
@@ -53,12 +57,35 @@ public class ProfileFragmentProfileTab extends Fragment {
         ProfileActivity activity = (ProfileActivity) getActivity();
         user_id = activity.getUserId();
         logged_in_user_id = activity.getLoggedInUserId();
+        user = activity.getUser();
 
         db = new Database(c);
 
         SendReviewButton = (Button) view.findViewById(R.id.SendPlaceReviewButton);
         FoodServiceProviderUserReviewRatingBar = (AppCompatRatingBar) view.findViewById(R.id.FoodServiceProviderUserReviewRatingBar);
         ReviewEditText = (EditText) view.findViewById(R.id.ReviewEditTextView);
+        DescriptionTextView = (TextView) view.findViewById(R.id.DescriptionTextView);
+        EmailTextView = (TextView) view.findViewById(R.id.EmailTextView);
+        PhoneTextView = (TextView) view.findViewById(R.id.PhoneTextView);
+        WorkHoursTextView = (TextView) view.findViewById(R.id.WorkHoursTextView);
+        ReviewTextView = (TextView) view.findViewById(R.id.ReviewTextView);
+        ReviewTextView2 = (TextView) view.findViewById(R.id.ReviewTextView2);
+
+
+        DescriptionTextView.setText(user.getDescription());
+        EmailTextView.setText(user.getEmail());
+        PhoneTextView.setText(user.getPhone());
+        WorkHoursTextView.setText(user.getWork_time());
+
+        System.out.println("User id je " + user_id + " logged i user id je " + logged_in_user_id);
+
+        if(user_id == logged_in_user_id){
+            ReviewTextView.setVisibility(View.GONE);
+            ReviewEditText.setVisibility(View.GONE);
+            FoodServiceProviderUserReviewRatingBar.setVisibility(View.GONE);
+            SendReviewButton.setVisibility(View.INVISIBLE);
+        }
+
 
         SendReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override

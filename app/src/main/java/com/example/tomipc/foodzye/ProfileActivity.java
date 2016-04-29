@@ -1,19 +1,15 @@
 package com.example.tomipc.foodzye;
 
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +27,7 @@ public class ProfileActivity extends Navigation {
     User user;
     ImageView ProfileImageView;
     TextView UserNameTextView, x;
+    AppCompatRatingBar rating;
 
     private String[] navMenuTitles;
     private TypedArray navMenuIcons;
@@ -55,7 +52,8 @@ public class ProfileActivity extends Navigation {
 
         //if conditions to render the proper profile layout depending on the role of the user whose profile you are opening
         if (user_id != null) {
-            user = new User(place.getId(), place.getRole() ,place.getName(), place.getEmail(), place.getLocation(), place.getPhone(), place.getPicture(), place.getWork_time(), place.getRate());
+            //int id, String name, String slug, String email, int role, String location, String phone, String work_time, String user_picture, String description, float rate
+            user = new User(place.getId(),place.getName(), place.getSlug() , place.getEmail(), place.getRole() , place.getLocation(), place.getPhone(), place.getWork_time(), place.getPicture(),place.getDescription(),(float) place.getRate());
             setContentView(R.layout.activity_profile);
             // Setup the viewPager
             ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager2);
@@ -70,6 +68,8 @@ public class ProfileActivity extends Navigation {
 
             toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar2);
             ProfileImageView = (ImageView) findViewById(R.id.ProfilePictureImageView);
+            rating = (AppCompatRatingBar) findViewById(R.id.FoodServiceProviderRatingBar);
+            rating.setRating((float)user.getRate());
             UserNameTextView = (TextView) findViewById(R.id.UserNameTextView);
         }else if(user.getRole() == 2){
             setContentView(R.layout.activity_profile);
@@ -86,6 +86,8 @@ public class ProfileActivity extends Navigation {
 
             toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar2);
             ProfileImageView = (ImageView) findViewById(R.id.ProfilePictureImageView);
+            rating = (AppCompatRatingBar) findViewById(R.id.FoodServiceProviderRatingBar);
+            rating.setRating((float)user.getRate());
             UserNameTextView = (TextView) findViewById(R.id.UserNameTextView);
         }
         else{
@@ -119,6 +121,8 @@ public class ProfileActivity extends Navigation {
     }
 
     public int getLoggedInUserId() { return userLocalStore.getLoggedInUser().getId(); }
+
+    public User getUser() { return user; }
 
     public int getUserRole(){
         return user.getRole();

@@ -9,7 +9,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,12 +21,9 @@ import android.widget.Toast;
 
 import com.example.tomipc.foodzye.Database;
 import com.example.tomipc.foodzye.DividerItemDecoration;
-import com.example.tomipc.foodzye.FoodActivity;
 import com.example.tomipc.foodzye.ProfileActivity;
 import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.adapter.PlaceAdapter;
-import com.example.tomipc.foodzye.model.Food;
-import com.example.tomipc.foodzye.model.Menu;
 import com.example.tomipc.foodzye.model.Place;
 
 import java.util.ArrayList;
@@ -182,7 +178,7 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
             }
 
             for (Place value : arrayOfPlace) {
-                place = new Place(value.getId(), value.getRole(), value.getName(), value.getEmail(), value.getLocation(), value.getPhone(), value.getPicture(), value.getWork_time(), value.getRate());
+                place = new Place(value.getId(), value.getRole(), value.getName(), value.getEmail(), value.getSlug(), value.getLocation(), value.getPhone(), value.getPicture(), value.getWork_time(), value.getRate(), value.getDescription());
 
                 placeList.add(place);
             }

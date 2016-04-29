@@ -26,6 +26,8 @@ public class UserLocalStore {
         userLocalDatabaseEditor.putString("phone", user.getPhone());
         userLocalDatabaseEditor.putString("work_time", user.getWork_time());
         userLocalDatabaseEditor.putString("user_picture", user.getPicture());
+        userLocalDatabaseEditor.putString("description", user.getDescription());
+        userLocalDatabaseEditor.putFloat("rate_total", (float)user.getRate());
         userLocalDatabaseEditor.commit();
     }
 
@@ -57,9 +59,10 @@ public class UserLocalStore {
         String phone = userLocalDatabase.getString("phone", "");
         String work_time = userLocalDatabase.getString("work_time", "");
         String user_picture = userLocalDatabase.getString("user_picture", "");
+        String description = userLocalDatabase.getString("description", "");
+        float rate = userLocalDatabase.getFloat("rate_total", 0);
 
-
-        User user = new User(id, username, slug, email, role, location, phone, work_time, user_picture);
+        User user = new User(id, username, slug, email, role, location, phone, work_time, user_picture, description, rate);
         return user;
     }
 

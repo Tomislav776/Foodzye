@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     public int id, role;
-    public String username, email, slug, location, phone, picture, work_time;
+    public String username, email, slug, location, phone, picture, work_time, description;
     private double rate;
 
     public User(String username, String email, int role){
@@ -35,7 +35,7 @@ public class User implements Serializable {
         this.slug = slug;
     }
 
-    public User(int id, String name, String slug, String email, int role, String location, String phone, String work_time, String user_picture){
+    public User(int id, String name, String slug, String email, int role, String location, String phone, String work_time, String user_picture, String description, float rate){
         this.id = id;
         username = name;
         this.email = email;
@@ -45,6 +45,8 @@ public class User implements Serializable {
         this.phone = phone;
         this.work_time = work_time;
         picture = user_picture;
+        this.description = description;
+        this.rate = rate;
     }
 
     public User(String email, String location, String phone, String picture, String work_time){
@@ -133,5 +135,13 @@ public class User implements Serializable {
 
     public void setRate(double rate) {
         this.rate = rate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

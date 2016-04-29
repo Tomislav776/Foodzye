@@ -105,8 +105,10 @@ public class loginActivity extends AppCompatActivity  {
                         String location = jObject.getString("location");
                         String phone = jObject.getString("phone");
                         String work_time = jObject.getString("work_time");
+                        String description = jObject.getString("description");
+                        float rate = (float)jObject.getDouble("rate_total");
                         int user_id = jObject.getInt("id");
-                        User user = new User(user_id, name, user_slug, email, role, location, phone, work_time, user_picture);
+                        User user = new User(user_id, name, user_slug, email, role, location, phone, work_time, user_picture, description, rate);
                         logUserIn(user);
                     }catch (JSONException e){
                         e.printStackTrace();
@@ -136,7 +138,8 @@ public class loginActivity extends AppCompatActivity  {
 
     public void onLoginSuccess() {
         LoginButton.setEnabled(true);
-
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
         finish();
     }
 
