@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -18,30 +20,41 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tomipc.foodzye.adapter.DrawerAdapter;
 import com.example.tomipc.foodzye.fragments.FoodFragmentFood;
 import com.example.tomipc.foodzye.fragments.FoodFragmentPlace;
+import com.example.tomipc.foodzye.model.DrawerItem;
 import com.example.tomipc.foodzye.model.User;
 
+import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends Navigation {
 
 
     UserLocalStore userLocalStore;
     User user;
+    // nav drawer title
+    private String[] navMenuTitles;
+    private TypedArray navMenuIcons;
 
-    //Navigacija
-    protected DrawerLayout mDrawerLayout;
-    NavigationView mNavigationView;
-    FragmentManager mFragmentManager;
-    FragmentTransaction mFragmentTransaction;
-    MenuItem item;
+    // used to store app title
+    private CharSequence mTitle;
 
-    private TextView usernameNav;
+    private ArrayList<DrawerItem> navDrawerItems;
+    private DrawerAdapter adapter;
+
+    private android.support.v7.widget.Toolbar toolbar;
+
 
 
     @Override
@@ -51,25 +64,13 @@ public class MainActivity extends AppCompatActivity {
 
         userLocalStore = new UserLocalStore(this);
 
-        /**
-         *Setup the DrawerLayout and NavigationView
-         */
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mNavigationView = (NavigationView) findViewById(R.id.shitstuff) ;
-
-        /**
-         * Lets inflate the very first fragment
-         * Here , we are inflating the TabFragment as the first Fragment
-         */
-
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
+        navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
+        System.out.println("naslov"+navMenuTitles[0]);
+        set(navMenuTitles, navMenuIcons, toolbar);
 
         checkForPermissions();
-
-
-        /**
-         * Setup click events on the Navigation View Items.
-         */
 
         // Setup the viewPager
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -81,64 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
         // This method ensures that tab selection events update the ViewPager and page changes update the selected tab.
         tabLayout.setupWithViewPager(viewPager);
-
-        /**
-         * Set name of logged user
-         */
-        setNavigationName();
-
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                mDrawerLayout.closeDrawers();
-
-                if (menuItem.getItemId() == R.id.nav_item_profile) {
-                    Intent i = new Intent(MainActivity.this, ProfileActivity.class);
-                    startActivity(i);
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_edit_profile) {
-                    Intent i = new Intent(MainActivity.this, EditProfileActivity.class);
-                    startActivity(i);
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_login) {
-                    Intent i = new Intent(MainActivity.this, loginActivity.class);
-                    startActivity(i);
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_food) {
-                    Intent i = new Intent(MainActivity.this, addFoodActivity.class);
-                    startActivity(i);
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_logout) {
-                    userLocalStore.clearUserData();
-                    userLocalStore.setUserLoggedIn(false);
-
-                    onResume();
-                }
-
-                return false;
-            }
-
-        });
-
-        /**
-         * Setup Drawer Toggle of the Toolbar
-         */
-
-        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout, toolbar,R.string.app_name,
-                R.string.app_name);
-
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-
-        getSupportActionBar().hide();
-
-        mDrawerToggle.syncState();
-
     }
+
 
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
 
@@ -215,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
             displayUserDetails();
         }
     }
-
+/*
     public void setNavigationName() {
         user = userLocalStore.getLoggedInUser();
 
@@ -247,12 +192,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-    }
+    }*/
 
     @Override
     protected void onResume() {
         super.onResume();
-        setNavigationName();
+      //  setNavigationName();
     }
 
 
@@ -291,4 +236,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
 }
+

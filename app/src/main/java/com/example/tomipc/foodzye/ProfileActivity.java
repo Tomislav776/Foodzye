@@ -1,6 +1,7 @@
 package com.example.tomipc.foodzye;
 
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -23,15 +24,16 @@ import com.example.tomipc.foodzye.fragments.ProfileFragmentProfileTab;
 import com.example.tomipc.foodzye.model.Place;
 import com.example.tomipc.foodzye.model.User;
 
-public class ProfileActivity extends AppCompatActivity {
-    protected DrawerLayout mDrawerLayout;
-    NavigationView mNavigationView;
+public class ProfileActivity extends Navigation {
     Toolbar toolbar;
     ActionBarDrawerToggle mDrawerToggle;
     UserLocalStore userLocalStore;
     User user;
     ImageView ProfileImageView;
     TextView UserNameTextView, x;
+
+    private String[] navMenuTitles;
+    private TypedArray navMenuIcons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             // This method ensures that tab selection events update the ViewPager and page changes update the selected tab.
             tabLayout.setupWithViewPager(viewPager);
-            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout2);
-            mNavigationView = (NavigationView) findViewById(R.id.shitstuff2);
+
             toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar2);
             ProfileImageView = (ImageView) findViewById(R.id.ProfilePictureImageView);
             UserNameTextView = (TextView) findViewById(R.id.UserNameTextView);
@@ -82,69 +83,20 @@ public class ProfileActivity extends AppCompatActivity {
 
             // This method ensures that tab selection events update the ViewPager and page changes update the selected tab.
             tabLayout.setupWithViewPager(viewPager);
-            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout2);
-            mNavigationView = (NavigationView) findViewById(R.id.shitstuff2);
+
             toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar2);
             ProfileImageView = (ImageView) findViewById(R.id.ProfilePictureImageView);
             UserNameTextView = (TextView) findViewById(R.id.UserNameTextView);
         }
         else{
             setContentView(R.layout.activity_profile_user);
-            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayoutUserProfile);
-            mNavigationView = (NavigationView) findViewById(R.id.shitstuffUserProfile);
+
             toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbarUserProfile);
             ProfileImageView = (ImageView) findViewById(R.id.ProfilePictureImageViewUserProfile);
             UserNameTextView = (TextView) findViewById(R.id.UserNameTextViewUserProfile);
             x = (TextView) findViewById(R.id.textViewX);
             x.setText("fkdsfkdsiofs");
         }
-
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                mDrawerLayout.closeDrawers();
-
-                if (menuItem.getItemId() == R.id.nav_item_home) {
-                    Intent i = new Intent(ProfileActivity.this, MainActivity.class);
-                    startActivity(i);
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_edit_profile) {
-                    Intent i = new Intent(ProfileActivity.this, EditProfileActivity.class);
-                    startActivity(i);
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_login) {
-                    Intent i = new Intent(ProfileActivity.this, loginActivity.class);
-                    startActivity(i);
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_food) {
-                    Intent i = new Intent(ProfileActivity.this, addFoodActivity.class);
-                    startActivity(i);
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_logout) {
-                    userLocalStore.clearUserData();
-                    userLocalStore.setUserLoggedIn(false);
-                    Intent i = new Intent(ProfileActivity.this, MainActivity.class);
-                    startActivity(i);
-                }
-
-                return false;
-            }
-
-        });
-
-        /**
-         * Setup Drawer Toggle of the Toolbar
-         */
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
-
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-
-
-        mDrawerToggle.syncState();
 
         if(user.getPicture() != null && !user.getPicture().equals("")){
             ProfileImageView.setVisibility(View.VISIBLE);
@@ -154,6 +106,12 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         UserNameTextView.setText(user.getUsername());
+
+
+        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
+        navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
+        System.out.println("naslov"+navMenuTitles[0]);
+        set(navMenuTitles, navMenuIcons, toolbar);
     }
 
     public int getUserId(){

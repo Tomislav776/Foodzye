@@ -8,37 +8,46 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main"
     tools:context=".MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/food_fragment_linear_above">
+
+        <AutoCompleteTextView
+            android:id="@+id/food_fragment_search"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight=".70"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/input"
+            android:hint="Search..."
+            android:textColor="#c0392b"
+            android:textColorHint="#000000"
+            android:gravity="center"
+            android:textSize="17dp"
+            android:completionThreshold="1"
+            android:padding="10dp" />
 
 
-    <AutoCompleteTextView
-        android:id="@+id/food_fragment_search"
-        android:layout_width="210dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/input"
-        android:hint="Search..."
-        android:textColor="#c0392b"
-        android:textColorHint="#000000"
-        android:gravity="center"
-        android:textSize="17dp"
-        android:completionThreshold="1"
-        android:padding="10dp" />
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight=".30"
+            android:background="@drawable/input"
+            android:id="@+id/food_fragment_sort"
+            android:padding="10dp"
+            android:gravity="center"
+            android:spinnerMode="dropdown"
+            android:layout_toRightOf="@+id/food_fragment_search" />
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="53dp"
-        android:background="@drawable/kat_sort"
-        android:id="@+id/food_fragment_sort"
-        android:padding="10dp"
-        android:gravity="center"
-        android:spinnerMode="dropdown"
-        android:layout_toRightOf="@+id/food_fragment_search" />
+    </LinearLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        android:layout_below="@+id/food_fragment_search"/>
+        android:layout_below="@+id/food_fragment_linear_above"/>
 
 </RelativeLayout>
