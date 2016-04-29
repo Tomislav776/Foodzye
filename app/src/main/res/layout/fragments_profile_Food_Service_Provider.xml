@@ -69,6 +69,7 @@
         android:id="@+id/FoodServiceProviderUserReviewRatingBar"
         android:layout_centerHorizontal="true"
         android:theme="@style/RatingBar"
+        style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
         android:isIndicator="false"
         android:layout_below="@id/ReviewTextView"
         android:layout_marginTop="10dp" />

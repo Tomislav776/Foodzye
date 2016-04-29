@@ -6,7 +6,10 @@ import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -133,7 +136,7 @@ public class EditProfileActivity extends AppCompatActivity {
         TakePictureButton = (Button) findViewById(R.id.TakePictureButton);
         ChoosePictureButton = (Button) findViewById(R.id.ChoosePictureButton);
         EditProfileButton = (Button) findViewById(R.id.EditProfileButton);
-        imgPreview = (ImageView) findViewById(R.id.ProfileImageView);
+        imgPreview = (ImageView) findViewById(R.id.imageView2);
 
         if(user.getEmail() != null) EmailEditText.setText(user.getEmail());
         if(user.getLocation() != null) LocationEditText.setText(user.getLocation());
@@ -186,6 +189,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     data.put("encoded_string", encoded_picture_string);
                     data.put("image_name", foodImage);
                 }
+                System.out.println(data.get("encoded_string"));
                 db.insert(data, postRoute);
             }
         });
@@ -209,19 +213,46 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void previewMedia() {
-        imgPreview.setVisibility(View.VISIBLE);
-
         // bitmap factory
         BitmapFactory.Options options = new BitmapFactory.Options();
 
         // down sizing image as it throws OutOfMemory Exception for larger images
         options.inSampleSize = 8;
+        options.inPurgeable = true;
 
         filePath = file_uri.getPath();
 
-
         bitmap = BitmapFactory.decodeFile(filePath, options);
 
+
+        try{
+            ExifInterface exif = new ExifInterface(Uri.fromFile(getOutputMediaFile()).getPath());
+            int exifRotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_UNDEFINED);
+
+            switch (exifRotation) {
+                case ExifInterface.ORIENTATION_UNDEFINED: {
+                    bitmap = rotateImage(bitmap, 90.0f);
+                    break;
+                }
+                case ExifInterface.ORIENTATION_ROTATE_90: {
+                    bitmap = rotateImage(bitmap, 90.0f);
+                    break;
+                }
+                case ExifInterface.ORIENTATION_ROTATE_180: {
+                    bitmap = rotateImage(bitmap, 180.0f);
+                    break;
+                }
+                case ExifInterface.ORIENTATION_ROTATE_270: {
+                    bitmap = rotateImage(bitmap, 270.0f);
+                    break;
+                }
+            }
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+
+        imgPreview.setVisibility(View.VISIBLE);
         imgPreview.setImageBitmap(bitmap);
     }
 
@@ -247,6 +278,51 @@ public class EditProfileActivity extends AppCompatActivity {
         return result;
     }
 
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Bitmap retVal;
+
+        Matrix matrix = new Matrix();
+        //set image rotation value to an angle in degrees in matrix
+        matrix.postRotate(angle);
+        retVal = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+
+        return retVal;
+    }
+
+    public String getAbsolutePath(Uri uri) {
+        if(Build.VERSION.SDK_INT >= 19){
+            String id = uri.getLastPathSegment().split(":")[1];
+            final String[] imageColumns = {MediaStore.Images.Media.DATA };
+            final String imageOrderBy = null;
+            Uri tempUri = getUri();
+            Cursor imageCursor = getContentResolver().query(tempUri, imageColumns,
+                    MediaStore.Images.Media._ID + "="+id, null, imageOrderBy);
+            if (imageCursor.moveToFirst()) {
+                return imageCursor.getString(imageCursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }else{
+                return null;
+            }
+        }else{
+            String[] projection = { MediaStore.MediaColumns.DATA };
+            Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+            if (cursor != null) {
+                int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+                cursor.moveToFirst();
+                return cursor.getString(column_index);
+            } else
+                return null;
+        }
+
+    }
+
+    private Uri getUri() {
+        String state = Environment.getExternalStorageState();
+        if(!state.equalsIgnoreCase(Environment.MEDIA_MOUNTED))
+            return MediaStore.Images.Media.INTERNAL_CONTENT_URI;
+
+        return MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -254,13 +330,15 @@ public class EditProfileActivity extends AppCompatActivity {
             previewMedia();
         }
 
-        if (requestCode == 100 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
 
             file_uri = data.getData();
             foodImage = getFileName(file_uri);
+
             try {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = 8;
+                options.inPurgeable = true;
                 AssetFileDescriptor fileDescriptor = null;
                 try {
                     fileDescriptor = this.getContentResolver().openAssetFileDescriptor(file_uri, "r");
@@ -271,13 +349,32 @@ public class EditProfileActivity extends AppCompatActivity {
                     try {
                         bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor.getFileDescriptor(), null, options);
                         fileDescriptor.close();
+
+                        ExifInterface exif = new ExifInterface(getAbsolutePath(file_uri));
+                        int exifRotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                                ExifInterface.ORIENTATION_UNDEFINED);
+
+                        switch (exifRotation) {
+                            case ExifInterface.ORIENTATION_ROTATE_90: {
+                                bitmap = rotateImage(bitmap, 90.0f);
+                                break;
+                            }
+                            case ExifInterface.ORIENTATION_ROTATE_180: {
+                                bitmap = rotateImage(bitmap, 180.0f);
+                                break;
+                            }
+                            case ExifInterface.ORIENTATION_ROTATE_270: {
+                                bitmap = rotateImage(bitmap, 270.0f);
+                                break;
+                            }
+                        }
+
+                        imgPreview.setVisibility(View.VISIBLE);
+                        imgPreview.setImageBitmap(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-
-                imgPreview.setVisibility(View.VISIBLE);
-                imgPreview.setImageBitmap(bitmap);
                 final int maxSize = 1280;
                 int outWidth;
                 int outHeight;
@@ -297,6 +394,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 byte[] imageBytes = stream.toByteArray();
                 encoded_picture_string = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                resizedBitmap.recycle();
 
             } catch (Exception e) {
                 e.printStackTrace();

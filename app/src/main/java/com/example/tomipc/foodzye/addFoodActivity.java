@@ -6,8 +6,11 @@ import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -343,14 +346,13 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
             previewMedia();
         }
 
-        if (requestCode == 100 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
 
             file_uri = data.getData();
             foodImage = getFileName(file_uri);
             try {
-                //bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), file_uri);
                 BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 7;
+                options.inSampleSize = 8;
                 options.inPurgeable = true;
                 AssetFileDescriptor fileDescriptor = null;
                 try {
@@ -362,13 +364,30 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
                     try {
                         bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor.getFileDescriptor(), null, options);
                         fileDescriptor.close();
+                        ExifInterface exif = new ExifInterface(getAbsolutePath(file_uri));
+                        int exifRotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                                ExifInterface.ORIENTATION_UNDEFINED);
+
+                        switch (exifRotation) {
+                            case ExifInterface.ORIENTATION_ROTATE_90: {
+                                bitmap = rotateImage(bitmap, 90.0f);
+                                break;
+                            }
+                            case ExifInterface.ORIENTATION_ROTATE_180: {
+                                bitmap = rotateImage(bitmap, 180.0f);
+                                break;
+                            }
+                            case ExifInterface.ORIENTATION_ROTATE_270: {
+                                bitmap = rotateImage(bitmap, 270.0f);
+                                break;
+                            }
+                        }
+                        imgPreview.setVisibility(View.VISIBLE);
+                        imgPreview.setImageBitmap(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-
-                imgPreview.setVisibility(View.VISIBLE);
-                imgPreview.setImageBitmap(bitmap);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -381,17 +400,88 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
         BitmapFactory.Options options = new BitmapFactory.Options();
 
         // down sizing image as it throws OutOfMemory Exception for larger images
-        options.inSampleSize = 7;
+        options.inSampleSize = 8;
         options.inPurgeable = true;
 
         filePath = file_uri.getPath();
 
-
-
         bitmap = BitmapFactory.decodeFile(filePath, options);
+
+        try{
+            ExifInterface exif = new ExifInterface(Uri.fromFile(getOutputMediaFile()).getPath());
+            int exifRotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_UNDEFINED);
+
+            switch (exifRotation) {
+                case ExifInterface.ORIENTATION_UNDEFINED: {
+                    bitmap = rotateImage(bitmap, 90.0f);
+                    break;
+                }
+                case ExifInterface.ORIENTATION_ROTATE_90: {
+                    bitmap = rotateImage(bitmap, 90.0f);
+                    break;
+                }
+                case ExifInterface.ORIENTATION_ROTATE_180: {
+                    bitmap = rotateImage(bitmap, 180.0f);
+                    break;
+                }
+                case ExifInterface.ORIENTATION_ROTATE_270: {
+                    bitmap = rotateImage(bitmap, 270.0f);
+                    break;
+                }
+            }
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }
 
         imgPreview.setImageBitmap(bitmap);
     }
+
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Bitmap retVal;
+
+        Matrix matrix = new Matrix();
+        //set image rotation value to an angle in degrees in matrix
+        matrix.postRotate(angle);
+        retVal = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+
+        return retVal;
+    }
+
+    public String getAbsolutePath(Uri uri) {
+        if(Build.VERSION.SDK_INT >= 19){
+            String id = uri.getLastPathSegment().split(":")[1];
+            final String[] imageColumns = {MediaStore.Images.Media.DATA };
+            final String imageOrderBy = null;
+            Uri tempUri = getUri();
+            Cursor imageCursor = getContentResolver().query(tempUri, imageColumns,
+                    MediaStore.Images.Media._ID + "="+id, null, imageOrderBy);
+            if (imageCursor.moveToFirst()) {
+                return imageCursor.getString(imageCursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }else{
+                return null;
+            }
+        }else{
+            String[] projection = { MediaStore.MediaColumns.DATA };
+            Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+            if (cursor != null) {
+                int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+                cursor.moveToFirst();
+                return cursor.getString(column_index);
+            } else
+                return null;
+        }
+
+    }
+
+    private Uri getUri() {
+        String state = Environment.getExternalStorageState();
+        if(!state.equalsIgnoreCase(Environment.MEDIA_MOUNTED))
+            return MediaStore.Images.Media.INTERNAL_CONTENT_URI;
+
+        return MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+    }
+
 
     private class Upload_Food extends AsyncTask<String, Integer, String> {
 
@@ -438,6 +528,7 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
 
             byte[] imageBytes = stream.toByteArray();
             encoded_string = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+            resizedBitmap.recycle();
 
             HashMap<String,String> data = new HashMap<>();
             data.put("encoded_string", encoded_string);

@@ -165,14 +165,6 @@
         android:padding="12dp"
         android:background="@drawable/button" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:id="@+id/ProfileImageView"
-        android:layout_below="@+id/TakePictureButton"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
