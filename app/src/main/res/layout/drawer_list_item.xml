@@ -21,9 +21,9 @@
         android:layout_height="match_parent"
         android:layout_toRightOf="@id/icon"
         android:text="no text"
-        android:textStyle="bold"
-        android:textSize="12dp"
-        android:textColor="@color/red"
+        android:textStyle=""
+        android:textSize="17dp"
+        android:textColor="@color/black"
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
         android:paddingRight="40dp"/>

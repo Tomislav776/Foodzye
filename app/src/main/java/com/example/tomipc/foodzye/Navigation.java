@@ -7,7 +7,6 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,7 +36,7 @@ public class Navigation extends AppCompatActivity {
     android.support.v7.widget.Toolbar toolbar;
 
 
-String pressed;
+    String pressed;
     private ArrayList<DrawerItem> navDrawerItems;
     private DrawerAdapter adapter;
 
@@ -253,7 +252,7 @@ System.out.println("Pressed: " + pressed);
         if (user == null) {
             for (int i = 0; i < navMenuTitles.length; i++) {
                 if(navMenuTitles[i].equals("Login") || navMenuTitles[i].equals("Home"))
-                if (navMenuIcons == null) {
+                if (navMenuIcons != null) {
                     navDrawerItems.add(new DrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
                 } else {
                     navDrawerItems.add(new DrawerItem(navMenuTitles[i]));
@@ -265,7 +264,7 @@ System.out.println("Pressed: " + pressed);
             if (user.getRole() == 1){
                 for (int i = 0; i < navMenuTitles.length; i++) {
                     if(navMenuTitles[i].equals("Logout") || navMenuTitles[i].equals("Profile") || navMenuTitles[i].equals("Edit Profile") || navMenuTitles[i].equals("Home"))
-                        if (navMenuIcons == null) {
+                        if (navMenuIcons != null) {
                             navDrawerItems.add(new DrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
                         } else {
                             navDrawerItems.add(new DrawerItem(navMenuTitles[i]));
@@ -276,7 +275,7 @@ System.out.println("Pressed: " + pressed);
             {
                 for (int i = 0; i < navMenuTitles.length; i++) {
                     if(navMenuTitles[i].equals("Logout") || navMenuTitles[i].equals("Profile") || navMenuTitles[i].equals("Edit Profile") || navMenuTitles[i].equals("Add Food") || navMenuTitles[i].equals("Home"))
-                        if (navMenuIcons == null) {
+                        if (navMenuIcons != null) {
                             navDrawerItems.add(new DrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
                         } else {
                             navDrawerItems.add(new DrawerItem(navMenuTitles[i]));
