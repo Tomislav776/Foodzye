@@ -3,6 +3,7 @@ package com.example.tomipc.foodzye;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -37,7 +38,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
-public class EditProfileActivity extends AppCompatActivity {
+public class EditProfileActivity extends Navigation {
 
     private static String getRoute = "getUser";
     private static String postRoute = "postUserUpdate";
@@ -57,6 +58,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private Uri file_uri;
     private Bitmap bitmap;
 
+    private android.support.v7.widget.Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,64 +69,12 @@ public class EditProfileActivity extends AppCompatActivity {
          *Setup the DrawerLayout and NavigationView
          */
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout3);
-        mNavigationView = (NavigationView) findViewById(R.id.shitstuff3) ;
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        set(toolbar);
 
         /**
          * Setup click events on the Navigation View Items.
          */
-
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                mDrawerLayout.closeDrawers();
-
-
-
-                if (menuItem.getItemId() == R.id.nav_item_home) {
-                    Intent i = new Intent(EditProfileActivity.this, MainActivity.class);
-                    startActivity(i);
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_profile) {
-                    Intent i = new Intent(EditProfileActivity.this, ProfileActivity.class);
-                    startActivity(i);
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_login) {
-                    Intent i = new Intent(EditProfileActivity.this, loginActivity.class);
-                    startActivity(i);
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_food) {
-                    Intent i = new Intent(EditProfileActivity.this, addFoodActivity.class);
-                    startActivity(i);
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_logout) {
-                    userLocalStore.clearUserData();
-                    userLocalStore.setUserLoggedIn(false);
-                    Intent i = new Intent(EditProfileActivity.this, MainActivity.class);
-                    startActivity(i);
-                }
-
-                return false;
-            }
-
-        });
-
-        /**
-         * Setup Drawer Toggle of the Toolbar
-         */
-
-        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar3);
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,R.string.app_name, R.string.app_name);
-
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-
-        getSupportActionBar().hide();
-
-        mDrawerToggle.syncState();
 
         userLocalStore = new UserLocalStore(this);
         user = userLocalStore.getLoggedInUser();

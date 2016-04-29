@@ -29,8 +29,6 @@ public class ProfileActivity extends Navigation {
     TextView UserNameTextView, x;
     AppCompatRatingBar rating;
 
-    private String[] navMenuTitles;
-    private TypedArray navMenuIcons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,10 +107,8 @@ public class ProfileActivity extends Navigation {
         UserNameTextView.setText(user.getUsername());
 
 
-        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
-        navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
         System.out.println("naslov"+navMenuTitles[0]);
-        set(navMenuTitles, navMenuIcons, toolbar);
+        set(toolbar);
     }
 
     public int getUserId(){

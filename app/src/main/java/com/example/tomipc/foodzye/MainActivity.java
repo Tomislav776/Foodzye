@@ -43,9 +43,6 @@ public class MainActivity extends Navigation {
 
     UserLocalStore userLocalStore;
     User user;
-    // nav drawer title
-    private String[] navMenuTitles;
-    private TypedArray navMenuIcons;
 
     // used to store app title
     private CharSequence mTitle;
@@ -65,10 +62,8 @@ public class MainActivity extends Navigation {
         userLocalStore = new UserLocalStore(this);
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
-        navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
-        System.out.println("naslov"+navMenuTitles[0]);
-        set(navMenuTitles, navMenuIcons, toolbar);
+        //navMenuTitles=setVisibility(navMenuTitles);
+        set( toolbar);
 
         checkForPermissions();
 
@@ -160,43 +155,11 @@ public class MainActivity extends Navigation {
             displayUserDetails();
         }
     }
-/*
-    public void setNavigationName() {
-        user = userLocalStore.getLoggedInUser();
-
-        View header = mNavigationView.getHeaderView(0);
-
-        usernameNav = (TextView) header.findViewById(R.id.navigation_name);
-        mNavigationView.getMenu().findItem(R.id.nav_item_home).setVisible(false);
-
-        if (user == null) {
-            usernameNav.setText("Guest");
-            mNavigationView.getMenu().findItem(R.id.nav_item_login).setVisible(true);
-            mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
-            mNavigationView.getMenu().findItem(R.id.nav_item_food).setVisible(false);
-            mNavigationView.getMenu().findItem(R.id.nav_item_profile).setVisible(false);
-            mNavigationView.getMenu().findItem(R.id.nav_item_edit_profile).setVisible(false);
-        } else {
-            usernameNav.setText(user.getUsername());
-            mNavigationView.getMenu().findItem(R.id.nav_item_login).setVisible(false);
-            mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(true);
-            mNavigationView.getMenu().findItem(R.id.nav_item_profile).setVisible(true);
-            mNavigationView.getMenu().findItem(R.id.nav_item_edit_profile).setVisible(true);
-
-            if (user.getRole() == 1){
-                mNavigationView.getMenu().findItem(R.id.nav_item_food).setVisible(false);
-            }
-            else
-            {
-                mNavigationView.getMenu().findItem(R.id.nav_item_food).setVisible(true);
-            }
-        }
-
-    }*/
 
     @Override
     protected void onResume() {
         super.onResume();
+        set(toolbar);
       //  setNavigationName();
     }
 

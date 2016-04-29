@@ -3,6 +3,7 @@ package com.example.tomipc.foodzye;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -62,7 +63,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class addFoodActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class addFoodActivity extends Navigation implements AdapterView.OnItemSelectedListener {
 
     private static final String FOOD_URL = "http://164.132.228.255/getFood";
 
@@ -86,13 +87,15 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
     private File file;
     private Uri file_uri;
 
+    private android.support.v7.widget.Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout2);
-        mNavigationView = (NavigationView) findViewById(R.id.shitstuff2);
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        set( toolbar);
 
         mFragmentManager = getSupportFragmentManager();
 
@@ -100,57 +103,6 @@ public class addFoodActivity extends AppCompatActivity implements AdapterView.On
          * Setup click events on the Navigation View Items.
          */
 
-
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                mDrawerLayout.closeDrawers();
-
-                if (menuItem.getItemId() == R.id.nav_item_home) {
-                    Intent i = new Intent(addFoodActivity.this, MainActivity.class);
-                    startActivity(i);
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_profile) {
-                    Intent i = new Intent(addFoodActivity.this, ProfileActivity.class);
-                    startActivity(i);
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_edit_profile) {
-                    Intent i = new Intent(addFoodActivity.this, EditProfileActivity.class);
-                    startActivity(i);
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_login) {
-                    Intent i = new Intent(addFoodActivity.this, loginActivity.class);
-                    startActivity(i);
-
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_food) {
-                    Intent i = new Intent(addFoodActivity.this, MainActivity.class);
-                    startActivity(i);
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_logout) {
-                    userLocalStore.clearUserData();
-                    userLocalStore.setUserLoggedIn(false);
-                    Intent i = new Intent(addFoodActivity.this, MainActivity.class);
-                    startActivity(i);
-                }
-
-                return false;
-            }
-
-        });
-
-        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar2);
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout, toolbar,R.string.app_name,
-                R.string.app_name);
-
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-
-        mDrawerToggle.syncState();
 
         userLocalStore = new UserLocalStore(this);
         user = userLocalStore.getLoggedInUser();

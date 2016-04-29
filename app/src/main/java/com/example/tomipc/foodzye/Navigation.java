@@ -13,9 +13,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.tomipc.foodzye.adapter.DrawerAdapter;
 import com.example.tomipc.foodzye.model.DrawerItem;
 import com.example.tomipc.foodzye.model.User;
@@ -25,50 +28,47 @@ public class Navigation extends AppCompatActivity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     protected RelativeLayout _completeLayout, _activityLayout;
-    // nav drawer title
-    private CharSequence mDrawerTitle;
+    private TextView mTitle;
+    private com.makeramen.roundedimageview.RoundedImageView mTitleImage;
 
-    // used to store app title
-    private CharSequence mTitle;
 
+    public  String[] navMenuTitles ;
+    public TypedArray navMenuIcons ;
+    android.support.v7.widget.Toolbar toolbar;
+
+
+String pressed;
     private ArrayList<DrawerItem> navDrawerItems;
     private DrawerAdapter adapter;
 
     UserLocalStore userLocalStore;
     User user;
+    private LinearLayout DrawerLinear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer);
-        userLocalStore = new UserLocalStore(this);
+
+        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
+        navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
         // if (savedInstanceState == null) {
         // // on first time display view for first nav item
         // // displayView(0);
         // }
     }
 
-    public void set(String[] navMenuTitles, TypedArray navMenuIcons, android.support.v7.widget.Toolbar toolbar) {
-        mTitle = mDrawerTitle = getTitle();
+    public void set(android.support.v7.widget.Toolbar toolbar) {
+        this.toolbar=toolbar;
+        setNavigationTitle();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        DrawerLinear = (LinearLayout) findViewById(R.id.drawerLinearLayout);
 
         navDrawerItems = new ArrayList<DrawerItem>();
-        System.out.println("naslov2"+navMenuTitles[0]);
         // adding nav drawer items
-        if (navMenuIcons == null) {
-            for (int i = 0; i < navMenuTitles.length; i++) {
-                navDrawerItems.add(new DrawerItem(navMenuTitles[i]));
-                System.out.println("naslov3" + navMenuTitles[0]);
-            }
-        } else {
-            for (int i = 0; i < navMenuTitles.length; i++) {
-                navDrawerItems.add(new DrawerItem(navMenuTitles[i],
-                        navMenuIcons.getResourceId(i, -1)));
-                System.out.println("naslov4" + navMenuTitles[0]);
-            }
-        }
+        setVisibility();
 
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 
@@ -99,6 +99,10 @@ public class Navigation extends AppCompatActivity {
         if(getSupportActionBar() != null)
         getSupportActionBar().hide();
         mDrawerToggle.syncState();
+
+//        System.out.println("Child: " + mDrawerList.getAdapter().getItem(4));
+
+        //setVisibility();
     }
 
     private class SlideMenuClickListener implements
@@ -107,8 +111,37 @@ public class Navigation extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position,
                                 long id) {
             // display view for selected nav drawer item
+            DrawerItem x = (DrawerItem) mDrawerList.getItemAtPosition(position);
+            pressed=x.getTitle();
+
             displayView(position);
         }
+    }
+
+    public void setNavigationTitle() {
+        mTitle = (TextView) findViewById(R.id.navigationTextTitle);
+        mTitleImage = (com.makeramen.roundedimageview.RoundedImageView) findViewById(R.id.navigationProfileImage);
+
+        userLocalStore = new UserLocalStore(this);
+        user = userLocalStore.getLoggedInUser();
+        if (user == null) {
+            mTitle.setText("Guest");
+        }
+        else{
+            mTitle.setText(user.getUsername());
+        }
+
+        if (user == null){
+            mTitleImage.setImageResource(R.drawable.user_def);
+        }
+        else
+        {
+            if (user.getPicture().equals(""))
+                mTitleImage.setImageResource(R.drawable.user_def);
+                else
+                Glide.with(this).load(Database.URL+user.getPicture()).into(mTitleImage);
+        }
+
     }
 
     @Override
@@ -137,8 +170,9 @@ public class Navigation extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
-        // boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        // menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+  //      boolean drawerOpen = mDrawerLayout.isDrawerOpen(DrawerLinear);
+  //     menu.findItem(R.id.).setVisible(false);
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -146,37 +180,38 @@ public class Navigation extends AppCompatActivity {
      * Diplaying fragment view for selected nav drawer list item
      * */
     private void displayView(int position) {
-
-        switch (position) {
-            case 0:
+System.out.println("Pressed: " + pressed);
+        switch (pressed) {
+            case "Home":
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
-                finish();
+
                 break;
-            case 1:
+            case "Profile":
                 Intent intent1 = new Intent(this, ProfileActivity.class);
                 startActivity(intent1);
-                finish();
+
                 break;
-            case 2:
+            case "Edit Profile":
                 Intent intent2 = new Intent(this, EditProfileActivity.class);
                 startActivity(intent2);
-                finish();
+
                 break;
-            case 3:
+            case "Add Food":
                 Intent intent3 = new Intent(this, addFoodActivity.class);
                 startActivity(intent3);
-                finish();
+
                 break;
-            case 4:
+            case "Login":
                 Intent intent4 = new Intent(this, loginActivity.class);
                 startActivity(intent4);
-                finish();
+
                 break;
-            case 5:
+            case "Logout":
                 //logout
                 userLocalStore.clearUserData();
                 userLocalStore.setUserLoggedIn(false);
+                set(toolbar);
                 onResume();
                 break;
             default:
@@ -186,14 +221,9 @@ public class Navigation extends AppCompatActivity {
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
         mDrawerList.setSelection(position);
-        mDrawerLayout.closeDrawer(mDrawerList);
+        mDrawerLayout.closeDrawer(DrawerLinear);
     }
 
-    @Override
-    public void setTitle(CharSequence title) {
-        mTitle = title;
-        //getSupportActionBar().setTitle(mTitle);
-    }
 
     /**
      * When using the ActionBarDrawerToggle, you must call it during
@@ -212,5 +242,48 @@ public class Navigation extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+
+    public void setVisibility() {
+
+        user = userLocalStore.getLoggedInUser();
+
+
+        if (user == null) {
+            for (int i = 0; i < navMenuTitles.length; i++) {
+                if(navMenuTitles[i].equals("Login") || navMenuTitles[i].equals("Home"))
+                if (navMenuIcons == null) {
+                    navDrawerItems.add(new DrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
+                } else {
+                    navDrawerItems.add(new DrawerItem(navMenuTitles[i]));
+                }
+            }
+        }
+        else
+        {
+            if (user.getRole() == 1){
+                for (int i = 0; i < navMenuTitles.length; i++) {
+                    if(navMenuTitles[i].equals("Logout") || navMenuTitles[i].equals("Profile") || navMenuTitles[i].equals("Edit Profile") || navMenuTitles[i].equals("Home"))
+                        if (navMenuIcons == null) {
+                            navDrawerItems.add(new DrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
+                        } else {
+                            navDrawerItems.add(new DrawerItem(navMenuTitles[i]));
+                        }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < navMenuTitles.length; i++) {
+                    if(navMenuTitles[i].equals("Logout") || navMenuTitles[i].equals("Profile") || navMenuTitles[i].equals("Edit Profile") || navMenuTitles[i].equals("Add Food") || navMenuTitles[i].equals("Home"))
+                        if (navMenuIcons == null) {
+                            navDrawerItems.add(new DrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
+                        } else {
+                            navDrawerItems.add(new DrawerItem(navMenuTitles[i]));
+                        }
+                }
+            }
+        }
+
     }
 }
