@@ -37,7 +37,8 @@
         android:layout_below="@id/DescriptionTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -60,7 +61,8 @@
         android:layout_below="@id/PhoneTextView"
         android:layout_alignRight="@id/PhoneTextView"
         android:layout_alignEnd="@id/PhoneTextView"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -83,7 +85,8 @@
         android:layout_below="@id/EmailTextView"
         android:layout_alignLeft="@id/EmailTextView"
         android:layout_alignStart="@id/EmailTextView"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -106,7 +109,7 @@
         android:fontFamily="sans-serif-medium"
         android:textSize="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp" />
+        android:layout_marginTop="300dp" />
 
     <android.support.v7.widget.AppCompatRatingBar
         android:layout_width="wrap_content"
@@ -117,7 +120,7 @@
         style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
         android:isIndicator="false"
         android:layout_below="@id/ReviewTextView"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="20dp" />
 
     <EditText
         android:layout_width="wrap_content"

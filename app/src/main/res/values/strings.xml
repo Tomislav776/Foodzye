@@ -25,12 +25,12 @@
     </string-array>
 
     <array name="nav_drawer_icons">
-        <item>@drawable/ic_launcher</item>
-        <item>@drawable/ic_launcher</item>
-        <item>@drawable/ic_launcher</item>
-        <item>@drawable/ic_launcher</item>
-        <item>@drawable/ic_launcher</item>
-        <item>@drawable/ic_launcher</item>
+        <item>@drawable/home</item>
+        <item>@drawable/profile</item>
+        <item>@drawable/edit_profile</item>
+        <item>@drawable/add_food</item>
+        <item>@drawable/log_in</item>
+        <item>@drawable/log_out</item>
     </array>
 
     <!-- Content Description -->
