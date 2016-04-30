@@ -23,7 +23,7 @@ public class ProfileActivity extends Navigation {
     UserLocalStore userLocalStore;
     User user;
     ImageView ProfileImageView;
-    TextView UserNameTextView, x;
+    TextView UserNameTextView, EmailTextView, LocationtextView, DescriptionTextView;
     AppCompatRatingBar rating;
 
 
@@ -90,8 +90,12 @@ public class ProfileActivity extends Navigation {
             toolbar = (Toolbar) findViewById(R.id.toolbarUserProfile);
             ProfileImageView = (ImageView) findViewById(R.id.ProfilePictureImageViewUserProfile);
             UserNameTextView = (TextView) findViewById(R.id.UserNameTextViewUserProfile);
-            x = (TextView) findViewById(R.id.textViewX);
-            x.setText("fkdsfkdsiofs");
+            EmailTextView = (TextView) findViewById(R.id.textViewEmailShow);
+            EmailTextView.setText(user.getEmail());
+            LocationtextView = (TextView) findViewById(R.id.textViewLocationShow);
+            LocationtextView.setText(user.getLocation());
+            DescriptionTextView = (TextView) findViewById(R.id.textDescriptionShow);
+            DescriptionTextView.setText(user.getDescription());
         }
 
         if(user.getPicture() != null && !user.getPicture().equals("")){
@@ -118,10 +122,6 @@ public class ProfileActivity extends Navigation {
     }
 
     public User getUser() { return user; }
-
-    public int getUserRole(){
-        return user.getRole();
-    }
 
     public class MyPagerAdapter extends FragmentStatePagerAdapter {
 

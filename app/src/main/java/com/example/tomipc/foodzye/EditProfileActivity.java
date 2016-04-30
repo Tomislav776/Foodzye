@@ -75,6 +75,10 @@ public class EditProfileActivity extends Navigation {
         EditProfileButton = (Button) findViewById(R.id.EditProfileButton);
         imgPreview = (ImageView) findViewById(R.id.imageView2);
 
+        if(user.getRole() == 1){
+            WorkTimeEditText.setVisibility(View.GONE);
+        }
+
         if(user.getEmail() != null) EmailEditText.setText(user.getEmail());
         if(user.getDescription() != null) DescriptionEditText.setText(user.getDescription());
         if(user.getLocation() != null) LocationEditText.setText(user.getLocation());
