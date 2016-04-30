@@ -140,7 +140,11 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        task.execute(Database.URL + "register");
+        try{
+            task.execute(Database.URL + "register").get();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
     }
 
