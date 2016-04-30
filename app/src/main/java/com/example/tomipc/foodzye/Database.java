@@ -55,7 +55,7 @@ public class Database {
         PostResponseAsyncTask task = new PostResponseAsyncTask(context, data, new AsyncResponse() {
             @Override
             public void processFinish(String result) {
-                System.out.println(result);
+
                 if (result.equals("success")) {
                     Toast.makeText(context, "Success", Toast.LENGTH_LONG).show();
 
@@ -365,7 +365,7 @@ public class Database {
             try {
                 URL url = null;
                 String response = null;
-                //System.out.println("Teest: "+urls[0]);
+
                 url = new URL(urls[0]);
 
                 //create the connection

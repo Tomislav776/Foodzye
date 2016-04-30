@@ -167,7 +167,6 @@ public class FoodActivity extends AppCompatActivity {
         rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
-                //System.out.println(rating);
                 ratingSelected = rating;
             }
         });

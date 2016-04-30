@@ -20,8 +20,10 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.tomipc.foodzye.Database;
 import com.example.tomipc.foodzye.DividerItemDecoration;
 import com.example.tomipc.foodzye.FoodActivity;
@@ -101,7 +103,8 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
             public void onClick(View view, int position) {
                 Menu menu = menuList.get(position);
 
-                View sharedView = (com.makeramen.roundedimageview.RoundedImageView) getActivity().findViewById(R.id.image_food);
+                TextView sharedView = (TextView) view.findViewById(R.id.name_food);
+                //Glide.with(getActivity()).load(Database.URL + menu.getImage()).into(sharedView);
 
                 //Mine improv
                 Intent foodActivity = new Intent(getActivity(), FoodActivity.class);
@@ -216,7 +219,6 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
         food = new String[arrayOfFood2.size()];
 
         for(Food value: arrayOfFood2) {
-           System.out.println(value.name);
             food[i]=value.name;
             i++;
         }

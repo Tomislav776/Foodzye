@@ -303,7 +303,7 @@ public class EditProfileActivity extends Navigation {
     private void setUserData() {
         db = new Database(EditProfileActivity.this);
         User user2 = db.getUserData(getRoute, Integer.toString(user.getId()));
-        System.out.println("Opis " + user2.getDescription());
+
         SharedPreferences.Editor userLocalDatabaseEditor = userLocalStore.userLocalDatabase.edit();
         userLocalDatabaseEditor.putString("email", user2.getEmail());
         user.setEmail(user2.getEmail());

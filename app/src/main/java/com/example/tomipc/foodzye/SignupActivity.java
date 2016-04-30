@@ -113,7 +113,6 @@ public class SignupActivity extends AppCompatActivity {
             }*/
             @Override
             public void processFinish(String result) {
-                System.out.println(result);
                 if(result.equals("fail")) {
                     progressDialog.dismiss();
                     onSignupFailed();

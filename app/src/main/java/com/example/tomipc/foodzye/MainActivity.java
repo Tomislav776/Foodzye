@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends Navigation {
 
-
     UserLocalStore userLocalStore;
     User user;
 

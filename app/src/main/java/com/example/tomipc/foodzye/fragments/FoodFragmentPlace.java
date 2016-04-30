@@ -133,7 +133,6 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
     public class CustomComparator implements Comparator<Place> {
         @Override
         public int compare(Place left, Place right) {
-            System.out.println(sortBy);
             if (sortBy.equals("Rating")){
                 return String.valueOf(right.getRate()).compareTo(String.valueOf(left.getRate()));
             }
@@ -171,7 +170,6 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
 
             placeSearch = new String[arrayOfPlace.size()];
             for(Place value: arrayOfPlace) {
-                System.out.println(value.getName());
                 placeSearch[i]=value.getName();
                 i++;
             }
