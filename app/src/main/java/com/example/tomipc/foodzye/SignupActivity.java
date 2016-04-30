@@ -53,9 +53,6 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signup();
-
-                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -143,11 +140,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        try{
-            task.execute(Database.URL + "register").get();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+        task.execute(Database.URL + "register");
 
     }
 
@@ -155,6 +148,8 @@ public class SignupActivity extends AppCompatActivity {
     public void onSignupSuccess() {
         SignUpButton.setEnabled(true);
         setResult(RESULT_OK, null);
+        Intent i = new Intent(SignupActivity.this, MainActivity.class);
+        startActivity(i);
         finish();
     }
 

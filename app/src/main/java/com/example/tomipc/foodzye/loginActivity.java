@@ -61,8 +61,8 @@ public class loginActivity extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
-                startActivityForResult(intent, REQUEST_SIGNUP);
+                Intent intent = new Intent(loginActivity.this, SignupActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -134,17 +134,6 @@ public class loginActivity extends AppCompatActivity  {
 
         task.execute(Database.URL + "login");
 
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SIGNUP) {
-            if (resultCode == RESULT_OK) {
-                // By default we just finish the Activity and log them in automatically
-                this.finish();
-            }
-        }
     }
 
 
