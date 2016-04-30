@@ -110,7 +110,12 @@ public class ProfileActivity extends Navigation {
         return user.getId();
     }
 
-    public int getLoggedInUserId() { return userLocalStore.getLoggedInUser().getId(); }
+    public int getLoggedInUserId() {
+        if (userLocalStore.getLoggedInUser() == null) {
+            return 0;
+        }
+        return userLocalStore.getLoggedInUser().getId();
+    }
 
     public User getUser() { return user; }
 

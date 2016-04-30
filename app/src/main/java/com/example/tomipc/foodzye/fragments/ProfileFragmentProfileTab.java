@@ -77,7 +77,7 @@ public class ProfileFragmentProfileTab extends Fragment {
         PhoneTextView.setText(user.getPhone());
         WorkHoursTextView.setText(user.getWork_time());
 
-        if(user_id == logged_in_user_id){
+        if(user_id == logged_in_user_id || logged_in_user_id == 0){
             ReviewTextView.setVisibility(View.GONE);
             ReviewEditText.setVisibility(View.GONE);
             FoodServiceProviderUserReviewRatingBar.setVisibility(View.INVISIBLE);
