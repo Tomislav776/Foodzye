@@ -132,7 +132,7 @@
         android:layout_gravity="center_horizontal"
         android:hint="Your review"
         android:fontFamily="sans-serif-medium"
-        android:textColor="@color/primary_dark"
+        android:textColor="@color/black"
         android:id="@+id/ReviewEditTextView"
         android:layout_below="@id/FoodServiceProviderUserReviewRatingBar"
         android:background="@drawable/input"
