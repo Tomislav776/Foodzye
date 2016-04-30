@@ -32,7 +32,7 @@
     <array name="nav_drawer_icons">
         <item>@drawable/home</item>
         <item>@drawable/profile</item>
-        <item>@drawable/edit_profile</item>
+        <item>@drawable/edit_profile_us</item>
         <item>@drawable/add_food</item>
         <item>@drawable/edit_profile</item>
         <item>@drawable/log_in</item>
