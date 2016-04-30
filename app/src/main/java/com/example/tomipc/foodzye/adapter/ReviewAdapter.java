@@ -23,7 +23,7 @@ import java.util.List;
         private Context c;
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
-            public TextView comment, username;
+            public TextView comment, username, date;
             public ImageView userImage;
             public AppCompatRatingBar rate;
 
@@ -33,6 +33,7 @@ import java.util.List;
                 username = (TextView) view.findViewById(R.id.review_name_user);
                 userImage = (ImageView) view.findViewById(R.id.review_image_user);
                 rate = (AppCompatRatingBar) view.findViewById(R.id.review_food_rate);
+                date = (TextView) view.findViewById(R.id.review_food_date);
             }
         }
 
@@ -61,6 +62,11 @@ import java.util.List;
                     .into(holder.userImage);
             holder.rate.setRating((float) review.getRate());
             holder.username.setText(review.getUsername());
+
+            if(!(review.getDateUpdated().equals("")))
+                holder.date.setText(review.getDateUpdated());
+            else
+                holder.date.setText(review.getDateCreated());
         }
 
         @Override

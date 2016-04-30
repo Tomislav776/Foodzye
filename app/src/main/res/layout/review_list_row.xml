@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="30.04.2016"
-        android:id="@+id/textView7"
+        android:id="@+id/review_food_date"
         android:textColor="#757575"
         android:textSize="10dp"
         android:layout_above="@+id/review_food_rate"

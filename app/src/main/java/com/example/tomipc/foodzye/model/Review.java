@@ -3,7 +3,7 @@ package com.example.tomipc.foodzye.model;
 
 public class Review {
     private int id,user_id, menu_id, place_id;
-    private String comment, username, userPicture;
+    private String comment, username, userPicture, dateCreated, dateUpdated;
     private double rate;
 
 
@@ -28,11 +28,37 @@ public class Review {
         this.rate = rate;
     }
 
-    public Review(String comment, double rate, String username, String userPicture){
+    public Review(String comment, double rate, String username, String userPicture, String dateCreated, String dateUpdated){
         this.comment = comment;
         this.rate = rate;
         this.username = username;
         this.userPicture = userPicture;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+    }
+
+    public int getPlace_id() {
+        return place_id;
+    }
+
+    public void setPlace_id(int place_id) {
+        this.place_id = place_id;
+    }
+
+    public String getDateUpdated() {
+        return dateUpdated;
+    }
+
+    public void setDateUpdated(String dateUpdated) {
+        this.dateUpdated = dateUpdated;
+    }
+
+    public String getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public void setId(int id){

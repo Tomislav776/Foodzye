@@ -123,7 +123,7 @@ public class ProfileFragmentProfileTab extends Fragment {
         arrayOfAllReview = db.readFoodServiceProviderReviews("getUserReviews", String.valueOf(user_id));
 
         for(Review value: arrayOfAllReview) {
-            reviewObj = new Review(value.getComment(), value.getRate(), value.getUsername(), value.getUserPicture());
+            reviewObj = new Review(value.getComment(), value.getRate(), value.getUsername(), value.getUserPicture(), value.getDateCreated(), value.getDateUpdated());
 
             reviewList.add(reviewObj);
         }

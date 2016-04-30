@@ -37,6 +37,7 @@ public class FoodActivity extends AppCompatActivity {
     private TextView restaurantName;
     private TextView restaurantLocation;
     private TextView restaurantWorkHours;
+    private TextView restaurantPhoneNumber;
     private AppCompatRatingBar restaurantRating;
     private ImageView restaurantImage;
     private TextView textAddYour;
@@ -196,7 +197,7 @@ public class FoodActivity extends AppCompatActivity {
         arrayOfAllReview = data.readReview("getReview", String.valueOf(id));
 
         for(Review value: arrayOfAllReview) {
-            reviewObj = new Review(value.getComment(), value.getRate(), value.getUsername(), value.getUserPicture());
+            reviewObj = new Review(value.getComment(), value.getRate(), value.getUsername(), value.getUserPicture(), value.getDateCreated(), value.getDateUpdated());
 
             reviewList.add(reviewObj);
         }
@@ -212,12 +213,15 @@ public class FoodActivity extends AppCompatActivity {
         restaurantImage = (ImageView) findViewById(R.id.place_restaurant_picture);
         RestaurantClick = (RelativeLayout) findViewById(R.id.place_restaurant_relative_click);
         restaurantWorkHours = (TextView) findViewById(R.id.place_restaurant_work_hours);
+        restaurantPhoneNumber = (TextView) findViewById(R.id.place_restaurant_phone_number);
+
 
 
         userdata = data.getUserData("getUser", String.valueOf(food.getUser_id()));
         restaurantName.setText(userdata.getUsername());
         restaurantLocation.setText(userdata.getLocation());
         restaurantWorkHours.setText(userdata.getWork_time());
+        restaurantPhoneNumber.setText(userdata.getPhone());
         restaurantRating.setRating((float) userdata.getRate());
         Glide.with(this).load(Database.URL+userdata.getPicture()).into(restaurantImage);
 

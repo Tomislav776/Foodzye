@@ -114,15 +114,23 @@ public class Database {
                 JSONObject jObject = obj.getJSONObject(i);
 
                 String comment = jObject.getString("comment");
-                String username = jObject.getString("name");
-                String picture = jObject.getString("user_picture");
                 double rate = jObject.getDouble("rate");
-                int place_id = jObject.getInt("place_id");
-                int user_id = jObject.getInt("user_id");
+                String name = jObject.getString("name");
+                String picture = jObject.getString("user_picture");
+                String dateCreated = jObject.getString("created_at");
+                String dateUpdated = jObject.getString("updated_at");
 
-                System.out.println(jObject);
+                if(!(dateCreated.equals("null")))
+                    dateCreated=""+dateCreated.charAt(8)+dateCreated.charAt(9)+"."+dateCreated.charAt(5)+dateCreated.charAt(6)+"."+dateCreated.charAt(0)+dateCreated.charAt(1)+dateCreated.charAt(2)+dateCreated.charAt(3)+".";
+                else
+                    dateCreated="";
 
-                Review review = new Review(comment, rate, place_id, username, picture);
+                if(!(dateUpdated.equals("null")))
+                    dateUpdated=""+dateUpdated.charAt(8)+dateUpdated.charAt(9)+"."+dateUpdated.charAt(5)+dateUpdated.charAt(6)+"."+dateUpdated.charAt(0)+dateUpdated.charAt(1)+dateUpdated.charAt(2)+dateUpdated.charAt(3)+".";
+                else
+                    dateUpdated="";
+
+                Review review = new Review(comment, rate, name, picture, dateCreated, dateUpdated);
 
                 arrayOfReview.add(review);
             }
@@ -174,8 +182,20 @@ public class Database {
                 double rate = jObject.getDouble("rate");
                 String name = jObject.getString("name");
                 String picture = jObject.getString("user_picture");
+                String dateCreated = jObject.getString("created_at");
+                String dateUpdated = jObject.getString("updated_at");
 
-                Review review = new Review(comment, rate, name, picture );
+                if(!(dateCreated.equals("null")))
+                    dateCreated=""+dateCreated.charAt(8)+dateCreated.charAt(9)+"."+dateCreated.charAt(5)+dateCreated.charAt(6)+"."+dateCreated.charAt(0)+dateCreated.charAt(1)+dateCreated.charAt(2)+dateCreated.charAt(3)+".";
+                else
+                    dateCreated="";
+
+                if(!(dateUpdated.equals("null")))
+                    dateUpdated=""+dateUpdated.charAt(8)+dateUpdated.charAt(9)+"."+dateUpdated.charAt(5)+dateUpdated.charAt(6)+"."+dateUpdated.charAt(0)+dateUpdated.charAt(1)+dateUpdated.charAt(2)+dateUpdated.charAt(3)+".";
+                else
+                    dateUpdated="";
+
+                Review review = new Review(comment, rate, name, picture, dateCreated, dateUpdated);
 
                 arrayOfReview.add(review);
             }
