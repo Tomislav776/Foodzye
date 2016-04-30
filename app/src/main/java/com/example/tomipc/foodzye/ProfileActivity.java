@@ -1,6 +1,5 @@
 package com.example.tomipc.foodzye;
 
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -107,7 +106,7 @@ public class ProfileActivity extends Navigation {
         UserNameTextView.setText(user.getUsername());
 
 
-        System.out.println("naslov"+navMenuTitles[0]);
+        System.out.println("naslov Profil"+navMenuTitles[0]);
         set(toolbar);
     }
 

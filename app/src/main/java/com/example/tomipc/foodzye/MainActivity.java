@@ -2,31 +2,16 @@ package com.example.tomipc.foodzye;
 
 import android.Manifest;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tomipc.foodzye.adapter.DrawerAdapter;
@@ -60,6 +45,7 @@ public class MainActivity extends Navigation {
         setContentView(R.layout.activity_main);
 
         userLocalStore = new UserLocalStore(this);
+        user = userLocalStore.getLoggedInUser();
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         //navMenuTitles=setVisibility(navMenuTitles);

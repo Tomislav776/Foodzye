@@ -53,8 +53,8 @@
         <activity
             android:name=".addNewFoodActivity"
             android:label="@string/title_activity_add_new_food"
-            android:theme="@style/HiddenTitleTheme"
-        />
+            android:theme="@style/HiddenTitleTheme" />
+        <activity android:name=".ResetPasswordActivity"></activity>
     </application>
 
 </manifest>

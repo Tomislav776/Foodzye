@@ -29,7 +29,7 @@ public class loginActivity extends AppCompatActivity  {
     UserLocalStore userLocalStore;
     TextInputEditText EmailText, PasswordText;
     Button LoginButton;
-    TextView SignupLink;
+    TextView SignupLink, ResetPasswordLink;
     ProgressDialog progressDialog;
 
 
@@ -44,6 +44,7 @@ public class loginActivity extends AppCompatActivity  {
         PasswordText = (TextInputEditText) findViewById(R.id.input_password);
         LoginButton = (Button) findViewById(R.id.btn_login);
         SignupLink = (TextView) findViewById(R.id.link_signup);
+        ResetPasswordLink = (TextView) findViewById(R.id.link_reset_password);
 
         userLocalStore = new UserLocalStore(this);
 
@@ -62,6 +63,15 @@ public class loginActivity extends AppCompatActivity  {
                 // Start the Signup activity
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
+            }
+        });
+
+        ResetPasswordLink.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ResetPasswordActivity.class);
+                startActivity(intent);
             }
         });
     }
