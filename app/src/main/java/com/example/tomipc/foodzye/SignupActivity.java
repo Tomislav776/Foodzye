@@ -125,6 +125,7 @@ public class SignupActivity extends AppCompatActivity {
                     try {
                         JSONArray obj = new JSONArray(result);
                         JSONObject jObject = obj.getJSONObject(0);
+                        System.out.println(jObject);
                         String name = jObject.getString("name");
                         String email = jObject.getString("email");
                         int role = jObject.getInt("role");
@@ -142,7 +143,11 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        task.execute(Database.URL + "register");
+        try{
+            task.execute(Database.URL + "register").get();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
     }
 
