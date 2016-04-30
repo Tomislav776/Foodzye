@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.tomipc.foodzye"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -36,8 +36,4 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:recyclerview-v7:23.3.0'
     compile 'com.makeramen:roundedimageview:2.2.1'
-
-
-
-
 }
