@@ -39,4 +39,10 @@
         <item name="colorControlActivated">#f1c40f</item>
     </style>
 
+    <style name="MaterialAnimations" parent="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <!-- specify enter and exit transitions -->
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
 </resources>
