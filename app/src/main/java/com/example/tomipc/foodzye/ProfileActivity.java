@@ -1,5 +1,6 @@
 package com.example.tomipc.foodzye;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -153,6 +154,21 @@ public class ProfileActivity extends Navigation {
             return null;
         }
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("Zavrsila se");
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

@@ -104,20 +104,11 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
             public void onClick(View view, int position) {
                 Menu menu = menuList.get(position);
 
-                if(Build.VERSION.SDK_INT >= 21) {
-                    TextView sharedView = (TextView) view.findViewById(R.id.name_food);
-                    //Mine improv
-                    Intent foodActivity = new Intent(getActivity(), FoodActivity.class);
-                    foodActivity.putExtra("Menu", menu);
 
-                    ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(getActivity(), sharedView, "TransitionFoodPicture");
-                    startActivity(foodActivity, transitionActivityOptions.toBundle());
-                }
-                else{
                     Intent foodActivity = new Intent(getActivity(), FoodActivity.class);
                     foodActivity.putExtra("Menu", menu);
                     startActivity(foodActivity);
-                }
+
             }
 
             @Override

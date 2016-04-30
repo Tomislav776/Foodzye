@@ -132,7 +132,7 @@ public class loginActivity extends AppCompatActivity  {
             }
         });
 
-        task.execute(Database.URL+"login");
+        task.execute(Database.URL + "login");
 
     }
 
@@ -187,6 +187,21 @@ public class loginActivity extends AppCompatActivity  {
     private void logUserIn(User user) {
         userLocalStore.storeUserData(user);
         userLocalStore.setUserLoggedIn(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("Zavrsila se");
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(loginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.tomipc.foodzye;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
@@ -52,6 +53,9 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signup();
+
+                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -138,7 +142,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        task.execute(Database.URL+"register");
+        task.execute(Database.URL + "register");
 
     }
 
@@ -188,6 +192,21 @@ public class SignupActivity extends AppCompatActivity {
     private void logUserIn(User user) {
         userLocalStore.storeUserData(user);
         userLocalStore.setUserLoggedIn(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("Zavrsila se");
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

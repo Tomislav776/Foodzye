@@ -195,6 +195,10 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
                 description = FoodDescription.getText().toString();
                 progressDialog.show();
                 new Upload_Food().execute(Database.URL + "postMenu");
+
+                Intent intent = new Intent(addFoodActivity.this, ProfileActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -238,6 +242,7 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
         super.onPause();
         if(progressDialog != null)
             progressDialog.dismiss();
+        finish();
     }
 
 
@@ -692,4 +697,13 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
         }
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(addFoodActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

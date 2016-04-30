@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.tomipc.foodzye.model.Place;
 import com.example.tomipc.foodzye.model.User;
 
 import java.io.ByteArrayOutputStream;
@@ -165,6 +166,11 @@ public class EditProfileActivity extends Navigation {
                 }
                 db.insert(data, postRoute);
                 setUserData();
+
+                Intent intent = new Intent(EditProfileActivity.this, ProfileActivity.class);
+                startActivity(intent);
+
+                finish();
             }
         });
     }
@@ -520,5 +526,20 @@ public class EditProfileActivity extends Navigation {
         file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + foodImage);
 
         return file;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("Zavrsila se");
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

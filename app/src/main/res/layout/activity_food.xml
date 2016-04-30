@@ -273,7 +273,7 @@
         android:layout_height="wrap_content"
         android:text="REVIEWS"
         android:textStyle="bold"
-        android:id="@+id/textView2"
+        android:id="@+id/activity_food_text_review"
         android:textColor="#c0392b"
         android:fontFamily="sans-serif-medium"
         android:textSize="18dp"

@@ -145,4 +145,19 @@ public class ChooseFoodForEditActivity extends Navigation {
 
         }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("Zavrsila se");
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(ChooseFoodForEditActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

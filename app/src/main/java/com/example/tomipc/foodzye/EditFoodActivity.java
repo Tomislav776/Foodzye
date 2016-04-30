@@ -193,6 +193,11 @@ public class EditFoodActivity extends Navigation implements AdapterView.OnItemSe
                 description = FoodDescription.getText().toString();
                 progressDialog.show();
                 new Upload_Food().execute(Database.URL + postMenu);
+
+
+                Intent intent = new Intent(EditFoodActivity.this, ProfileActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -623,6 +628,22 @@ public class EditFoodActivity extends Navigation implements AdapterView.OnItemSe
             super.onPostExecute(result);
         }
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("Zavrsila se");
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent intent = new Intent(EditFoodActivity.this, ChooseFoodForEditActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

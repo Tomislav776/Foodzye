@@ -1,6 +1,8 @@
 package com.example.tomipc.foodzye;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRatingBar;
@@ -41,6 +43,7 @@ public class FoodActivity extends AppCompatActivity {
     private AppCompatRatingBar restaurantRating;
     private ImageView restaurantImage;
     private TextView textAddYour;
+    private TextView textReview;
     private AppCompatRatingBar rating;
     private AppCompatRatingBar ratingTotal;
     private ImageView imageFood;
@@ -99,6 +102,8 @@ public class FoodActivity extends AppCompatActivity {
         reviewButton = (Button) findViewById(R.id.activity_food_button_review);
         logInButton = (Button) findViewById(R.id.activity_food_button_login);
         review = (EditText) findViewById(R.id.activity_food_review);
+        textReview= (TextView) findViewById(R.id.activity_food_text_review);
+
 
 
         //Recycler view
@@ -202,6 +207,11 @@ public class FoodActivity extends AppCompatActivity {
             reviewList.add(reviewObj);
         }
 
+        if (arrayOfAllReview.size() == 0)
+            textReview.setVisibility(View.GONE);
+        else
+            textReview.setVisibility(View.VISIBLE);
+
         mAdapter.notifyDataSetChanged();
 
     }
@@ -229,7 +239,7 @@ public class FoodActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent profileActivity = new Intent(FoodActivity.this, ProfileActivity.class);
-                userdataP = new Place (food.getUser_id(), 2, userdata.getUsername(), userdata.getEmail(), userdata.getSlug(), userdata.getLocation(), userdata.getPhone(), userdata.getPicture(), userdata.getWork_time(), userdata.getRate(), userdata.getDescription());
+                userdataP = new Place(food.getUser_id(), 2, userdata.getUsername(), userdata.getEmail(), userdata.getSlug(), userdata.getLocation(), userdata.getPhone(), userdata.getPicture(), userdata.getWork_time(), userdata.getRate(), userdata.getDescription());
 
                 profileActivity.putExtra("Place", userdataP);
                 startActivity(profileActivity);
@@ -264,4 +274,23 @@ public class FoodActivity extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("Zavrsila se");
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+
+            Intent intent = new Intent(FoodActivity.this, MainActivity.class);
+            startActivity(intent);
+
+        finish();
+    }
+
 }

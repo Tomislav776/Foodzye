@@ -1,6 +1,7 @@
 package com.example.tomipc.foodzye;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -52,5 +53,20 @@ public class addNewFoodActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("Zavrsila se");
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(addNewFoodActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

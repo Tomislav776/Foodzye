@@ -185,37 +185,36 @@ public class Navigation extends AppCompatActivity {
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
 
-                if (!(this.getLocalClassName().equals("MainActivity")))
                     finish();
                 break;
             case "Profile":
                 Intent intent1 = new Intent(this, ProfileActivity.class);
                 startActivity(intent1);
-                if (!(this.getLocalClassName().equals("MainActivity")))
+
                     finish();
                 break;
             case "Edit Profile":
                 Intent intent2 = new Intent(this, EditProfileActivity.class);
                 startActivity(intent2);
-                if (!(this.getLocalClassName().equals("MainActivity")))
+
                     finish();
                 break;
             case "Add Food":
                 Intent intent3 = new Intent(this, addFoodActivity.class);
                 startActivity(intent3);
-                if (!(this.getLocalClassName().equals("MainActivity")))
+
                     finish();
                 break;
             case "Edit your food":
                 Intent intent4 = new Intent(this, ChooseFoodForEditActivity.class);
                 startActivity(intent4);
-                if (!(this.getLocalClassName().equals("MainActivity")))
+
                     finish();
                 break;
             case "Login":
                 Intent intent5 = new Intent(this, loginActivity.class);
                 startActivity(intent5);
-                if (!(this.getLocalClassName().equals("MainActivity")))
+
                     finish();
                 break;
             case "Logout":
@@ -223,7 +222,10 @@ public class Navigation extends AppCompatActivity {
                 userLocalStore.clearUserData();
                 userLocalStore.setUserLoggedIn(false);
                 set(toolbar);
-                onResume();
+
+                Intent intent6 = new Intent(this, MainActivity.class);
+                startActivity(intent6);
+                finish();
                 break;
             default:
                 break;
