@@ -3,7 +3,6 @@ package com.example.tomipc.foodzye;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
-import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,11 +18,8 @@ import android.provider.OpenableColumns;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -83,7 +79,7 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
     private String foodJSON, foodImage, encoded_string, filePath, name, description, price, currency;
     private int food_id;
     Food chosenFood;
-    private Bitmap bitmap;
+    private Bitmap bitmap = null;
     private File file;
     private Uri file_uri;
 
@@ -466,37 +462,39 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
 
         @Override
         protected String doInBackground(String... params) {
-            final int maxSize = 1280;
-            int outWidth;
-            int outHeight;
-            int inWidth = bitmap.getWidth();
-            int inHeight = bitmap.getHeight();
-            if(inWidth > inHeight){
-                outWidth = maxSize;
-                outHeight = (inHeight * maxSize) / inWidth;
-            } else {
-                outHeight = maxSize;
-                outWidth = (inWidth * maxSize) / inHeight;
-            }
-
-            Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, outWidth, outHeight, false);
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
-
-            byte[] imageBytes = stream.toByteArray();
-            encoded_string = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-            resizedBitmap.recycle();
-
             HashMap<String,String> data = new HashMap<>();
-            data.put("encoded_string", encoded_string);
             data.put("food_id", Integer.toString(food_id));
-            data.put("image_name", foodImage);
             data.put("user_id", Integer.toString(user.getId()));
             data.put("user_slug", user.getSlug());
             data.put("name", name);
             data.put("price", price);
             data.put("currency", currency);
             data.put("description", description);
+
+            if(bitmap != null){
+                final int maxSize = 1280;
+                int outWidth;
+                int outHeight;
+                int inWidth = bitmap.getWidth();
+                int inHeight = bitmap.getHeight();
+                    if(inWidth > inHeight){
+                        outWidth = maxSize;
+                        outHeight = (inHeight * maxSize) / inWidth;
+                    } else {
+                        outHeight = maxSize;
+                        outWidth = (inWidth * maxSize) / inHeight;
+                    }
+
+                Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, outWidth, outHeight, false);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+
+                byte[] imageBytes = stream.toByteArray();
+                encoded_string = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                resizedBitmap.recycle();
+                data.put("encoded_string", encoded_string);
+                data.put("image_name", foodImage);
+            }
 
             URL url;
             String response = "";

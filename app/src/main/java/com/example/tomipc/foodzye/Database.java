@@ -67,7 +67,12 @@ public class Database {
             }
         });
 
-        task.execute(URL + route);
+        try{
+            task.execute(URL + route).get();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public User getUserData (String route, String user_id) {
