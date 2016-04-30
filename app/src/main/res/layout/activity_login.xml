@@ -47,7 +47,8 @@
                 android:background="@drawable/input"
                 android:gravity="center"
                 android:padding="15dp"
-                android:textColor="#c0392b"/>
+                android:textColor="#000000"
+                />
         </android.support.design.widget.TextInputLayout>
 
         <!--  Password Label -->

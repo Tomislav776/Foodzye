@@ -44,7 +44,7 @@
                 android:hint="Name"
                 android:background="@drawable/input"
                 android:autoText="true"
-                android:textColor="#c0392b"
+                android:textColor="#000000"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:padding="15dp" />
@@ -64,7 +64,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:padding="15dp"
                 android:gravity="center"
-                android:textColor="#c0392b"
+                android:textColor="#000000"
                 android:background="@drawable/input" />
         </android.support.design.widget.TextInputLayout>
 
@@ -81,7 +81,7 @@
                 android:hint="Password"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
-                android:textColor="#c0392b"
+                android:textColor="#000000"
                 android:padding="15dp"
                 android:background="@drawable/input" />
         </android.support.design.widget.TextInputLayout>
@@ -90,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:id="@+id/RoleSpinner"
-            android:textColor="#c0392b"
+            android:textColor="#000000"
             android:entries="@array/roles_array"
             android:background="@drawable/kat" />
 
