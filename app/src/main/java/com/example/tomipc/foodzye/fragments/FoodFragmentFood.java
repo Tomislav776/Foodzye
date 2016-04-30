@@ -1,5 +1,6 @@
 package com.example.tomipc.foodzye.fragments;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -38,6 +40,8 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
     public static FoodFragmentFood newInstance() {
         return new FoodFragmentFood();
     }
+
+
 
     private List<Menu> menuList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -96,13 +100,15 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
             @Override
             public void onClick(View view, int position) {
                 Menu menu = menuList.get(position);
-                Toast.makeText(c, menu.getName() + " is selected!", Toast.LENGTH_SHORT).show();
+
+                View sharedView = (com.makeramen.roundedimageview.RoundedImageView) getActivity().findViewById(R.id.image_food);
 
                 //Mine improv
                 Intent foodActivity = new Intent(getActivity(), FoodActivity.class);
                 foodActivity.putExtra("Menu", menu);
 
-                startActivity(foodActivity);
+                ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(getActivity(), sharedView, "TransitionFoodPicture");
+                startActivity(foodActivity, transitionActivityOptions.toBundle());
             }
 
             @Override

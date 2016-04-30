@@ -93,7 +93,12 @@ public class ProfileFragmentProfileTab extends Fragment {
         if (user_id == logged_in_user_id || logged_in_user_id == 0){
             SendReviewButton.setVisibility(View.GONE);
             ReviewEditText.setVisibility(View.GONE);
-            logInButton.setVisibility(View.VISIBLE);
+
+            if (user_id == logged_in_user_id)
+                logInButton.setVisibility(View.GONE);
+            else
+                logInButton.setVisibility(View.VISIBLE);
+
             ReviewTextView.setVisibility(View.GONE);
             FoodServiceProviderUserReviewRatingBar.setVisibility(View.GONE);
 

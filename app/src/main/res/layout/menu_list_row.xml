@@ -24,7 +24,8 @@
         android:layout_marginRight="12dp"
         android:contentDescription="@string/desc_list_item_icon"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"  />
+        android:layout_centerHorizontal="true"
+        android:transitionName="TransitionFoodPicture"/>
 
     <TextView
         android:id="@+id/name_food"

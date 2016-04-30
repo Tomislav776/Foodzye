@@ -115,6 +115,7 @@ public class FoodActivity extends AppCompatActivity {
         Intent i = getIntent();
         food = (Menu)i.getSerializableExtra("Menu");
 
+        //System.out.println("Bundle: "+savedInstanceState);
         Glide.with(this).load(Database.URL + food.getImage()).into(imageFood);
 
         prepareReviewData(food.getId());
