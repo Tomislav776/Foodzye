@@ -54,9 +54,14 @@ import java.util.List;
             Menu food = foodList.get(position);
 
             holder.name.setText(food.getName());
-            Glide.with(c)
-                    .load(Database.URL+food.getImage())
-                    .into(holder.foodImage);
+            //if(!(food.getImage().equals("")))
+            System.out.println("Bla" + food.getImage() + " " + food.getImage().equals(""));
+            if(food.getImage().equals(""))
+                holder.foodImage.setImageResource(R.drawable.user_profile);
+            else
+                Glide.with(c).load(Database.URL + food.getImage()).thumbnail(0.3f).into(holder.foodImage);
+
+
             holder.rate.setRating((float) food.getRate());
             holder.price.setText(String.valueOf(food.getPrice()) + " " + food.getCurrency());
         }

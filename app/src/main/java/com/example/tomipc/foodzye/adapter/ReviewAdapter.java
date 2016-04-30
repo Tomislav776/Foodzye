@@ -56,10 +56,12 @@ import java.util.List;
             Review review = reviewList.get(position);
 
             holder.comment.setText(review.getComment());
-            Glide.with(c)
-                    .load(Database.URL+review.getUserPicture())
-                    .thumbnail(0.3f)
-                    .into(holder.userImage);
+
+            if(review.getUserPicture().equals(""))
+                holder.userImage.setImageResource(R.drawable.food_def);
+            else
+                Glide.with(c).load(Database.URL + review.getUserPicture()).thumbnail(0.3f).into(holder.userImage);
+
             holder.rate.setRating((float) review.getRate());
             holder.username.setText(review.getUsername());
 

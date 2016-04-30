@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/place_fragment_linear_above">
 
-        <AutoCompleteTextView
+        <com.example.tomipc.foodzye.InstantAutoComplete
             android:id="@+id/place_fragment_search"
             android:layout_width="0dp"
             android:layout_height="50dp"

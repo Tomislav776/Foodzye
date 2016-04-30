@@ -55,9 +55,12 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
         Place place = placeList.get(position);
 
         holder.name.setText(place.getName());
-        Glide.with(c)
-                .load(Database.URL+place.getPicture())
-                .into(holder.placeImage);
+
+        if(place.getPicture().equals(""))
+            holder.placeImage.setImageResource(R.drawable.place_def);
+        else
+            Glide.with(c).load(Database.URL+place.getPicture()).thumbnail(0.3f).into(holder.placeImage);
+
         holder.rate.setRating((float) place.getRate());
         holder.address.setText(String.valueOf(place.getLocation()));
     }
