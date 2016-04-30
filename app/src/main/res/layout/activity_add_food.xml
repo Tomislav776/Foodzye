@@ -65,7 +65,7 @@
 
                 <EditText
                     android:layout_width="wrap_content"
-                    android:layout_height="100dp"
+                    android:layout_height="50dp"
                     android:id="@+id/AddFoodNameEditText"
                     android:hint="Food name"
                     android:textColor="#c0392b"

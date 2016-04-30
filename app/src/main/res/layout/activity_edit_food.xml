@@ -20,7 +20,14 @@
             android:layout_height="wrap_content"
             android:background="@color/red"
             android:id="@+id/EditFoodToolbar"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
+
+            <ImageView
+                android:src="@drawable/logo_mini"
+                android:layout_width="100dp"
+                android:layout_height="50dp" />
+
+        </android.support.v7.widget.Toolbar>
 
         <ScrollView
             android:layout_width="fill_parent"
@@ -40,13 +47,13 @@
 
                 <EditText
                     android:layout_width="wrap_content"
-                    android:layout_height="100dp"
+                    android:layout_height="50dp"
                     android:id="@+id/AddFoodNameEditText2"
                     android:hint="Food name"
                     android:textColor="#c0392b"
                     android:fontFamily="sans-serif-medium"
-                    android:visibility="visible"
                     android:gravity="center"
+                    android:visibility="visible"
                     android:background="@drawable/input"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
@@ -98,11 +105,10 @@
                     android:visibility="invisible"
                     android:scaleType="fitXY"
                     android:src="@drawable/user_def"
-                    android:layout_below="@id/FoodPrice2"
-                    android:layout_alignRight="@+id/spinnerCurrency2"
-                    android:layout_alignEnd="@+id/spinnerCurrency2"
-                    android:layout_marginTop="20dp"
-                    />
+                    android:layout_below="@+id/spinnerCurrency2"
+                    android:layout_alignRight="@+id/FoodDescription2"
+                    android:layout_alignEnd="@+id/FoodDescription2"
+                    android:layout_marginTop="20dp" />
 
                 <Button
                     android:text="TAKE PICTURE"

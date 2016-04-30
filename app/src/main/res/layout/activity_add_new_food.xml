@@ -10,11 +10,16 @@
     tools:context="com.example.tomipc.foodzye.addNewFoodActivity">
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:hint="New type of food name"
         android:id="@+id/NewFoodEditText"
+        android:background="@drawable/input"
+        android:textColor="#c0392b"
+        android:padding="10dp"
+        android:fontFamily="sans-serif-medium"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -22,8 +27,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add new type of food"
+        android:padding="12dp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
         android:id="@+id/AddNewTypeOfFoodButton"
         android:layout_below="@+id/NewFoodEditText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp" />
+        android:layout_marginTop="27dp"
+        android:background="@drawable/button" />
 </RelativeLayout>

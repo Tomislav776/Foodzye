@@ -65,6 +65,16 @@
         android:layout_toRightOf="@+id/review_image_user"
         android:layout_toEndOf="@+id/review_image_user" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="30.04.2016"
+        android:id="@+id/textView7"
+        android:textColor="#757575"
+        android:textSize="10dp"
+        android:layout_above="@+id/review_food_rate"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

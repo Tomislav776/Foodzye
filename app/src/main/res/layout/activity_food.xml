@@ -54,6 +54,7 @@
         android:id="@+id/activity_food_ratingBar_total"
         android:theme="@style/RatingBar"
         android:isIndicator="true"
+        android:layout_marginTop="5dp"
         style="@style/Base.Widget.AppCompat.RatingBar.Small"
         android:layout_centerVertical="true"
         android:layout_gravity="center_horizontal" />
@@ -63,23 +64,35 @@
         android:layout_height="wrap_content"
         android:text="Price"
         android:id="@+id/activity_food_price"
-        android:textColor="#c0392b"
-        android:fontFamily="sans-serif-medium"
+        android:textColor="#000000"
+        android:layout_marginTop="5dp"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/activity_food_description" />
 
 
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Description"
         android:id="@+id/activity_food_description"
-        android:textColor="#c0392b"
-        android:fontFamily="sans-serif-medium"
+        android:textColor="#000000"
+        android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/activity_food_image"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="40dp" />
+
+    <TextView
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="Where to find this food:"
+        android:gravity="center"
+        android:id="@+id/textView10"
+        android:textColor="@color/red"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp" />
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/place_restaurant_relative_click"
@@ -88,7 +101,6 @@
         android:focusable="true"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:clickable="true"
         android:background="?android:attr/selectableItemBackground"
@@ -96,13 +108,14 @@
 
         <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             app:riv_corner_radius="15dip"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
             android:id="@+id/place_restaurant_picture"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/place_def"
             android:scaleType="fitXY"
             android:layout_alignParentLeft="true"
+            android:visibility="invisible"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:contentDescription="@string/desc_list_item_icon"
@@ -113,20 +126,21 @@
 
         <TextView
             android:id="@+id/place_restaurant_name"
-            android:maxWidth="200dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/place_restaurant_picture"
             android:minHeight="?android:attr/listPreferredItemHeightSmall"
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
             android:textColor="@color/list_item_title"
-            android:gravity="center_vertical"
+            android:gravity="center"
+            android:hint="Ime restorana"
             android:layout_centerVertical="true"
-            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="5dp"
-            android:paddingBottom="20dp"
-            android:paddingRight="40dp" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:paddingBottom="20dp" />
 
         <android.support.v7.widget.AppCompatRatingBar
             android:layout_width="wrap_content"
@@ -136,21 +150,36 @@
             style="@style/Base.Widget.AppCompat.RatingBar.Small"
             android:layout_gravity="center_horizontal"
             android:isIndicator="true"
+            android:visibility="gone"
+            android:numStars="5"
             android:layout_alignBottom="@+id/place_restaurant_name"
-            android:layout_alignLeft="@+id/place_restaurant_name"
-            android:layout_alignStart="@+id/place_restaurant_name"
-            />
+            android:layout_toRightOf="@+id/place_restaurant_picture"
+            android:layout_toEndOf="@+id/place_restaurant_picture"
+            android:layout_marginLeft="105dp"
+            android:layout_marginStart="118dp" />
 
 
         <TextView android:id="@+id/place_restaurant_location"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ecf0f1"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:gravity="center"
             android:text="Makismirska"
             android:textColor="@color/counter_text_color"
-            android:padding="5dp" />
+            android:layout_below="@+id/place_restaurant_name"
+            android:layout_alignLeft="@+id/place_restaurant_name"
+            android:layout_alignStart="@+id/place_restaurant_name"
+            android:paddingTop="5dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Work hours"
+            android:textColor="@color/counter_text_color"
+            android:id="@+id/textView11"
+            android:gravity="center"
+            android:layout_above="@+id/place_restaurant_location"
+            android:layout_centerHorizontal="true" />
+
 
     </RelativeLayout>
 
@@ -162,10 +191,10 @@
         android:textStyle="bold"
         android:textColor="#c0392b"
         android:fontFamily="sans-serif-medium"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:id="@+id/activity_food_text_add_your_review"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="40dp" />
 
     <android.support.v7.widget.AppCompatRatingBar
         android:layout_width="wrap_content"
@@ -182,8 +211,8 @@
         android:layout_height="100dp"
         android:id="@+id/activity_food_review"
         android:textColor="#c0392b"
-        android:fontFamily="sans-serif-medium"
         android:hint="Comment"
+        android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/input"
@@ -219,7 +248,7 @@
         android:id="@+id/textView2"
         android:textColor="#c0392b"
         android:fontFamily="sans-serif-medium"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="35dp" />
 
@@ -236,3 +265,4 @@
 
 </LinearLayout>
 </ScrollView>
+
