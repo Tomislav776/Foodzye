@@ -3,6 +3,7 @@ package com.example.tomipc.foodzye.fragments;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -103,15 +104,20 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
             public void onClick(View view, int position) {
                 Menu menu = menuList.get(position);
 
-                TextView sharedView = (TextView) view.findViewById(R.id.name_food);
-                //Glide.with(getActivity()).load(Database.URL + menu.getImage()).into(sharedView);
+                if(Build.VERSION.SDK_INT >= 21) {
+                    TextView sharedView = (TextView) view.findViewById(R.id.name_food);
+                    //Mine improv
+                    Intent foodActivity = new Intent(getActivity(), FoodActivity.class);
+                    foodActivity.putExtra("Menu", menu);
 
-                //Mine improv
-                Intent foodActivity = new Intent(getActivity(), FoodActivity.class);
-                foodActivity.putExtra("Menu", menu);
-
-                ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(getActivity(), sharedView, "TransitionFoodPicture");
-                startActivity(foodActivity, transitionActivityOptions.toBundle());
+                    ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(getActivity(), sharedView, "TransitionFoodPicture");
+                    startActivity(foodActivity, transitionActivityOptions.toBundle());
+                }
+                else{
+                    Intent foodActivity = new Intent(getActivity(), FoodActivity.class);
+                    foodActivity.putExtra("Menu", menu);
+                    startActivity(foodActivity);
+                }
             }
 
             @Override
