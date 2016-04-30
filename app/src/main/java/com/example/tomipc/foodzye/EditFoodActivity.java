@@ -21,19 +21,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.tomipc.foodzye.adapter.FoodAdapter;
-import com.example.tomipc.foodzye.model.Food;
+import com.bumptech.glide.Glide;
+import com.example.tomipc.foodzye.model.Menu;
 import com.example.tomipc.foodzye.model.User;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -57,68 +53,50 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class addFoodActivity extends Navigation implements AdapterView.OnItemSelectedListener {
+public class EditFoodActivity extends Navigation implements AdapterView.OnItemSelectedListener {
 
-    private static final String FOOD_URL = Database.URL + "getFood";
+    private static final String postMenu = "postEditMenu";
 
+    private Toolbar toolbar;
     UserLocalStore userLocalStore;
     User user;
-    HttpURLConnection connection;
-    AutoCompleteTextView ACText;
+    private Menu food;
     EditText AddFoodNameEditText, FoodPrice, FoodDescription;
     Button addFoodButton, CapturePictureButton, ChoosePictureButton;
     Spinner spinner;
     ProgressDialog progressDialog;
     ImageView imgPreview;
-    ArrayList<Food> arrayOfFood;
-    private String foodJSON, foodImage, encoded_string, filePath, name, description, price, currency;
-    private int food_id;
-    Food chosenFood;
+    private String foodImage, encoded_string, filePath, name, description, price, currency;
     private Bitmap bitmap = null;
     private File file;
     private Uri file_uri;
 
-    private Toolbar toolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_food);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        set(toolbar);
+        setContentView(R.layout.activity_edit_food);
 
         userLocalStore = new UserLocalStore(this);
         user = userLocalStore.getLoggedInUser();
 
-        // Construct the data source
-        arrayOfFood = new ArrayList<Food>();
-        try {
-            foodJSON = new getFoodJSON().execute(FOOD_URL).get();
-            JSONArray obj = new JSONArray(foodJSON);
-            for (int i = 0; i < obj.length(); i++) {
-                JSONObject jObject = obj.getJSONObject(i);
-                int id = jObject.getInt("id");
-                String name = jObject.getString("name");
-                Food food = new Food(id, name);
-                arrayOfFood.add(food);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        toolbar = (Toolbar) findViewById(R.id.EditFoodToolbar);
+        set(toolbar);
 
-        ACText = (AutoCompleteTextView) findViewById(R.id.acText);
-        AddFoodNameEditText = (EditText) findViewById(R.id.AddFoodNameEditText);
-        FoodPrice = (EditText) findViewById(R.id.FoodPrice);
-        FoodDescription = (EditText) findViewById(R.id.FoodDescription);
-        addFoodButton = (Button) findViewById(R.id.AddFoodButton);
-        CapturePictureButton = (Button) findViewById(R.id.take_picture);
-        ChoosePictureButton = (Button) findViewById(R.id.choose_picture);
-        progressDialog = new ProgressDialog(addFoodActivity.this, R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Uploading the menu...");
-        imgPreview = (ImageView) findViewById(R.id.imgPreview);
-        spinner = (Spinner) findViewById(R.id.spinnerCurrency);
+        Intent i = getIntent();
+        food = (Menu) i.getSerializableExtra("Menu");
+
+        AddFoodNameEditText = (EditText) findViewById(R.id.AddFoodNameEditText2);
+        FoodPrice = (EditText) findViewById(R.id.FoodPrice2);
+        FoodDescription = (EditText) findViewById(R.id.FoodDescription2);
+        addFoodButton = (Button) findViewById(R.id.AddFoodButton2);
+        CapturePictureButton = (Button) findViewById(R.id.take_picture2);
+        ChoosePictureButton = (Button) findViewById(R.id.choose_picture2);
+        spinner = (Spinner) findViewById(R.id.spinnerCurrency2);
+        imgPreview = (ImageView) findViewById(R.id.imgPreview2);
+
+        AddFoodNameEditText.setText(food.getName());
+        FoodPrice.setText(Double.toString(food.getPrice()));
+        FoodDescription.setText(food.getDescription());
 
         // Spinner click listener
         spinner.setOnItemSelectedListener(this);
@@ -137,6 +115,26 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
 
         // attaching data adapter to spinner
         spinner.setAdapter(dataAdapter);
+
+        if (!food.getCurrency().equals(null)) {
+            if(food.getCurrency().equals("HRK")){
+                spinner.setSelection(0);
+            } else if(food.getCurrency().equals("EUR")){
+                spinner.setSelection(1);
+            } else if(food.getCurrency().equals("USD")){
+                spinner.setSelection(2);
+            }
+        }
+
+        if(food.getImage() != null && !food.getImage().equals(""))
+        {
+            imgPreview.setVisibility(View.VISIBLE);
+            Glide.with(this).load(Database.URL + food.getImage()).into(imgPreview);
+        }
+
+        progressDialog = new ProgressDialog(EditFoodActivity.this, R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Editing the menu...");
 
         CapturePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,31 +163,10 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
                 price = FoodPrice.getText().toString();
                 description = FoodDescription.getText().toString();
                 progressDialog.show();
-                new Upload_Food().execute(Database.URL + "postMenu");
+                new Upload_Food().execute(Database.URL + postMenu);
             }
         });
 
-        // Create the adapter to convert the array to views
-        FoodAdapter adapter = new FoodAdapter(addFoodActivity.this, R.layout.item_food2, arrayOfFood);
-        // Attach the adapter to a AutoCompleteTextView
-        ACText.setAdapter(adapter);
-
-        //OnItemClickListener for the AutoCompleteTextView
-        ACText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-                chosenFood = (Food) parent.getItemAtPosition(position);
-                if (chosenFood.name.equals("There is no such food. Click me if you want to add it.")) {
-                    //addNewFoodButton.setVisibility(View.VISIBLE);
-                    Intent i = new Intent(view.getContext(), addNewFoodActivity.class);
-                    startActivity(i);
-                    finish();
-
-                } else {
-                    Toast.makeText(addFoodActivity.this, chosenFood.name, Toast.LENGTH_LONG).show();
-                    food_id = chosenFood.id;
-                }
-            }
-        });
 
     }
 
@@ -203,48 +180,6 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
         currency = "HRK";
     }
 
-    @Override
-    public void onPause(){
-
-        super.onPause();
-        if(progressDialog != null)
-            progressDialog.dismiss();
-    }
-
-    private class getFoodJSON extends AsyncTask<String, String, String> {
-
-        protected String doInBackground(String... urls) {
-            try {
-                URL url = null;
-                String response = null;
-                url = new URL(FOOD_URL);
-                //create the connection
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setDoInput(true);
-                connection.setDoOutput(false);
-                //set the request method to GET
-                connection.setRequestMethod("GET");
-                String line = "";
-                //create your inputstream
-                InputStreamReader in = new InputStreamReader(connection.getInputStream());
-                //read in the data from input stream
-                BufferedReader reader = new BufferedReader(in);
-                StringBuilder sb = new StringBuilder();
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-                //get the string version of the response data
-                response = sb.toString();
-                //close input streams
-                in.close();
-                reader.close();
-                return response;
-            } catch (Exception e) {
-                Log.e("HTTP GET:", e.toString());
-            }
-            return "Error. Please try again later.";
-        }
-    }
 
     private File getOutputMediaFile() {
 
@@ -451,8 +386,7 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
         @Override
         protected String doInBackground(String... params) {
             HashMap<String,String> data = new HashMap<>();
-            data.put("food_id", Integer.toString(food_id));
-            data.put("user_id", Integer.toString(user.getId()));
+            data.put("menu_id", Integer.toString(food.getId()));
             data.put("user_slug", user.getSlug());
             data.put("name", name);
             data.put("price", price);
@@ -465,13 +399,13 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
                 int outHeight;
                 int inWidth = bitmap.getWidth();
                 int inHeight = bitmap.getHeight();
-                    if(inWidth > inHeight){
-                        outWidth = maxSize;
-                        outHeight = (inHeight * maxSize) / inWidth;
-                    } else {
-                        outHeight = maxSize;
-                        outWidth = (inWidth * maxSize) / inHeight;
-                    }
+                if(inWidth > inHeight){
+                    outWidth = maxSize;
+                    outHeight = (inHeight * maxSize) / inWidth;
+                } else {
+                    outHeight = maxSize;
+                    outWidth = (inWidth * maxSize) / inHeight;
+                }
 
                 Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, outWidth, outHeight, false);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -490,9 +424,9 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
                 url = new URL(params[0]);
 
                 Log.d("Debug", "URL je " + url);
+                Log.d("Debug", "Menu id " + data.get("menu_id"));
                 Log.d("Debug", "Slika " + data.get("encoded_string"));
                 Log.d("Debug", "Ime " + data.get("image_name"));
-                Log.d("Debug", "user_id " + data.get("user_id"));
                 Log.d("Debug", "user_slug " + data.get("user_slug"));
                 Log.d("Debug", "name " + data.get("name"));
                 Log.d("Debug", "price " + data.get("price"));
@@ -543,10 +477,11 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
             //bitmap.recycle();
             progressDialog.dismiss();
             if(result.equals("success")){
-                Toast.makeText(addFoodActivity.this, "Your menu has been added", Toast.LENGTH_LONG).show();
+                Toast.makeText(EditFoodActivity.this, "Your menu has been edited", Toast.LENGTH_LONG).show();
             }
             super.onPostExecute(result);
         }
 
     }
+
 }

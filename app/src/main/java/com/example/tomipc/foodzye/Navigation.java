@@ -1,13 +1,13 @@
 package com.example.tomipc.foodzye;
-import java.util.ArrayList;
 
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +22,8 @@ import com.example.tomipc.foodzye.adapter.DrawerAdapter;
 import com.example.tomipc.foodzye.model.DrawerItem;
 import com.example.tomipc.foodzye.model.User;
 
+import java.util.ArrayList;
+
 public class Navigation extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -33,7 +35,7 @@ public class Navigation extends AppCompatActivity {
 
     public  String[] navMenuTitles ;
     public TypedArray navMenuIcons ;
-    android.support.v7.widget.Toolbar toolbar;
+    Toolbar toolbar;
 
 
     String pressed;
@@ -57,7 +59,7 @@ public class Navigation extends AppCompatActivity {
         // }
     }
 
-    public void set(android.support.v7.widget.Toolbar toolbar) {
+    public void set(Toolbar toolbar) {
         this.toolbar=toolbar;
         setNavigationTitle();
 
@@ -138,7 +140,7 @@ public class Navigation extends AppCompatActivity {
             if (user.getPicture().equals(""))
                 mTitleImage.setImageResource(R.drawable.food_def);
                 else
-                Glide.with(this).load(Database.URL+user.getPicture()).into(mTitleImage);
+                Glide.with(this).load(Database.URL + user.getPicture()).into(mTitleImage);
         }
 
     }
@@ -179,7 +181,7 @@ public class Navigation extends AppCompatActivity {
      * Diplaying fragment view for selected nav drawer list item
      * */
     private void displayView(int position) {
-System.out.println("Pressed: " + pressed);
+        System.out.println("Pressed: " + pressed);
         switch (pressed) {
             case "Home":
                 Intent intent = new Intent(this, MainActivity.class);
@@ -201,9 +203,14 @@ System.out.println("Pressed: " + pressed);
                 startActivity(intent3);
 
                 break;
-            case "Login":
-                Intent intent4 = new Intent(this, loginActivity.class);
+            case "Edit your food":
+                Intent intent4 = new Intent(this, ChooseFoodForEditActivity.class);
                 startActivity(intent4);
+
+                break;
+            case "Login":
+                Intent intent5 = new Intent(this, loginActivity.class);
+                startActivity(intent5);
 
                 break;
             case "Logout":
@@ -274,7 +281,7 @@ System.out.println("Pressed: " + pressed);
             else
             {
                 for (int i = 0; i < navMenuTitles.length; i++) {
-                    if(navMenuTitles[i].equals("Logout") || navMenuTitles[i].equals("Profile") || navMenuTitles[i].equals("Edit Profile") || navMenuTitles[i].equals("Add Food") || navMenuTitles[i].equals("Home"))
+                    if(navMenuTitles[i].equals("Logout") || navMenuTitles[i].equals("Profile") || navMenuTitles[i].equals("Edit Profile") || navMenuTitles[i].equals("Add Food") || navMenuTitles[i].equals("Edit your food") || navMenuTitles[i].equals("Home"))
                         if (navMenuIcons != null) {
                             navDrawerItems.add(new DrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
                         } else {

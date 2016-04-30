@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.example.tomipc.foodzye.adapter.DrawerAdapter;
@@ -35,7 +36,7 @@ public class MainActivity extends Navigation {
     private ArrayList<DrawerItem> navDrawerItems;
     private DrawerAdapter adapter;
 
-    private android.support.v7.widget.Toolbar toolbar;
+    private Toolbar toolbar;
 
 
 
@@ -47,9 +48,9 @@ public class MainActivity extends Navigation {
         userLocalStore = new UserLocalStore(this);
         user = userLocalStore.getLoggedInUser();
 
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         //navMenuTitles=setVisibility(navMenuTitles);
-        set( toolbar);
+        set(toolbar);
 
         checkForPermissions();
 
@@ -121,7 +122,6 @@ public class MainActivity extends Navigation {
 
     private boolean authenticate() {
         if (userLocalStore.getLoggedInUser() == null) {
-
             return false;
         }
 

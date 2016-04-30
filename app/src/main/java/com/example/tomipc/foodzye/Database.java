@@ -52,8 +52,6 @@ public class Database {
      */
     public void insert (HashMap data, String route) {
 
-        //System.out.println(URL+route+" "+data);
-
         PostResponseAsyncTask task = new PostResponseAsyncTask(context, data, new AsyncResponse() {
             @Override
             public void processFinish(String result) {

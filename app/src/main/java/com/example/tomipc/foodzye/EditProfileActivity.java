@@ -3,7 +3,6 @@ package com.example.tomipc.foodzye;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
-import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,12 +14,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Base64;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,8 +38,6 @@ public class EditProfileActivity extends Navigation {
     private static String getRoute = "getUser";
     private static String postRoute = "postUserUpdate";
 
-    protected DrawerLayout mDrawerLayout;
-    NavigationView mNavigationView;
     EditText EmailEditText, DescriptionEditText , LocationEditText, PhoneEditText, WorkTimeEditText;
     Button EditProfileButton, TakePictureButton, ChoosePictureButton;
     ImageView imgPreview;
@@ -58,23 +51,15 @@ public class EditProfileActivity extends Navigation {
     private Uri file_uri;
     private Bitmap bitmap;
 
-    private android.support.v7.widget.Toolbar toolbar;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        /**
-         *Setup the DrawerLayout and NavigationView
-         */
-
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         set(toolbar);
-
-        /**
-         * Setup click events on the Navigation View Items.
-         */
 
         userLocalStore = new UserLocalStore(this);
         user = userLocalStore.getLoggedInUser();
@@ -98,7 +83,7 @@ public class EditProfileActivity extends Navigation {
         if(user.getPicture() != null){
             imgPreview.setVisibility(View.VISIBLE);
             Glide.with(this)
-                    .load("http://164.132.228.255/"+user.getPicture())
+                    .load(Database.URL + user.getPicture())
                     .into(imgPreview);
         }
 

@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -21,7 +20,6 @@ import com.example.tomipc.foodzye.model.User;
 
 public class ProfileActivity extends Navigation {
     Toolbar toolbar;
-    ActionBarDrawerToggle mDrawerToggle;
     UserLocalStore userLocalStore;
     User user;
     ImageView ProfileImageView;
@@ -62,7 +60,7 @@ public class ProfileActivity extends Navigation {
             // This method ensures that tab selection events update the ViewPager and page changes update the selected tab.
             tabLayout.setupWithViewPager(viewPager);
 
-            toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar2);
+            toolbar = (Toolbar) findViewById(R.id.toolbar2);
             ProfileImageView = (ImageView) findViewById(R.id.ProfilePictureImageView);
             rating = (AppCompatRatingBar) findViewById(R.id.FoodServiceProviderRatingBar);
             rating.setRating((float)user.getRate());
@@ -80,7 +78,7 @@ public class ProfileActivity extends Navigation {
             // This method ensures that tab selection events update the ViewPager and page changes update the selected tab.
             tabLayout.setupWithViewPager(viewPager);
 
-            toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar2);
+            toolbar = (Toolbar) findViewById(R.id.toolbar2);
             ProfileImageView = (ImageView) findViewById(R.id.ProfilePictureImageView);
             rating = (AppCompatRatingBar) findViewById(R.id.FoodServiceProviderRatingBar);
             rating.setRating((float)user.getRate());
@@ -89,7 +87,7 @@ public class ProfileActivity extends Navigation {
         else{
             setContentView(R.layout.activity_profile_user);
 
-            toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbarUserProfile);
+            toolbar = (Toolbar) findViewById(R.id.toolbarUserProfile);
             ProfileImageView = (ImageView) findViewById(R.id.ProfilePictureImageViewUserProfile);
             UserNameTextView = (TextView) findViewById(R.id.UserNameTextViewUserProfile);
             x = (TextView) findViewById(R.id.textViewX);
@@ -99,14 +97,12 @@ public class ProfileActivity extends Navigation {
         if(user.getPicture() != null && !user.getPicture().equals("")){
             ProfileImageView.setVisibility(View.VISIBLE);
             Glide.with(this)
-                    .load("http://164.132.228.255/"+user.getPicture())
+                    .load(Database.URL + user.getPicture())
                     .into(ProfileImageView);
         }
 
         UserNameTextView.setText(user.getUsername());
 
-
-        System.out.println("naslov Profil"+navMenuTitles[0]);
         set(toolbar);
     }
 

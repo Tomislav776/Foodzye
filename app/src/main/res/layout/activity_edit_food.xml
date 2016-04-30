@@ -1,35 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:id="@+id/drawerLayout">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
-
-    <android.support.v7.widget.Toolbar
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/red"
-        android:id="@+id/toolbar"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
 
-        <ImageView
-            android:src="@drawable/logo_mini"
-            android:layout_width="100dp"
-            android:layout_height="50dp" />
-
-    </android.support.v7.widget.Toolbar>
-
-
-
+        <android.support.v7.widget.Toolbar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:id="@+id/EditFoodToolbar"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
         <ScrollView
             android:layout_width="fill_parent"
@@ -45,35 +36,18 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:descendantFocusability="beforeDescendants"
                 android:focusableInTouchMode="true"
-                tools:context="com.example.tomipc.foodzye.addFoodActivity">
-
-                <AutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="Choose type of food"
-                    android:gravity="center"
-                    android:id="@+id/acText"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:completionThreshold="1"
-                    android:fontFamily="sans-serif-medium"
-                    android:textColor="#c0392b"
-                    android:inputType="textPhonetic"
-                    android:background="@drawable/input"
-                    android:layout_marginTop="10dp" />
+                tools:context="com.example.tomipc.foodzye.EditFoodActivity">
 
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
-                    android:id="@+id/AddFoodNameEditText"
+                    android:id="@+id/AddFoodNameEditText2"
                     android:hint="Food name"
                     android:textColor="#c0392b"
                     android:fontFamily="sans-serif-medium"
                     android:visibility="visible"
                     android:gravity="center"
                     android:background="@drawable/input"
-                    android:layout_below="@id/acText"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentLeft="true"
@@ -84,14 +58,14 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
-                    android:id="@+id/FoodDescription"
+                    android:id="@+id/FoodDescription2"
                     android:hint="Food description"
                     android:textColor="#c0392b"
                     android:fontFamily="sans-serif-medium"
                     android:visibility="visible"
                     android:gravity="center"
                     android:background="@drawable/input"
-                    android:layout_below="@id/AddFoodNameEditText"
+                    android:layout_below="@id/AddFoodNameEditText2"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentLeft="true"
@@ -101,8 +75,8 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:id="@+id/FoodPrice"
-                    android:layout_below="@id/FoodDescription"
+                    android:id="@+id/FoodPrice2"
+                    android:layout_below="@id/FoodDescription2"
                     android:hint="Food price"
                     android:gravity="center"
                     android:textColor="#c0392b"
@@ -118,15 +92,15 @@
                 <com.makeramen.roundedimageview.RoundedImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
                     app:riv_corner_radius="15dip"
-                    android:id="@+id/imgPreview"
+                    android:id="@+id/imgPreview2"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:visibility="invisible"
                     android:scaleType="fitXY"
                     android:src="@drawable/user_def"
-                    android:layout_below="@+id/FoodPrice"
-                    android:layout_alignRight="@+id/spinnerCurrency"
-                    android:layout_alignEnd="@+id/spinnerCurrency"
+                    android:layout_below="@id/FoodPrice2"
+                    android:layout_alignRight="@+id/spinnerCurrency2"
+                    android:layout_alignEnd="@+id/spinnerCurrency2"
                     android:layout_marginTop="20dp"
                     />
 
@@ -134,12 +108,12 @@
                     android:text="TAKE PICTURE"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/take_picture"
+                    android:id="@+id/take_picture2"
                     android:background="@drawable/button"
                     android:padding="12dp"
                     android:textColor="#ffffff"
                     android:textStyle="bold"
-                    android:layout_alignTop="@+id/imgPreview"
+                    android:layout_alignTop="@+id/imgPreview2"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
@@ -147,24 +121,24 @@
                     android:text="CHOOSE PICTURE FROM THE PHONE"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/choose_picture"
+                    android:id="@+id/choose_picture2"
                     android:background="@drawable/button"
                     android:padding="12dp"
                     android:textColor="#ffffff"
                     android:textStyle="bold"
-                    android:layout_above="@+id/AddFoodButton"
+                    android:layout_above="@+id/AddFoodButton2"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
                 <Button
-                    android:text="ADD FOOD"
+                    android:text="EDIT FOOD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/AddFoodButton"
+                    android:id="@+id/AddFoodButton2"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
-                    android:layout_below="@id/imgPreview"
+                    android:layout_below="@id/imgPreview2"
                     android:background="@drawable/button"
                     android:textColor="#ffffff"
                     android:padding="10dp"
@@ -173,20 +147,18 @@
                 <Spinner
                     android:layout_width="200dp"
                     android:layout_height="50dp"
-                    android:id="@+id/spinnerCurrency"
+                    android:id="@+id/spinnerCurrency2"
                     android:background="@drawable/kat"
-                    android:layout_below="@+id/FoodDescription"
-                    android:layout_toRightOf="@+id/FoodPrice"
-                    android:layout_toEndOf="@+id/FoodPrice"
+                    android:layout_below="@id/FoodDescription2"
+                    android:layout_toRightOf="@id/FoodPrice2"
+                    android:layout_toEndOf="@id/FoodPrice2"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"/>
 
 
             </RelativeLayout>
         </ScrollView>
-
-</LinearLayout>
-
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/drawerLinearLayout"
@@ -232,5 +204,6 @@
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp" />
     </LinearLayout>
+
 
 </android.support.v4.widget.DrawerLayout>

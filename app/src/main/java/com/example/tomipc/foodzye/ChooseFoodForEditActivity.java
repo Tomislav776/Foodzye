@@ -1,57 +1,57 @@
-package com.example.tomipc.foodzye.fragments;
+package com.example.tomipc.foodzye;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.tomipc.foodzye.Database;
-import com.example.tomipc.foodzye.DividerItemDecoration;
-import com.example.tomipc.foodzye.FoodActivity;
-import com.example.tomipc.foodzye.ProfileActivity;
-import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.adapter.MenuAdapter;
 import com.example.tomipc.foodzye.model.Menu;
+import com.example.tomipc.foodzye.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
+public class ChooseFoodForEditActivity extends Navigation {
 
-public class ProfileFragmentMenuTab extends Fragment {
+    private Toolbar toolbar;
+
     private List<Menu> menuList = new ArrayList<>();
     private RecyclerView recyclerView;
     private MenuAdapter mAdapter;
     Menu menu;
+    UserLocalStore userLocalStore;
+    User user;
     int user_id;
 
     Database db;
     Context c;
 
-    public static ProfileFragmentMenuTab newInstance() {
-        return new ProfileFragmentMenuTab();
-    }
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragments_profile_menu, null);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_choose_food_for_edit);
 
-        ProfileActivity activity = (ProfileActivity) getActivity();
-        user_id = activity.getUserId();
+        userLocalStore = new UserLocalStore(this);
+        user = userLocalStore.getLoggedInUser();
+
+        toolbar = (Toolbar) findViewById(R.id.ChooseFoodToolbar);
+        set(toolbar);
+
+        user_id = user.getId();
+
+        c = this;
 
         db = new Database(c);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.MenuRecyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.UserMenuRecyclerView);
 
         mAdapter = new MenuAdapter(menuList, c);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(c);
@@ -69,10 +69,10 @@ public class ProfileFragmentMenuTab extends Fragment {
                 Toast.makeText(c, menu.getName() + " is selected!", Toast.LENGTH_SHORT).show();
 
 
-                Intent foodActivity = new Intent(getActivity(), FoodActivity.class);
-                foodActivity.putExtra("Menu", menu);
+                Intent EditFood = new Intent(getApplicationContext(), EditFoodActivity.class);
+                EditFood.putExtra("Menu", menu);
 
-                startActivity(foodActivity);
+                startActivity(EditFood);
             }
 
             @Override
@@ -80,14 +80,6 @@ public class ProfileFragmentMenuTab extends Fragment {
 
             }
         }));
-
-        return view;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        c = context;
     }
 
     private void prepareMenuData() {
@@ -97,8 +89,8 @@ public class ProfileFragmentMenuTab extends Fragment {
         arrayOfFood = db.readMenu("getMenu/"+Integer.toString(user_id));
 
         for(Menu value: arrayOfFood) {
-            menu = new Menu(value.getId(), value.getName(), value.getDescription(), value.getCurrency(), value.getImage(), value.getRate(), value.getPrice(), value.getFood_id(), value.getNameFood(), value.getUser_id());
-            menuList.add(menu);
+            //menu = new Menu(value.getId(), value.getName(), value.getDescription(), value.getCurrency(), value.getImage(), value.getRate(), value.getPrice(), value.getFood_id(), value.getNameFood(), value.getUser_id());
+            menuList.add(value);
         }
 
         mAdapter.notifyDataSetChanged();
@@ -114,9 +106,9 @@ public class ProfileFragmentMenuTab extends Fragment {
     public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
         private GestureDetector gestureDetector;
-        private ProfileFragmentMenuTab.ClickListener clickListener;
+        private ChooseFoodForEditActivity.ClickListener clickListener;
 
-        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ProfileFragmentMenuTab.ClickListener clickListener) {
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ChooseFoodForEditActivity.ClickListener clickListener) {
             this.clickListener = clickListener;
             gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
                 @Override

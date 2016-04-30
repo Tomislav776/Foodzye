@@ -8,6 +8,8 @@
     <string name="title_activity_add_food">AddFoodActivity</string>
     <string name="title_activity_add_new_food">AddNewFoodActivity</string>
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
+    <string name="title_activity_choose_food_for_edit">ChooseFoodForEditActivity</string>
+    <string name="title_activity_choose_edit_food_activity">EditFoodActivity</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -22,6 +24,7 @@
         <item>Profile</item>
         <item>Edit Profile</item>
         <item>Add Food</item>
+        <item>Edit your food</item>
         <item>Login</item>
         <item>Logout</item>
     </string-array>
@@ -31,6 +34,7 @@
         <item>@drawable/profile</item>
         <item>@drawable/edit_profile</item>
         <item>@drawable/add_food</item>
+        <item>@drawable/edit_profile</item>
         <item>@drawable/log_in</item>
         <item>@drawable/log_out</item>
     </array>

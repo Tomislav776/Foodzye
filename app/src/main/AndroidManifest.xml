@@ -55,6 +55,14 @@
             android:name=".ResetPasswordActivity"
             android:label="@string/title_activity_reset_password"
             android:theme="@style/HiddenTitleTheme" />
+        <activity
+            android:name=".ChooseFoodForEditActivity"
+            android:label="@string/title_activity_choose_food_for_edit"
+            android:theme="@style/HiddenTitleTheme" />
+        <activity
+            android:name=".EditFoodActivity"
+            android:label="@string/title_activity_choose_edit_food_activity"
+            android:theme="@style/HiddenTitleTheme"/>
     </application>
 
 </manifest>
