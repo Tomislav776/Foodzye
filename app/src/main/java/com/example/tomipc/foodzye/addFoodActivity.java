@@ -1,7 +1,10 @@
 package com.example.tomipc.foodzye;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -15,6 +18,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
@@ -61,6 +67,12 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
 
     private static final String FOOD_URL = Database.URL + "getFood";
 
+    // Identifier for the camera and external storage permission request
+    private static final int REQUEST_CAMERA = 0;
+    private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 1;
+
+    int CameraPermission, StoragePermission;
+
     UserLocalStore userLocalStore;
     User user;
     HttpURLConnection connection;
@@ -90,6 +102,14 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
 
         userLocalStore = new UserLocalStore(this);
         user = userLocalStore.getLoggedInUser();
+
+        if(android.os.Build.VERSION.SDK_INT >= 23) {
+            CameraPermission = 0;
+            StoragePermission = 0;
+        }else{
+            CameraPermission = 1;
+            StoragePermission = 1;
+        }
 
         // Construct the data source
         arrayOfFood = new ArrayList<Food>();
@@ -141,20 +161,29 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
         CapturePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                file_uri = Uri.fromFile(getOutputMediaFile());
-                i.putExtra(MediaStore.EXTRA_OUTPUT, file_uri);
-                startActivityForResult(i, 10);
+                getPermissionForCamera();
+                getPermissionForStorage();
+
+                if(CameraPermission == 1 && StoragePermission == 1) {
+                    Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    file_uri = Uri.fromFile(getOutputMediaFile());
+                    i.putExtra(MediaStore.EXTRA_OUTPUT, file_uri);
+                    startActivityForResult(i, 10);
+                }
             }
         });
 
         ChoosePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 100);
+                getPermissionForStorage();
+
+                if(StoragePermission == 1){
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Select Picture"), 100);
+                }
             }
         });
 
@@ -210,6 +239,120 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
         if(progressDialog != null)
             progressDialog.dismiss();
     }
+
+
+    // Called when the user wants to take a picture
+    public void getPermissionForCamera() {
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // The permission is NOT already granted.
+            // Check if the user has been asked about this permission already and denied
+            // it. If so, we want to give more explanation about why the permission is needed.
+
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.CAMERA)) {
+                    // Show our own UI to explain to the user why we need to get the Camera permission
+                    // before actually requesting the permission and showing the default UI
+
+                    showMessageOKCancel("You need to allow access to the camera if you want to take a picture.",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                        // Fire off an async request to actually get the permission
+                                        // This will show the standard permission request dialog UI
+                                        ActivityCompat.requestPermissions(addFoodActivity.this, new String[]{Manifest.permission.CAMERA},
+                                                REQUEST_CAMERA);
+                                    }
+                            });
+                }
+
+        }else{
+            CameraPermission = 1;
+        }
+    }
+
+    // Called when the user wants to get a picture from storage
+    public void getPermissionForStorage(){
+
+        //checking for the storage permission
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+
+            // The permission is NOT already granted.
+            // Check if the user has been asked about this permission already and denied
+            // it. If so, we want to give more explanation about why the permission is needed.
+
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    // Show our own UI to explain to the user why we need to get the Camera permission
+                    // before actually requesting the permission and showing the default UI
+
+                    showMessageOKCancel("You need to allow access to the external storage to get the picture from your phone.",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                        // Fire off an async request to actually get the permission
+                                        // This will show the standard permission request dialog UI
+                                        ActivityCompat.requestPermissions(addFoodActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                                REQUEST_WRITE_EXTERNAL_STORAGE);
+                                }
+                            });
+                }
+        }else{
+            StoragePermission = 1;
+        }
+
+    }
+
+
+    // Callback with the request from calling requestPermissions(...)
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        // Make sure it's our original REQUEST_CAMERA request
+        if (requestCode == REQUEST_CAMERA) {
+            if (grantResults.length == 1 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                CameraPermission = 1;
+                Toast.makeText(this, "Camera permission granted.", Toast.LENGTH_SHORT).show();
+            } else {
+                CameraPermission = 0;
+                Toast.makeText(this, "Camera permission denied.", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+
+        // Make sure it's our original REQUEST_WRITE_EXTERNAL_STORAGE request
+        if (requestCode == REQUEST_WRITE_EXTERNAL_STORAGE) {
+            if (grantResults.length == 1 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                StoragePermission = 1;
+                Toast.makeText(this, "External storage permission granted.", Toast.LENGTH_SHORT).show();
+            } else {
+                StoragePermission = 0;
+                Toast.makeText(this, "External storage permission denied.", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+    }
+
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(addFoodActivity.this)
+                .setMessage(message)
+                .setPositiveButton("I understand", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
+    }
+
 
     private class getFoodJSON extends AsyncTask<String, String, String> {
 
