@@ -31,9 +31,9 @@
 
         <Spinner
             android:layout_width="0dp"
-            android:layout_height="53dp"
-            android:layout_weight=".50"
-            android:background="@drawable/kat_sort"
+            android:layout_height="50dp"
+            android:layout_weight=".30"
+            android:background="@drawable/input"
             android:id="@+id/food_fragment_sort"
             android:padding="10dp"
             android:gravity="center"
@@ -41,6 +41,7 @@
             android:layout_toRightOf="@+id/food_fragment_search" />
 
     </LinearLayout>
+
 
 
     <android.support.v7.widget.RecyclerView

@@ -58,9 +58,6 @@
         android:layout_alignStart="@+id/row_place_name"
         />
 
-    <!--android:scaleX="0.5"
-       android:scaleY="0.5"-->
-
 
     <TextView android:id="@+id/row_place_location"
         android:layout_width="wrap_content"

@@ -93,7 +93,6 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
             @Override
             public void onClick(View view, int position) {
                 Place place = placeList.get(position);
-                Toast.makeText(c, place.getName() + " is selected!", Toast.LENGTH_SHORT).show();
 
                 //Mine improv
                 Intent profileActivity = new Intent(getActivity(), ProfileActivity.class);

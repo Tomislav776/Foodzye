@@ -27,7 +27,7 @@ import java.util.HashMap;
 public class Database {
 
     HttpURLConnection connection;
-    public static String URL = "http://164.132.228.255/";
+    public static String URL = "http://164.132.228.255/"; //164.132.228.255  10.0.3.2
 
     private Context context;
 
@@ -86,8 +86,11 @@ public class Database {
                 String phone = jObject.getString("phone");
                 String picture = jObject.getString("user_picture");
                 String work_time = jObject.getString("work_time");
+                String name = jObject.getString("name");
+                double rate = jObject.getDouble("rate_total");
+                String slug = jObject.getString("slug");
 
-                user = new User(email, location, phone, picture, work_time, description);
+                user = new User(name,email, location, phone, picture, work_time, description,rate,slug);
             }
 
         }
@@ -226,8 +229,9 @@ public class Database {
                 double price = jObject.getDouble("price");
                 double rate = jObject.getDouble("rate_total");
                 int food_id = jObject.getInt("food_id");
+                int user_id = jObject.getInt("user_id");
 
-                Menu food = new Menu(id, name, description,  currency,  image,  rate,  price, food_id, nameFood);
+                Menu food = new Menu(id, name, description,  currency,  image,  rate,  price, food_id, nameFood, user_id);
                 arrayOfMenu.add(food);
             }
 
@@ -256,8 +260,9 @@ public class Database {
                 double price = jObject.getDouble("price");
                 double rate = jObject.getDouble("rate_total");
                 int food_id = jObject.getInt("food_id");
+                int user_id = jObject.getInt("user_id");
 
-                Menu food = new Menu(id, name, description,  currency,  image,  rate,  price, food_id, nameFood);
+                Menu food = new Menu(id, name, description,  currency,  image,  rate,  price, food_id, nameFood, user_id);
                 arrayOfMenu.add(food);
             }
 

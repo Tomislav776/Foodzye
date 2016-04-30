@@ -183,7 +183,7 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
             arrayOfFood = baza.readMenu("getMenu");
 
             for (Menu value : arrayOfFood) {
-                menu = new Menu(value.getId(), value.getName(), value.getDescription(), value.getCurrency(), value.getImage(), value.getRate(), value.getPrice(), value.getFood_id(), value.getNameFood());
+                menu = new Menu(value.getId(), value.getName(), value.getDescription(), value.getCurrency(), value.getImage(), value.getRate(), value.getPrice(), value.getFood_id(), value.getNameFood(), value.getUser_id());
                 menuList.add(menu);
             }
         }

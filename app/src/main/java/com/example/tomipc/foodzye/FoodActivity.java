@@ -12,11 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.tomipc.foodzye.adapter.ReviewAdapter;
 import com.example.tomipc.foodzye.model.Menu;
+import com.example.tomipc.foodzye.model.Place;
 import com.example.tomipc.foodzye.model.Review;
 import com.example.tomipc.foodzye.model.User;
 
@@ -31,17 +33,25 @@ public class FoodActivity extends AppCompatActivity {
     private Button logInButton;
     private TextView description;
     private TextView price;
-    private TextView restaurant;
+    private TextView restaurantName;
+    private TextView restaurantLocation;
+    private AppCompatRatingBar restaurantRating;
+    private ImageView restaurantImage;
     private TextView textAddYour;
     private AppCompatRatingBar rating;
     private AppCompatRatingBar ratingTotal;
     private ImageView imageFood;
     private RecyclerView recycleReviewList;
     private EditText review;
+    private RelativeLayout RestaurantClick;
+
 
     Database data;
     UserLocalStore userLocalStore;
     User user;
+
+    User userdata;
+    Place userdataP;
 
 
     private Review reviewObj;
@@ -63,7 +73,6 @@ public class FoodActivity extends AppCompatActivity {
         name = (TextView) findViewById(R.id.activity_food_name);
         description = (TextView) findViewById(R.id.activity_food_description);
         price = (TextView) findViewById(R.id.activity_food_price);
-        restaurant = (TextView) findViewById(R.id.activity_food_restaurant);
         textAddYour = (TextView) findViewById(R.id.activity_food_text_add_your_review);
         rating = (AppCompatRatingBar) findViewById(R.id.activity_food_ratingBar);
         ratingTotal = (AppCompatRatingBar) findViewById(R.id.activity_food_ratingBar_total);
@@ -72,6 +81,12 @@ public class FoodActivity extends AppCompatActivity {
         reviewButton = (Button) findViewById(R.id.activity_food_button_review);
         logInButton = (Button) findViewById(R.id.activity_food_button_login);
         review = (EditText) findViewById(R.id.activity_food_review);
+
+        restaurantName = (TextView) findViewById(R.id.place_restaurant_name);
+        restaurantLocation = (TextView) findViewById(R.id.place_restaurant_location);
+        restaurantRating = (AppCompatRatingBar) findViewById(R.id.place_restaurant_rating_bar);
+        restaurantImage = (ImageView) findViewById(R.id.place_restaurant_picture);
+        RestaurantClick = (RelativeLayout) findViewById(R.id.place_restaurant_relative_click);
 
 
         //Recycler view
@@ -88,15 +103,32 @@ public class FoodActivity extends AppCompatActivity {
         Intent i = getIntent();
         food = (Menu)i.getSerializableExtra("Menu");
 
-        Glide.with(this)
-                .load(Database.URL+food.getImage())
-                .into(imageFood);
+        Glide.with(this).load(Database.URL + food.getImage()).into(imageFood);
 
         prepareReviewData(food.getId());
 
         userLocalStore = new UserLocalStore(this);
         user = userLocalStore.getLoggedInUser();
 
+
+
+        userdata = data.getUserData("getUser", String.valueOf(food.getUser_id()));
+        restaurantName.setText(userdata.getUsername());
+        restaurantLocation.setText(userdata.getLocation());
+        restaurantRating.setRating((float) userdata.getRate());
+        Glide.with(this).load(Database.URL+userdata.getPicture()).into(restaurantImage);
+
+        RestaurantClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileActivity = new Intent(FoodActivity.this, ProfileActivity.class);
+                userdataP = new Place (food.getUser_id(), 2, userdata.getUsername(), userdata.getEmail(), userdata.getSlug(), userdata.getLocation(), userdata.getPhone(), userdata.getPicture(), userdata.getWork_time(), userdata.getRate(), userdata.getDescription());
+
+                profileActivity.putExtra("Place", userdataP);
+                startActivity(profileActivity);
+
+            }
+        });
 
 
         ratingTotal.setRating((float) food.getRate());

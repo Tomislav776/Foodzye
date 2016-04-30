@@ -9,36 +9,46 @@
     tools:showIn="@layout/activity_main"
     tools:context=".MainActivity">
 
-    <AutoCompleteTextView
-        android:id="@+id/place_fragment_search"
-        android:layout_width="210dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/input"
-        android:hint="Search..."
-        android:textColor="#c0392b"
-        android:textColorHint="#000000"
-        android:gravity="center"
-        android:textSize="17dp"
-        android:completionThreshold="1"
-        android:padding="10dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/place_fragment_linear_above">
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="53dp"
-        android:id="@+id/place_fragment_sort"
-        android:padding="10dp"
-        android:gravity="center"
-        android:background="@drawable/kat_sort"
-        android:spinnerMode="dropdown"
-        android:layout_toRightOf="@+id/place_fragment_search"
-        android:layout_toEndOf="@+id/place_fragment_search"/>
+        <AutoCompleteTextView
+            android:id="@+id/place_fragment_search"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight=".70"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/input"
+            android:hint="Search..."
+            android:textColor="#c0392b"
+            android:textColorHint="#000000"
+            android:gravity="center"
+            android:textSize="17dp"
+            android:completionThreshold="1"
+            android:padding="10dp" />
+
+
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight=".30"
+            android:background="@drawable/input"
+            android:id="@+id/place_fragment_sort"
+            android:padding="10dp"
+            android:gravity="center"
+            android:spinnerMode="dropdown"
+            android:layout_toRightOf="@+id/place_fragment_search" />
+
+    </LinearLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/place_fragment_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        android:layout_below="@+id/place_fragment_search"/>
+        android:layout_below="@+id/place_fragment_linear_above"/>
 
 </RelativeLayout>
