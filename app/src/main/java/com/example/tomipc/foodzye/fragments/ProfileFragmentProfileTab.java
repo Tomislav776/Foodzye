@@ -118,7 +118,7 @@ public class ProfileFragmentProfileTab extends Fragment {
 
             if (!(arrayOfReview.isEmpty())) {
                 FoodServiceProviderUserReviewRatingBar.setRating((float) arrayOfReview.get(0).getRate());
-                ReviewTextView.setText(arrayOfReview.get(0).getComment());
+                ReviewEditText.setText(arrayOfReview.get(0).getComment());
             }
         }
 
