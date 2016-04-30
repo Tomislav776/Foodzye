@@ -7,6 +7,7 @@
     <string name="title_activity_signup">SignupActivity</string>
     <string name="title_activity_add_food">AddFoodActivity</string>
     <string name="title_activity_add_new_food">AddNewFoodActivity</string>
+    <string name="title_activity_reset_password">ResetPasswordActivity</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

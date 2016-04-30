@@ -43,9 +43,6 @@
             android:label="@string/title_activity_add_food"
             android:theme="@style/HiddenTitleTheme" />
         <activity
-            android:name=".ReviewActivity"
-            android:label="Review" />
-        <activity
             android:name=".ProfileActivity"
             android:label="Profile"
             android:theme="@style/AppTheme.Dark" />
@@ -54,7 +51,10 @@
             android:name=".addNewFoodActivity"
             android:label="@string/title_activity_add_new_food"
             android:theme="@style/HiddenTitleTheme" />
-        <activity android:name=".ResetPasswordActivity"></activity>
+        <activity
+            android:name=".ResetPasswordActivity"
+            android:label="@string/title_activity_reset_password"
+            android:theme="@style/HiddenTitleTheme" />
     </application>
 
 </manifest>
