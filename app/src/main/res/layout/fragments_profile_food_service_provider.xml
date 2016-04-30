@@ -156,6 +156,19 @@
         android:background="@drawable/button"
         android:padding="10dp" />
 
+    <Button
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:text="LOG IN TO RATE"
+        android:id="@+id/profile_review_login_button"
+        android:layout_below="@id/ReviewEditTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:background="@drawable/button"
+        android:padding="10dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

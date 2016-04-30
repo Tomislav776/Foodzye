@@ -1,6 +1,7 @@
 package com.example.tomipc.foodzye.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import com.example.tomipc.foodzye.DividerItemDecoration;
 import com.example.tomipc.foodzye.ProfileActivity;
 import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.adapter.ReviewAdapter;
+import com.example.tomipc.foodzye.loginActivity;
 import com.example.tomipc.foodzye.model.Review;
 import com.example.tomipc.foodzye.model.User;
 
@@ -38,6 +40,8 @@ public class ProfileFragmentProfileTab extends Fragment {
 
     private RecyclerView recycleReviewList;
     private Button SendReviewButton;
+    private Button logInButton;
+
     private AppCompatRatingBar FoodServiceProviderUserReviewRatingBar;
     private EditText ReviewEditText;
     private TextView DescriptionTextView, EmailTextView, PhoneTextView, WorkHoursTextView, ReviewTextView, ReviewTextView2;
@@ -48,6 +52,7 @@ public class ProfileFragmentProfileTab extends Fragment {
     public ArrayList<Review> arrayOfAllReview = new ArrayList<>();
 
     private List<Review> reviewList = new ArrayList<>();
+    public ArrayList<Review> arrayOfReview = new ArrayList<>();
     private ReviewAdapter mAdapter;
 
     @Nullable
@@ -61,6 +66,7 @@ public class ProfileFragmentProfileTab extends Fragment {
 
         db = new Database(c);
 
+        logInButton = (Button) view.findViewById(R.id.profile_review_login_button);
         SendReviewButton = (Button) view.findViewById(R.id.SendPlaceReviewButton);
         FoodServiceProviderUserReviewRatingBar = (AppCompatRatingBar) view.findViewById(R.id.FoodServiceProviderUserReviewRatingBar);
         ReviewEditText = (EditText) view.findViewById(R.id.ReviewEditTextView);
@@ -77,11 +83,43 @@ public class ProfileFragmentProfileTab extends Fragment {
         PhoneTextView.setText(user.getPhone());
         WorkHoursTextView.setText(user.getWork_time());
 
-        if(user_id == logged_in_user_id || logged_in_user_id == 0){
+        /*if(user_id == logged_in_user_id || logged_in_user_id == 0){
             ReviewTextView.setVisibility(View.GONE);
             ReviewEditText.setVisibility(View.GONE);
             FoodServiceProviderUserReviewRatingBar.setVisibility(View.INVISIBLE);
             SendReviewButton.setVisibility(View.INVISIBLE);
+        }*/
+
+        if (user_id == logged_in_user_id || logged_in_user_id == 0){
+            SendReviewButton.setVisibility(View.GONE);
+            ReviewEditText.setVisibility(View.GONE);
+            logInButton.setVisibility(View.VISIBLE);
+            ReviewTextView.setVisibility(View.GONE);
+            FoodServiceProviderUserReviewRatingBar.setVisibility(View.GONE);
+
+            logInButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getActivity(), loginActivity.class);
+                    startActivity(i);
+                }
+            });
+
+
+        }
+        else{
+            SendReviewButton.setVisibility(View.VISIBLE);
+            ReviewEditText.setVisibility(View.VISIBLE);
+            logInButton.setVisibility(View.GONE);
+            FoodServiceProviderUserReviewRatingBar.setVisibility(View.VISIBLE);
+            ReviewTextView.setVisibility(View.VISIBLE);
+
+            arrayOfReview = db.readUserReview("getUsersReviewPlace", String.valueOf(user_id), String.valueOf(logged_in_user_id));
+
+            if (!(arrayOfReview.isEmpty())) {
+                FoodServiceProviderUserReviewRatingBar.setRating((float) arrayOfReview.get(0).getRate());
+                ReviewTextView.setText(arrayOfReview.get(0).getComment());
+            }
         }
 
 
