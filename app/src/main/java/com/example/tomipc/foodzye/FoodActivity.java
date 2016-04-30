@@ -7,6 +7,7 @@ import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,6 +36,7 @@ public class FoodActivity extends AppCompatActivity {
     private TextView price;
     private TextView restaurantName;
     private TextView restaurantLocation;
+    private TextView restaurantWorkHours;
     private AppCompatRatingBar restaurantRating;
     private ImageView restaurantImage;
     private TextView textAddYour;
@@ -45,6 +47,7 @@ public class FoodActivity extends AppCompatActivity {
     private EditText review;
     private RelativeLayout RestaurantClick;
 
+    Toolbar toolbar;
 
     Database data;
     UserLocalStore userLocalStore;
@@ -70,6 +73,20 @@ public class FoodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbarFood);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setTitle("");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FoodActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         name = (TextView) findViewById(R.id.activity_food_name);
         description = (TextView) findViewById(R.id.activity_food_description);
         price = (TextView) findViewById(R.id.activity_food_price);
@@ -81,12 +98,6 @@ public class FoodActivity extends AppCompatActivity {
         reviewButton = (Button) findViewById(R.id.activity_food_button_review);
         logInButton = (Button) findViewById(R.id.activity_food_button_login);
         review = (EditText) findViewById(R.id.activity_food_review);
-
-        restaurantName = (TextView) findViewById(R.id.place_restaurant_name);
-        restaurantLocation = (TextView) findViewById(R.id.place_restaurant_location);
-        restaurantRating = (AppCompatRatingBar) findViewById(R.id.place_restaurant_rating_bar);
-        restaurantImage = (ImageView) findViewById(R.id.place_restaurant_picture);
-        RestaurantClick = (RelativeLayout) findViewById(R.id.place_restaurant_relative_click);
 
 
         //Recycler view
@@ -110,26 +121,8 @@ public class FoodActivity extends AppCompatActivity {
         userLocalStore = new UserLocalStore(this);
         user = userLocalStore.getLoggedInUser();
 
-
-
-        userdata = data.getUserData("getUser", String.valueOf(food.getUser_id()));
-        restaurantName.setText(userdata.getUsername());
-        restaurantLocation.setText(userdata.getLocation());
-        restaurantRating.setRating((float) userdata.getRate());
-        Glide.with(this).load(Database.URL+userdata.getPicture()).into(restaurantImage);
-
-        RestaurantClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent profileActivity = new Intent(FoodActivity.this, ProfileActivity.class);
-                userdataP = new Place (food.getUser_id(), 2, userdata.getUsername(), userdata.getEmail(), userdata.getSlug(), userdata.getLocation(), userdata.getPhone(), userdata.getPicture(), userdata.getWork_time(), userdata.getRate(), userdata.getDescription());
-
-                profileActivity.putExtra("Place", userdataP);
-                startActivity(profileActivity);
-
-            }
-        });
-
+        //Set restaurant in Food
+        setRestaurant();
 
         ratingTotal.setRating((float) food.getRate());
         if (user == null){
@@ -209,6 +202,37 @@ public class FoodActivity extends AppCompatActivity {
         }
 
         mAdapter.notifyDataSetChanged();
+
+    }
+
+    private void setRestaurant(){
+        restaurantName = (TextView) findViewById(R.id.place_restaurant_name);
+        restaurantLocation = (TextView) findViewById(R.id.place_restaurant_location);
+        restaurantRating = (AppCompatRatingBar) findViewById(R.id.place_restaurant_rating_bar);
+        restaurantImage = (ImageView) findViewById(R.id.place_restaurant_picture);
+        RestaurantClick = (RelativeLayout) findViewById(R.id.place_restaurant_relative_click);
+        restaurantWorkHours = (TextView) findViewById(R.id.place_restaurant_work_hours);
+
+
+        userdata = data.getUserData("getUser", String.valueOf(food.getUser_id()));
+        restaurantName.setText(userdata.getUsername());
+        restaurantLocation.setText(userdata.getLocation());
+        restaurantWorkHours.setText(userdata.getWork_time());
+        restaurantRating.setRating((float) userdata.getRate());
+        Glide.with(this).load(Database.URL+userdata.getPicture()).into(restaurantImage);
+
+        RestaurantClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileActivity = new Intent(FoodActivity.this, ProfileActivity.class);
+                userdataP = new Place (food.getUser_id(), 2, userdata.getUsername(), userdata.getEmail(), userdata.getSlug(), userdata.getLocation(), userdata.getPhone(), userdata.getPicture(), userdata.getWork_time(), userdata.getRate(), userdata.getDescription());
+
+                profileActivity.putExtra("Place", userdataP);
+                startActivity(profileActivity);
+
+            }
+        });
+
 
     }
 

@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/red"
-        android:id="@+id/toolbar2"
+        android:id="@+id/toolbarFood"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
 
         <ImageView
@@ -163,7 +163,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Makismirska"
+            android:text="Makismir"
             android:textColor="@color/counter_text_color"
             android:layout_below="@+id/place_restaurant_name"
             android:layout_alignLeft="@+id/place_restaurant_name"
@@ -175,7 +175,7 @@
             android:layout_height="wrap_content"
             android:text="Work hours"
             android:textColor="@color/counter_text_color"
-            android:id="@+id/textView11"
+            android:id="@+id/place_restaurant_work_hours"
             android:gravity="center"
             android:layout_above="@+id/place_restaurant_location"
             android:layout_centerHorizontal="true" />
