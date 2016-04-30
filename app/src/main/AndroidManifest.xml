@@ -48,7 +48,9 @@
             android:name=".ProfileActivity"
             android:label="Profile"
             android:theme="@style/AppTheme.Dark" />
-        <activity android:name=".EditProfileActivity" />
+        <activity
+            android:name=".EditProfileActivity"
+            android:theme="@style/AppTheme.Dark"/>
         <activity
             android:name=".addNewFoodActivity"
             android:label="@string/title_activity_add_new_food"
