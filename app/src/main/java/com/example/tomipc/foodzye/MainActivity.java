@@ -126,12 +126,7 @@ public class MainActivity extends Navigation {
         finish();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        System.out.println("Zavrsila se");
-        finish();
-    }
+
 
 }
 

@@ -178,12 +178,7 @@ public class loginActivity extends AppCompatActivity  {
         userLocalStore.setUserLoggedIn(true);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        System.out.println("Zavrsila se");
-        finish();
-    }
+
 
     @Override
     public void onBackPressed() {

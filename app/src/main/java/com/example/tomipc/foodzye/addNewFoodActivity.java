@@ -55,12 +55,7 @@ public class addNewFoodActivity extends AppCompatActivity {
         return valid;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        System.out.println("Zavrsila se");
-        finish();
-    }
+
 
     @Override
     public void onBackPressed() {

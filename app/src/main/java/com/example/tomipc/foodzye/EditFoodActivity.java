@@ -630,12 +630,7 @@ public class EditFoodActivity extends Navigation implements AdapterView.OnItemSe
 
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        System.out.println("Zavrsila se");
-        finish();
-    }
+
 
     @Override
     public void onBackPressed() {

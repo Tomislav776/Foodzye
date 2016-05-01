@@ -528,12 +528,7 @@ public class EditProfileActivity extends Navigation {
         return file;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        System.out.println("Zavrsila se");
-        finish();
-    }
+
 
     @Override
     public void onBackPressed() {
