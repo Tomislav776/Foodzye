@@ -242,7 +242,6 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
         super.onPause();
         if(progressDialog != null)
             progressDialog.dismiss();
-        finish();
     }
 
 
