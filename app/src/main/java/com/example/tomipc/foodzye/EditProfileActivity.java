@@ -29,7 +29,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.tomipc.foodzye.model.Place;
 import com.example.tomipc.foodzye.model.User;
 
 import java.io.ByteArrayOutputStream;
@@ -106,8 +105,7 @@ public class EditProfileActivity extends Navigation {
         if(user.getLocation() != null) LocationEditText.setText(user.getLocation());
         if(user.getPhone() != null) PhoneEditText.setText(user.getPhone());
         if(user.getWork_time() != null) WorkTimeEditText.setText(user.getWork_time());
-        if(user.getPicture() != null){
-            imgPreview.setVisibility(View.VISIBLE);
+        if(user.getPicture() != null && !user.getPicture().equals("")){
             Glide.with(this)
                     .load(Database.URL + user.getPicture())
                     .into(imgPreview);

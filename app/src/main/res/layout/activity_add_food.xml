@@ -121,7 +121,6 @@
                     android:id="@+id/imgPreview"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:visibility="invisible"
                     android:scaleType="fitXY"
                     android:src="@drawable/user_def"
                     android:layout_below="@+id/FoodPrice"
