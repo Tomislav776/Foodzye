@@ -106,7 +106,7 @@
                     android:layout_height="150dp"
                     android:visibility="invisible"
                     android:scaleType="fitXY"
-                    android:src="@drawable/user_def"
+                    android:src="@drawable/food_def"
                     android:layout_below="@+id/spinnerCurrency2"
                     android:layout_alignRight="@+id/FoodDescription2"
                     android:layout_alignEnd="@+id/FoodDescription2"
