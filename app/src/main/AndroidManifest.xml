@@ -34,7 +34,7 @@
         <activity
             android:name=".SignupActivity"
             android:label="@string/title_activity_signup"
-            android:theme="@style/AppTheme.Dark.Dialog" />
+            android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".FoodActivity"
             android:label="Menu"

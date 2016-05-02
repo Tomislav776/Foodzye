@@ -51,7 +51,8 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/EmailEditText"
@@ -68,7 +69,8 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
         android:layout_marginTop="10dp"
         android:ems="10"
         android:id="@+id/DescriptionEditText"
@@ -84,7 +86,8 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/LocationEditText"
         android:layout_below="@id/DescriptionEditText"
@@ -101,7 +104,8 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
         android:inputType="phone"
         android:ems="10"
         android:id="@+id/PhoneEditText"
@@ -119,7 +123,8 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
         android:id="@+id/WorkHoursEditText"
         android:layout_below="@id/PhoneEditText"
         android:fontFamily="sans-serif-medium"
@@ -166,10 +171,12 @@
         android:src="@drawable/food_def"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:scaleType="fitXY"
         android:id="@+id/imageView2"
         android:layout_alignTop="@id/TakePictureButton"
         android:layout_alignLeft="@id/textView5"
         android:layout_alignStart="@id/textView5" />
+
 
     <Button
         android:layout_width="140dp"
