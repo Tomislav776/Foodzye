@@ -254,6 +254,7 @@
         android:background="@drawable/button"
         android:padding="12dp"
         android:textColor="#ffffff"
+        android:layout_marginBottom="20dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp" />
 
@@ -261,6 +262,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Log in to rate"
+        android:layout_marginBottom="20dp"
         android:id="@+id/activity_food_button_login"
         android:background="@drawable/button"
         android:padding="12dp"
@@ -278,7 +280,7 @@
         android:fontFamily="sans-serif-medium"
         android:textSize="18dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="35dp" />
+        android:layout_marginTop="15dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/activity_food_recycler_view"

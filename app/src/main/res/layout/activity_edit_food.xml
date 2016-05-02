@@ -154,6 +154,8 @@
                     android:layout_width="200dp"
                     android:layout_height="50dp"
                     android:id="@+id/spinnerCurrency2"
+                    android:theme="@style/HiddenTitleTheme"
+                    android:popupBackground="@color/white"
                     android:background="@drawable/kat"
                     android:layout_below="@id/FoodDescription2"
                     android:layout_toRightOf="@id/FoodPrice2"

@@ -24,6 +24,7 @@
         android:text="Description Text"
         android:textColor="@color/black"
         android:id="@+id/DescriptionTextView"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:gravity="center" />
 

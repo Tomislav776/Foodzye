@@ -34,6 +34,8 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight=".30"
+            android:theme="@style/HiddenTitleTheme"
+            android:popupBackground="@color/white"
             android:background="@drawable/input"
             android:id="@+id/place_fragment_sort"
             android:padding="10dp"

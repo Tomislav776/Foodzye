@@ -91,6 +91,8 @@
             android:layout_height="50dp"
             android:id="@+id/RoleSpinner"
             android:textColor="#000000"
+            android:theme="@style/HiddenTitleTheme"
+            android:popupBackground="@color/white"
             android:entries="@array/roles_array"
             android:background="@drawable/kat" />
 

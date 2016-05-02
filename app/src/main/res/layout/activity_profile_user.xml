@@ -100,13 +100,13 @@
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/UserProfileNestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical" android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#fafafa">
 
             <TextView
@@ -172,6 +172,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000000"
                 android:hint="Description text"
+                android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:id="@+id/textDescriptionShow"
                 android:layout_centerHorizontal="true"
