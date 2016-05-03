@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.example.tomipc.foodzye.model.Food;
 import com.example.tomipc.foodzye.model.Menu;
 import com.example.tomipc.foodzye.model.Place;
+import com.example.tomipc.foodzye.model.Premium;
 import com.example.tomipc.foodzye.model.Review;
 import com.example.tomipc.foodzye.model.User;
 import com.kosalgeek.genasync12.AsyncResponse;
@@ -36,6 +37,7 @@ public class Database {
     private ArrayList<Place> arrayOfPlace = new ArrayList<>();
     private ArrayList<Review> arrayOfReview = new ArrayList<>();
     private ArrayList<Review> arrayOfSingleReview = new ArrayList<>();
+    private ArrayList<Premium> arrayOfPremiumTypes = new ArrayList<>();
 
     public Database(){
     }
@@ -55,7 +57,7 @@ public class Database {
         PostResponseAsyncTask task = new PostResponseAsyncTask(context, data, new AsyncResponse() {
             @Override
             public void processFinish(String result) {
-
+                System.out.println(result);
                 if (result.equals("success")) {
                     Toast.makeText(context, "Success", Toast.LENGTH_LONG).show();
 
@@ -103,6 +105,36 @@ public class Database {
 
         return user;
     }
+
+
+    public ArrayList<Premium> readPremiumTypes (String route) {
+        try {
+            String premiumJSON;
+            premiumJSON = new Read().execute(URL+route+"/").get();
+            JSONArray obj = new JSONArray(premiumJSON);
+
+            for (int i = 0; i < obj.length(); i++) {
+                JSONObject jObject = obj.getJSONObject(i);
+
+                String description = jObject.getString("description");
+                String image_url = jObject.getString("picture");
+                String price = jObject.getString("amount");
+                String currency = jObject.getString("currency");
+                String months_duration = jObject.getString("months_duration");
+
+                Premium premium = new Premium(description, image_url, price, currency, months_duration);
+
+                arrayOfPremiumTypes.add(premium);
+            }
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return arrayOfPremiumTypes;
+    }
+
 
     public ArrayList<Review> readFoodServiceProviderReviews (String route, String user_idIn) {
         try {

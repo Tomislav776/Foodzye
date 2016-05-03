@@ -23,6 +23,7 @@
         <item>Home</item>
         <item>Profile</item>
         <item>Edit Profile</item>
+        <item>Upgrade your profile</item>
         <item>Add Food</item>
         <item>Edit your food</item>
         <item>Login</item>
@@ -32,6 +33,7 @@
     <array name="nav_drawer_icons">
         <item>@drawable/home</item>
         <item>@drawable/profile</item>
+        <item>@drawable/edit_profile_us</item>
         <item>@drawable/edit_profile_us</item>
         <item>@drawable/add_food</item>
         <item>@drawable/edit_profile</item>

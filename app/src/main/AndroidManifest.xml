@@ -4,6 +4,7 @@
 
     <!-- Internet Permission -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- Camera Permission -->
     <uses-permission android:name="android.permission.CAMERA" />
     <!-- External storage Permission -->
@@ -14,8 +15,6 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-
-        <!-- TODO: u releasu ovo maknuti debuggable -->
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -26,7 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".loginActivity"
             android:label="@string/title_activity_login"
@@ -49,7 +47,7 @@
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".EditProfileActivity"
-            android:theme="@style/AppTheme.Dark"/>
+            android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".addNewFoodActivity"
             android:label="@string/title_activity_add_new_food"
@@ -65,6 +63,18 @@
         <activity
             android:name=".EditFoodActivity"
             android:label="@string/title_activity_choose_edit_food_activity"
+            android:theme="@style/AppTheme.Dark" />
+
+        <service
+            android:name="com.paypal.android.sdk.payments.PayPalService"
+            android:exported="false" />
+
+        <activity android:name="com.paypal.android.sdk.payments.PaymentActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.LoginActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity" />
+        <activity
+            android:name=".GetPremiumAccountActivity"
             android:theme="@style/AppTheme.Dark"/>
     </application>
 

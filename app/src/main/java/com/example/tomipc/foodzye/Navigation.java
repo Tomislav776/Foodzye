@@ -199,21 +199,27 @@ public class Navigation extends AppCompatActivity {
 
                     finish();
                 break;
-            case "Add Food":
-                Intent intent3 = new Intent(this, addFoodActivity.class);
+            case "Upgrade your profile":
+                Intent intent3 = new Intent(this, GetPremiumAccountActivity.class);
                 startActivity(intent3);
 
-                    finish();
+                finish();
                 break;
-            case "Edit your food":
-                Intent intent4 = new Intent(this, ChooseFoodForEditActivity.class);
+            case "Add Food":
+                Intent intent4 = new Intent(this, addFoodActivity.class);
                 startActivity(intent4);
 
                     finish();
                 break;
-            case "Login":
-                Intent intent5 = new Intent(this, loginActivity.class);
+            case "Edit your food":
+                Intent intent5 = new Intent(this, ChooseFoodForEditActivity.class);
                 startActivity(intent5);
+
+                    finish();
+                break;
+            case "Login":
+                Intent intent6 = new Intent(this, loginActivity.class);
+                startActivity(intent6);
 
                     finish();
                 break;
@@ -223,8 +229,8 @@ public class Navigation extends AppCompatActivity {
                 userLocalStore.setUserLoggedIn(false);
                 set(toolbar);
 
-                Intent intent6 = new Intent(this, MainActivity.class);
-                startActivity(intent6);
+                Intent intent7 = new Intent(this, MainActivity.class);
+                startActivity(intent7);
                 finish();
                 break;
             default:
@@ -289,7 +295,7 @@ public class Navigation extends AppCompatActivity {
             else
             {
                 for (int i = 0; i < navMenuTitles.length; i++) {
-                    if(navMenuTitles[i].equals("Logout") || navMenuTitles[i].equals("Profile") || navMenuTitles[i].equals("Edit Profile") || navMenuTitles[i].equals("Add Food") || navMenuTitles[i].equals("Edit your food") || navMenuTitles[i].equals("Home"))
+                    if(navMenuTitles[i].equals("Logout") || navMenuTitles[i].equals("Profile") || navMenuTitles[i].equals("Edit Profile") || navMenuTitles[i].equals("Upgrade your profile") || navMenuTitles[i].equals("Add Food") || navMenuTitles[i].equals("Edit your food") || navMenuTitles[i].equals("Home"))
                         if (navMenuIcons != null) {
                             navDrawerItems.add(new DrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
                         } else {

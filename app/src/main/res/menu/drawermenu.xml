@@ -13,6 +13,9 @@
         android:id="@+id/nav_item_edit_profile"
         />
 
+    <item android:title="Upgrade your profile"
+        android:id="@+id/nav_item_get_premium"
+        />
 
     <item android:title="Add Food"
         android:id="@+id/nav_item_food"
