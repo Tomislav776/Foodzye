@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.tomipc.foodzye.Database;
 import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.model.Premium;
 
@@ -70,7 +71,7 @@ public class PremiumAdapter extends RecyclerView.Adapter<PremiumAdapter.PremiumH
         if(premium.getImage_url().equals(""))
             holder.image.setImageResource(R.drawable.user_profile);
         else
-            Glide.with(c).load("http://164.132.228.255" + premium.getImage_url()).thumbnail(0.3f).into(holder.image);
+            Glide.with(c).load(Database.URL + premium.getImage_url()).thumbnail(0.3f).into(holder.image);
     }
 
     public void addItem(Premium dataObj, int index) {
