@@ -244,7 +244,7 @@
         android:layout_height="100dp"
         android:id="@+id/activity_food_review"
         android:textColor="#000000"
-        android:hint="Comment"
+        android:hint="Your review"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:layout_gravity="center_horizontal"

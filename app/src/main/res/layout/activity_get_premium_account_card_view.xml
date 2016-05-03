@@ -12,6 +12,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:background="#fff"
         card_view:cardCornerRadius="2dp"
         card_view:contentPadding="10dp">
 
@@ -21,30 +22,37 @@
 
             <ImageView
                 android:id="@+id/PremiumImageView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:scaleType="fitXY"
                 android:layout_alignParentTop="true"/>
 
             <TextView
                 android:id="@+id/PremiumDescriptionTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:textColor="#fff"
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="-70dp"
+
                 android:layout_below="@id/PremiumImageView"/>
 
             <TextView
                 android:id="@+id/PremiumPriceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="80dp"
+                android:textColor="#fff"
                 android:layout_below="@id/PremiumDescriptionTextView"/>
 
             <TextView
                 android:id="@+id/PremiumDurationTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="80dp"
+                android:textColor="#fff"
                 android:layout_below="@id/PremiumPriceTextView"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>

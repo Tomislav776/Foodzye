@@ -182,9 +182,10 @@
         android:fontFamily="sans-serif-medium"
         android:textSize="18dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/SendPlaceReviewButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp" />
+        android:layout_centerHorizontal="true" />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/activity_profile_review_recycler_view"
