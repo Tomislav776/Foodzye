@@ -47,7 +47,8 @@
 
                 <EditText
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
                     android:id="@+id/AddFoodNameEditText2"
                     android:hint="Food name"
                     android:textColor="#000000"
@@ -64,7 +65,8 @@
 
                 <EditText
                     android:layout_width="wrap_content"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
                     android:id="@+id/FoodDescription2"
                     android:hint="Food description"
                     android:textColor="#000000"
@@ -104,7 +106,7 @@
                     android:layout_height="150dp"
                     android:visibility="invisible"
                     android:scaleType="fitXY"
-                    android:src="@drawable/user_def"
+                    android:src="@drawable/food_def"
                     android:layout_below="@+id/spinnerCurrency2"
                     android:layout_alignRight="@+id/FoodDescription2"
                     android:layout_alignEnd="@+id/FoodDescription2"

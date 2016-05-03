@@ -11,7 +11,7 @@
         android:layout_height="100dp"
         android:id="@+id/imageView3"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/user_def"
+        android:src="@drawable/user_profile"
         android:layout_marginTop="35dp" />
 
     <TextView
