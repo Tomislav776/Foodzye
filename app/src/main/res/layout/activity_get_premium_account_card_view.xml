@@ -11,9 +11,8 @@
         android:layout_gravity="center"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="#fff"
-        card_view:cardCornerRadius="2dp"
+        android:layout_marginTop="4dp"
+        card_view:cardBackgroundColor="#bdc3c7"
         card_view:contentPadding="10dp">
 
         <RelativeLayout
@@ -24,7 +23,6 @@
                 android:id="@+id/PremiumImageView"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:scaleType="fitXY"
                 android:layout_alignParentTop="true"/>
 
             <TextView
