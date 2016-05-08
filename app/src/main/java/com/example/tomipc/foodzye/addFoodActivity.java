@@ -9,11 +9,8 @@ import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -30,13 +27,15 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.tomipc.foodzye.adapter.FoodAdapter;
 import com.example.tomipc.foodzye.model.Food;
 import com.example.tomipc.foodzye.model.User;
+import com.makeramen.roundedimageview.RoundedImageView;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -81,7 +80,7 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
     Button addFoodButton, CapturePictureButton, ChoosePictureButton;
     Spinner spinner;
     ProgressDialog progressDialog;
-    ImageView imgPreview;
+    RoundedImageView imgPreview;
     ArrayList<Food> arrayOfFood;
     private String foodJSON, foodImage, encoded_string, filePath, name, description, price, currency;
     private int food_id;
@@ -137,7 +136,7 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
         progressDialog = new ProgressDialog(addFoodActivity.this, R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Uploading the menu...");
-        imgPreview = (ImageView) findViewById(R.id.imgPreview);
+        imgPreview = (RoundedImageView) findViewById(R.id.imgPreview);
         spinner = (Spinner) findViewById(R.id.spinnerCurrency);
 
         // Spinner click listener
@@ -431,143 +430,75 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 10 && resultCode == RESULT_OK) {
+            CropImage.activity(file_uri)
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setCropShape(CropImageView.CropShape.OVAL)
+                    .start(this);
             previewMedia();
         }
 
         if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
 
             file_uri = data.getData();
-            foodImage = getFileName(file_uri);
-            try {
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 8;
-                options.inPurgeable = true;
-                AssetFileDescriptor fileDescriptor = null;
-                try {
-                    fileDescriptor = this.getContentResolver().openAssetFileDescriptor(file_uri, "r");
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                finally{
-                    try {
-                        bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor.getFileDescriptor(), null, options);
-                        fileDescriptor.close();
-                        ExifInterface exif = new ExifInterface(getAbsolutePath(file_uri));
-                        int exifRotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
-                                ExifInterface.ORIENTATION_UNDEFINED);
+            CropImage.activity(file_uri)
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setCropShape(CropImageView.CropShape.OVAL)
+                    .start(this);
+        }
 
-                        switch (exifRotation) {
-                            case ExifInterface.ORIENTATION_ROTATE_90: {
-                                bitmap = rotateImage(bitmap, 90.0f);
-                                break;
-                            }
-                            case ExifInterface.ORIENTATION_ROTATE_180: {
-                                bitmap = rotateImage(bitmap, 180.0f);
-                                break;
-                            }
-                            case ExifInterface.ORIENTATION_ROTATE_270: {
-                                bitmap = rotateImage(bitmap, 270.0f);
-                                break;
-                            }
-                        }
-                        imgPreview.setVisibility(View.VISIBLE);
-                        imgPreview.setImageBitmap(bitmap);
-                    } catch (IOException e) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                file_uri = resultUri;
+                foodImage = getFileName(file_uri);
+                try {
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    //options.inSampleSize = 8;
+                    options.inPurgeable = true;
+                    AssetFileDescriptor fileDescriptor = null;
+                    try {
+                        fileDescriptor = this.getContentResolver().openAssetFileDescriptor(file_uri, "r");
+                    } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
+                    finally{
+                        try {
+                            bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor.getFileDescriptor(), null, options);
+                            fileDescriptor.close();
+                            imgPreview.setOval(true);
+                            imgPreview.setVisibility(View.VISIBLE);
+                            imgPreview.setImageBitmap(bitmap);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception e = result.getError();
+                System.out.println(e.getMessage());
             }
         }
     }
 
     private void previewMedia() {
-        imgPreview.setVisibility(View.VISIBLE);
         // bitmap factory
         BitmapFactory.Options options = new BitmapFactory.Options();
 
         // down sizing image as it throws OutOfMemory Exception for larger images
-        options.inSampleSize = 8;
+        //options.inSampleSize = 8;
         options.inPurgeable = true;
 
         filePath = file_uri.getPath();
 
         bitmap = BitmapFactory.decodeFile(filePath, options);
 
-        try{
-            ExifInterface exif = new ExifInterface(Uri.fromFile(getOutputMediaFile()).getPath());
-            int exifRotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_UNDEFINED);
-
-            switch (exifRotation) {
-                case ExifInterface.ORIENTATION_UNDEFINED: {
-                    bitmap = rotateImage(bitmap, 90.0f);
-                    break;
-                }
-                case ExifInterface.ORIENTATION_ROTATE_90: {
-                    bitmap = rotateImage(bitmap, 90.0f);
-                    break;
-                }
-                case ExifInterface.ORIENTATION_ROTATE_180: {
-                    bitmap = rotateImage(bitmap, 180.0f);
-                    break;
-                }
-                case ExifInterface.ORIENTATION_ROTATE_270: {
-                    bitmap = rotateImage(bitmap, 270.0f);
-                    break;
-                }
-            }
-        }catch (IOException e){
-            System.out.println(e.getMessage());
-        }
-
+        imgPreview.setOval(true);
+        imgPreview.setVisibility(View.VISIBLE);
         imgPreview.setImageBitmap(bitmap);
-    }
-
-    public static Bitmap rotateImage(Bitmap source, float angle) {
-        Bitmap retVal;
-
-        Matrix matrix = new Matrix();
-        //set image rotation value to an angle in degrees in matrix
-        matrix.postRotate(angle);
-        retVal = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
-
-        return retVal;
-    }
-
-    public String getAbsolutePath(Uri uri) {
-        if(Build.VERSION.SDK_INT >= 19){
-            String id = uri.getLastPathSegment().split(":")[1];
-            final String[] imageColumns = {MediaStore.Images.Media.DATA };
-            final String imageOrderBy = null;
-            Uri tempUri = getUri();
-            Cursor imageCursor = getContentResolver().query(tempUri, imageColumns,
-                    MediaStore.Images.Media._ID + "="+id, null, imageOrderBy);
-            if (imageCursor.moveToFirst()) {
-                return imageCursor.getString(imageCursor.getColumnIndex(MediaStore.Images.Media.DATA));
-            }else{
-                return null;
-            }
-        }else{
-            String[] projection = { MediaStore.MediaColumns.DATA };
-            Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-            if (cursor != null) {
-                int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-                cursor.moveToFirst();
-                return cursor.getString(column_index);
-            } else
-                return null;
-        }
-
-    }
-
-    private Uri getUri() {
-        String state = Environment.getExternalStorageState();
-        if(!state.equalsIgnoreCase(Environment.MEDIA_MOUNTED))
-            return MediaStore.Images.Media.INTERNAL_CONTENT_URI;
-
-        return MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
     }
 
 
