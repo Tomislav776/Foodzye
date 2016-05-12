@@ -1,8 +1,6 @@
 package com.example.tomipc.foodzye;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRatingBar;
@@ -120,7 +118,6 @@ public class FoodActivity extends AppCompatActivity {
         Intent i = getIntent();
         food = (Menu)i.getSerializableExtra("Menu");
 
-        //System.out.println("Bundle: "+savedInstanceState);
         Glide.with(this).load(Database.URL + food.getImage()).into(imageFood);
 
         prepareReviewData(food.getId());
@@ -196,8 +193,6 @@ public class FoodActivity extends AppCompatActivity {
     }
 
     private void prepareReviewData( int id) {
-        ArrayList<Review> arrayOfFood;
-
         data = new Database(this);
         arrayOfAllReview = data.readReview("getReview", String.valueOf(id));
 
@@ -281,10 +276,8 @@ public class FoodActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-
-            Intent intent = new Intent(FoodActivity.this, MainActivity.class);
-            startActivity(intent);
-
+        Intent intent = new Intent(FoodActivity.this, MainActivity.class);
+        startActivity(intent);
         finish();
     }
 

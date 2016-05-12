@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.tomipc.foodzye.adapter.MenuAdapter;
 import com.example.tomipc.foodzye.model.Menu;
@@ -66,8 +65,6 @@ public class ChooseFoodForEditActivity extends Navigation {
             @Override
             public void onClick(View view, int position) {
                 Menu menu = menuList.get(position);
-                Toast.makeText(c, menu.getName() + " is selected!", Toast.LENGTH_SHORT).show();
-
 
                 Intent EditFood = new Intent(getApplicationContext(), EditFoodActivity.class);
                 EditFood.putExtra("Menu", menu);

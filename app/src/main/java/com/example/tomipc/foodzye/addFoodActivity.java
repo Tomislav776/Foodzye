@@ -149,10 +149,7 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
         currency.add("USD");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, currency);
-
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.simple_spinner_item, currency);
 
         // attaching data adapter to spinner
         spinner.setAdapter(dataAdapter);
@@ -438,7 +435,6 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
         }
 
         if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
-
             file_uri = data.getData();
             CropImage.activity(file_uri)
                     .setGuidelines(CropImageView.Guidelines.ON)
@@ -618,7 +614,6 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
         @Override
         protected void onPostExecute(String result) {
             Log.e("Debug", "Response from server: " + result);
-            //bitmap.recycle();
             progressDialog.dismiss();
             if(result.equals("success")){
                 Toast.makeText(addFoodActivity.this, "Your menu has been added", Toast.LENGTH_LONG).show();

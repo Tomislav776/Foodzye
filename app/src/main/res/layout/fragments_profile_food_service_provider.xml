@@ -198,7 +198,7 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:id="@+id/textView9"
-        android:layout_below="@+id/textView11"
+        android:layout_below="@+id/AddressTextView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -222,7 +222,7 @@
         android:textColor="@color/black"
         android:text="Address text"
         android:gravity="center"
-        android:id="@+id/textView11"
+        android:id="@+id/AddressTextView"
         android:layout_below="@+id/textView2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

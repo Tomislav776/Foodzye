@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <!-- External storage Permission -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- Call a phone number Permission -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
