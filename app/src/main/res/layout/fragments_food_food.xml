@@ -24,7 +24,6 @@
             android:hint="Search..."
             android:textColor="#000000"
             android:textColorHint="#757575"
-            android:gravity="center"
             android:textSize="17dp"
             android:completionThreshold="1"
             android:padding="10dp" />
@@ -34,11 +33,9 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight=".30"
-            android:theme="@style/HiddenTitleTheme"
-            android:popupBackground="@color/white"
             android:background="@drawable/input"
+            android:popupBackground="@color/white"
             android:id="@+id/food_fragment_sort"
-            android:textColor="#000000"
             android:padding="10dp"
             android:layout_toRightOf="@+id/food_fragment_search" />
 

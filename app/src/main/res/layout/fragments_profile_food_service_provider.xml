@@ -196,11 +196,13 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="50dp"
         android:id="@+id/textView9"
         android:layout_below="@+id/AddressTextView"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/shadow"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -211,10 +213,10 @@
         android:textSize="15dp"
         android:gravity="center"
         android:id="@+id/textView2"
-        android:layout_below="@+id/WorkHoursTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="21dp" />
+        android:layout_below="@+id/textView11"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -226,6 +228,15 @@
         android:layout_below="@+id/textView2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/textView11"
+        android:background="@drawable/shadow_up"
+        android:layout_below="@+id/WorkHoursTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

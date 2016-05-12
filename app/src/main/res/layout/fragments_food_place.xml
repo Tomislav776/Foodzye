@@ -19,29 +19,25 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight=".70"
-            android:layout_gravity="center_horizontal"
             android:background="@drawable/input"
             android:hint="Search..."
             android:textColor="#000000"
             android:textColorHint="#757575"
-            android:gravity="center"
             android:textSize="17dp"
             android:completionThreshold="1"
             android:padding="10dp" />
-
 
         <Spinner
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight=".30"
-            android:theme="@style/HiddenTitleTheme"
+            android:background="@drawable/logo_mini"
             android:popupBackground="@color/white"
-            android:background="@drawable/input"
             android:id="@+id/place_fragment_sort"
             android:padding="10dp"
-            android:gravity="center"
-            android:spinnerMode="dropdown"
-            android:layout_toRightOf="@+id/place_fragment_search" />
+            android:layout_toRightOf="@+id/food_fragment_search" />
+
+
 
     </LinearLayout>
 
