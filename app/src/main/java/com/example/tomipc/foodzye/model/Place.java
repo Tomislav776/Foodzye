@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public class Place implements Serializable {
     private int id, role;
-    private String name, email, location, phone, picture, work_time, description, slug;
+    private String name, email, location, phone, picture, work_time, description, slug, distance;
     private double rate;
 
 
@@ -21,6 +21,29 @@ public class Place implements Serializable {
         this.work_time = work_time;
         this.rate = rate;
         this.description = description;
+    }
+
+    public Place(int id, int role, String name, String email, String slug, String location, String phone, String picture, String work_time, double rate, String description, String distance){
+        this.id = id;
+        this.role = role;
+        this.name = name;
+        this.email = email;
+        this.slug = slug;
+        this.location = location;
+        this.phone = phone;
+        this.picture = picture;
+        this.work_time = work_time;
+        this.rate = rate;
+        this.description = description;
+        this.distance = distance;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
     }
 
     public double getRate() {

@@ -71,5 +71,16 @@
         android:textColor="@color/counter_text_color"
         android:padding="5dp" />
 
+    <TextView android:id="@+id/distance_food_menu_list_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#ecf0f1"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="Distance"
+        android:textColor="@color/counter_text_color"
+        android:padding="5dp"
+        android:layout_below="@+id/price_food"/>
+
 
 </RelativeLayout>

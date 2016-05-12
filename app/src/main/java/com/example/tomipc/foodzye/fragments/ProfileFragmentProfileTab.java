@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.tomipc.foodzye.Database;
 import com.example.tomipc.foodzye.DividerItemDecoration;
+import com.example.tomipc.foodzye.location.LocationActivity;
 import com.example.tomipc.foodzye.ProfileActivity;
 import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.adapter.ReviewAdapter;
@@ -54,7 +55,7 @@ public class ProfileFragmentProfileTab extends Fragment {
 
     private AppCompatRatingBar FoodServiceProviderUserReviewRatingBar;
     private EditText ReviewEditText;
-    private TextView DescriptionTextView, EmailTextView, PhoneTextView, WorkHoursTextView, ReviewTextView, ReviewTextView2 , AddressTextView;
+    private TextView DescriptionTextView, EmailTextView, PhoneTextView, WorkHoursTextView, ReviewTextView, ReviewTextView2, AdressTextView;
 
     private Review reviewObj;
     private int user_id, logged_in_user_id, CallingPermission;
@@ -80,7 +81,6 @@ public class ProfileFragmentProfileTab extends Fragment {
         SendReviewButton = (Button) view.findViewById(R.id.SendPlaceReviewButton);
         FoodServiceProviderUserReviewRatingBar = (AppCompatRatingBar) view.findViewById(R.id.FoodServiceProviderUserReviewRatingBar);
         ReviewEditText = (EditText) view.findViewById(R.id.ReviewEditTextView);
-        AddressTextView = (TextView) view.findViewById(R.id.AddressTextView);
         DescriptionTextView = (TextView) view.findViewById(R.id.DescriptionTextView);
         EmailTextView = (TextView) view.findViewById(R.id.EmailTextView);
         PhoneTextView = (TextView) view.findViewById(R.id.PhoneTextView);
@@ -100,13 +100,13 @@ public class ProfileFragmentProfileTab extends Fragment {
         WorkHoursTextView = (TextView) view.findViewById(R.id.WorkHoursTextView);
         ReviewTextView = (TextView) view.findViewById(R.id.ReviewTextView);
         ReviewTextView2 = (TextView) view.findViewById(R.id.ReviewTextView2);
-
+        AdressTextView = (TextView) view.findViewById(R.id.AdressTextView);
 
         DescriptionTextView.setText(user.getDescription());
-        AddressTextView.setText(user.getLocation());
         EmailTextView.setText(user.getEmail());
         PhoneTextView.setText(user.getPhone());
         WorkHoursTextView.setText(user.getWork_time());
+        AdressTextView.setText(user.getLocation());
 
         if (user_id == logged_in_user_id || logged_in_user_id == 0){
             SendReviewButton.setVisibility(View.GONE);
@@ -145,6 +145,14 @@ public class ProfileFragmentProfileTab extends Fragment {
             }
         }
 
+        AdressTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), LocationActivity.class);
+                i.putExtra("Location", user.getLocation());
+                startActivity(i);
+            }
+        });
 
         SendReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override

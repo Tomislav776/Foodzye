@@ -23,7 +23,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
     private Context c;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, address;
+        public TextView name, address, distance;
         public ImageView placeImage;
         public AppCompatRatingBar rate;
 
@@ -33,6 +33,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
             address = (TextView) view.findViewById(R.id.row_place_location);
             placeImage = (ImageView) view.findViewById(R.id.row_place_picture);
             rate = (android.support.v7.widget.AppCompatRatingBar) view.findViewById(R.id.row_place_rating_bar);
+            distance = (TextView) view.findViewById(R.id.distance_place_place_list_row);
+
         }
     }
 
@@ -63,6 +65,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
 
         holder.rate.setRating((float) place.getRate());
         holder.address.setText(String.valueOf(place.getLocation()));
+        holder.distance.setText(place.getDistance());
     }
 
     @Override

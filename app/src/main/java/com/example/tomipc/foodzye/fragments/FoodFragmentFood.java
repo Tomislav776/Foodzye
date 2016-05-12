@@ -2,6 +2,7 @@ package com.example.tomipc.foodzye.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,23 +22,28 @@ import android.widget.Spinner;
 import com.example.tomipc.foodzye.Database;
 import com.example.tomipc.foodzye.DividerItemDecoration;
 import com.example.tomipc.foodzye.FoodActivity;
+import com.example.tomipc.foodzye.MainActivity;
 import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.adapter.MenuAdapter;
 import com.example.tomipc.foodzye.model.Food;
 import com.example.tomipc.foodzye.model.Menu;
+import com.example.tomipc.foodzye.model.User;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSelectedListener {
+public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSelectedListener
+       {
 
     public static FoodFragmentFood newInstance() {
         return new FoodFragmentFood();
     }
 
-
+    private GoogleApiClient mGoogleApiClient;
+    private Location mCurrentLocation;
 
     private List<Menu> menuList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -52,10 +58,14 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
     private String[] food;
     String sortBy="";
 
+           User user;
     Menu menu;
+
 
     Database baza;
     Context c;
+
+           private double latitude, longitude;
 
     @Nullable
     @Override
@@ -76,6 +86,8 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
         recyclerView.addItemDecoration(new DividerItemDecoration(c, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
 
+
+
         //Autocomplete
         prepareFoodData();
         search = (AutoCompleteTextView) view.findViewById(R.id.food_fragment_search);
@@ -92,23 +104,6 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
 
         prepareMenuData("");
 
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(c, recyclerView, new ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Menu menu = menuList.get(position);
-
-
-                    Intent foodActivity = new Intent(getActivity(), FoodActivity.class);
-                    foodActivity.putExtra("Menu", menu);
-                    startActivity(foodActivity);
-
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
 
 
         return view;
@@ -116,7 +111,10 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
 
 
 
-    private void setSpinner (){
+
+
+
+           private void setSpinner (){
         // Spinner Drop down elements
         sort.setOnItemSelectedListener(this);
 
@@ -127,7 +125,10 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
         currency.add("Rating");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simple_spinner_item, currency);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, currency);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
         sort.setAdapter(dataAdapter);
@@ -172,16 +173,37 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
 
     }
 
+
     private void prepareMenuData(String search) {
+        String distance;
 
         if (search.equals("")) {
             baza = new Database(c);
             arrayOfFood = baza.readMenu("getMenu");
 
             for (Menu value : arrayOfFood) {
-                menu = new Menu(value.getId(), value.getName(), value.getDescription(), value.getCurrency(), value.getImage(), value.getRate(), value.getPrice(), value.getFood_id(), value.getNameFood(), value.getUser_id());
+
+                distance = MainActivity.hashMap.get(value.getUser_id());
+                menu = new Menu(value.getId(), value.getName(), value.getDescription(), value.getCurrency(), value.getImage(), value.getRate(), value.getPrice(), value.getFood_id(), value.getNameFood(), value.getUser_id(), distance);
                 menuList.add(menu);
             }
+            recyclerView.addOnItemTouchListener(new RecyclerTouchListener(c, recyclerView, new ClickListener() {
+                @Override
+                public void onClick(View view, int position) {
+                    Menu menu = menuList.get(position);
+
+
+                    Intent foodActivity = new Intent(getActivity(), FoodActivity.class);
+                    foodActivity.putExtra("Menu", menu);
+                    startActivity(foodActivity);
+
+                }
+
+                @Override
+                public void onLongClick(View view, int position) {
+
+                }
+            }));
         }
         else
         {
@@ -210,6 +232,21 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
             i++;
         }
 
+    }
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
 
@@ -268,5 +305,6 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
         }
 
     }
+
 }
 

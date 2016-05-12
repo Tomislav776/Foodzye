@@ -1,6 +1,8 @@
 package com.example.tomipc.foodzye;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRatingBar;
@@ -83,9 +85,10 @@ public class FoodActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FoodActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                Intent openMainActivity= new Intent(FoodActivity.this, MainActivity.class);
+                openMainActivity.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(openMainActivity);
+                //finish();
             }
         });
 
@@ -274,11 +277,17 @@ public class FoodActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        //super.onBackPressed();
+        System.out.println("Yolo");
 
-        Intent intent = new Intent(FoodActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        Intent openMainActivity= new Intent(FoodActivity.this, MainActivity.class);
+        openMainActivity.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(openMainActivity);
+
+        /*Intent intent = new Intent(FoodActivity.this, MainActivity.class);
+            startActivity(intent);*/
+
+        //finish();
     }
 
 }

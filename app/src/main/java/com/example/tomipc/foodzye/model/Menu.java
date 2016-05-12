@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public class Menu implements Serializable {
     private int id, food_id, user_id;
-    private String name, nameFood, description, currency, image;
+    private String name, nameFood, description, currency, image, distance;
     private double price, rate;
 
     public Menu(int id, String name, String description, String currency, String image, double rate, double price, int food_id, String nameFood, int user_id){
@@ -19,6 +19,28 @@ public class Menu implements Serializable {
         this.food_id = food_id;
         this.nameFood = nameFood;
         this.user_id = user_id;
+    }
+
+    public Menu(int id, String name, String description, String currency, String image, double rate, double price, int food_id, String nameFood, int user_id, String distance){
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.currency = currency;
+        this.image = image;
+        this.rate = rate;
+        this.price = price;
+        this.food_id = food_id;
+        this.nameFood = nameFood;
+        this.user_id = user_id;
+        this.distance = distance;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
     }
 
     public int getUser_id() {

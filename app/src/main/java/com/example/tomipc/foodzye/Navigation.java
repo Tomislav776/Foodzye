@@ -60,6 +60,7 @@ public class Navigation extends AppCompatActivity {
     }
 
     public void set(Toolbar toolbar) {
+        //mDrawerToggle.syncState();
         this.toolbar=toolbar;
         setNavigationTitle();
 
@@ -185,43 +186,43 @@ public class Navigation extends AppCompatActivity {
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
 
-                    finish();
+                //    finish();
                 break;
             case "Profile":
                 Intent intent1 = new Intent(this, ProfileActivity.class);
                 startActivity(intent1);
 
-                    finish();
+             //       finish();
                 break;
             case "Edit Profile":
                 Intent intent2 = new Intent(this, EditProfileActivity.class);
                 startActivity(intent2);
 
-                    finish();
+                  //  finish();
                 break;
             case "Upgrade your profile":
                 Intent intent3 = new Intent(this, GetPremiumAccountActivity.class);
                 startActivity(intent3);
 
-                finish();
+              //  finish();
                 break;
             case "Add Food":
                 Intent intent4 = new Intent(this, addFoodActivity.class);
                 startActivity(intent4);
 
-                    finish();
+              //      finish();
                 break;
             case "Edit your food":
                 Intent intent5 = new Intent(this, ChooseFoodForEditActivity.class);
                 startActivity(intent5);
 
-                    finish();
+               //     finish();
                 break;
             case "Login":
                 Intent intent6 = new Intent(this, loginActivity.class);
                 startActivity(intent6);
 
-                    finish();
+                //    finish();
                 break;
             case "Logout":
                 //logout
@@ -231,7 +232,7 @@ public class Navigation extends AppCompatActivity {
 
                 Intent intent7 = new Intent(this, MainActivity.class);
                 startActivity(intent7);
-                finish();
+             //   finish();
                 break;
             default:
                 break;
@@ -253,7 +254,7 @@ public class Navigation extends AppCompatActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
+//        mDrawerToggle.syncState();
     }
 
     @Override

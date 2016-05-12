@@ -22,7 +22,7 @@ import java.util.List;
         private Context c;
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
-            public TextView name, price;
+            public TextView name, price, distance;
             public ImageView foodImage;
             public AppCompatRatingBar rate;
 
@@ -32,6 +32,7 @@ import java.util.List;
                 price = (TextView) view.findViewById(R.id.price_food);
                 foodImage = (ImageView) view.findViewById(R.id.image_food);
                 rate = (AppCompatRatingBar) view.findViewById(R.id.row_food_ratingBar);
+                distance = (TextView) view.findViewById(R.id.distance_food_menu_list_row);
             }
         }
 
@@ -64,6 +65,7 @@ import java.util.List;
 
             holder.rate.setRating((float) food.getRate());
             holder.price.setText(String.valueOf(food.getPrice()) + " " + food.getCurrency());
+            holder.distance.setText(food.getDistance());
         }
 
         @Override
