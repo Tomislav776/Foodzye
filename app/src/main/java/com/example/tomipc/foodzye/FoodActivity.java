@@ -275,17 +275,12 @@ public class FoodActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
-        System.out.println("Yolo");
 
         Intent openMainActivity= new Intent(FoodActivity.this, MainActivity.class);
         openMainActivity.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(openMainActivity);
+        super.onBackPressed();
 
-        /*Intent intent = new Intent(FoodActivity.this, MainActivity.class);
-            startActivity(intent);*/
-
-        //finish();
     }
 
 }
