@@ -63,11 +63,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#ecf0f1"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
         android:text="Makismirska"
         android:textColor="@color/counter_text_color"
-        android:padding="5dp" />
+        android:padding="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/distance_place_place_list_row"
+        android:layout_alignEnd="@+id/distance_place_place_list_row"
+        android:layout_marginTop="10dp" />
 
     <TextView android:id="@+id/distance_place_place_list_row"
         android:layout_width="wrap_content"
