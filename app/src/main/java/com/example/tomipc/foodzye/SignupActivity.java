@@ -59,7 +59,8 @@ public class SignupActivity extends AppCompatActivity {
         LoginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Finish the registration screen and return to the Login activity
+                Intent intent = new Intent(SignupActivity.this, loginActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -99,19 +100,7 @@ public class SignupActivity extends AppCompatActivity {
         postData.put("password", password);
         postData.put("role", role);
 
-        PostResponseAsyncTask task = new PostResponseAsyncTask(SignupActivity.this, postData , new AsyncResponse() {
-            /*@Override
-            public void processFinish(String result) {
-                if(result.equals("success")) {
-                    Toast.makeText(SignupActivity.this, "You have successfully registered and logged in.", Toast.LENGTH_LONG).show();
-                    progressDialog.dismiss();
-                    onSignupSuccess(postData);
-                }
-                else{
-                    onSignupFailed();
-                    progressDialog.dismiss();
-                }
-            }*/
+        PostResponseAsyncTask task = new PostResponseAsyncTask(SignupActivity.this, postData, false, new AsyncResponse() {
             @Override
             public void processFinish(String result) {
                 if(result.equals("fail")) {
@@ -147,7 +136,6 @@ public class SignupActivity extends AppCompatActivity {
 
     public void onSignupSuccess() {
         SignUpButton.setEnabled(true);
-        setResult(RESULT_OK, null);
         Intent i = new Intent(SignupActivity.this, MainActivity.class);
         startActivity(i);
         finish();
@@ -198,10 +186,11 @@ public class SignupActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
-        finish();
+
+        super.onBackPressed();
     }
 
 }

@@ -158,11 +158,6 @@ public class GetPremiumAccountActivity extends Navigation {
         return db.readPremiumTypes("getPremiumTypes");
     }
 
-    private PayPalPayment getThingToBuy(String paymentIntent) {
-        return new PayPalPayment(new BigDecimal("0.01"), "USD", "sample item",
-                paymentIntent);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_PAYMENT) {
@@ -178,12 +173,10 @@ public class GetPremiumAccountActivity extends Navigation {
                         JSONObject jObj = JSONobject.getJSONObject("response");
                         String create_time = jObj.getString("create_time");
                         String transaction_id = jObj.getString("id");
-                        System.out.println("Create time je " + create_time);
 
                         JSONObject JSONobject2 = new JSONObject(confirm.getPayment().toJSONObject().toString(4));
                         String amount = JSONobject2.getString("amount");
                         String currency_code = JSONobject2.getString("currency_code");
-                        System.out.println("Amount je " + amount);
 
                         HashMap<String,String> postData = new HashMap();
                         postData.put("user_id", Integer.toString(user.getId()));
@@ -203,9 +196,7 @@ public class GetPremiumAccountActivity extends Navigation {
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Log.i(TAG, "The user canceled.");
             } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
-                Log.i(
-                        TAG,
-                        "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
+                Log.i(TAG, "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
             }
         }
     }
@@ -215,5 +206,14 @@ public class GetPremiumAccountActivity extends Navigation {
         // Stop service when done
         stopService(new Intent(this, PayPalService.class));
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(GetPremiumAccountActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+
+        super.onBackPressed();
     }
 }

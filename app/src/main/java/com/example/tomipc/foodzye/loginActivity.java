@@ -70,7 +70,7 @@ public class loginActivity extends AppCompatActivity  {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ResetPasswordActivity.class);
+                Intent intent = new Intent(loginActivity.this, ResetPasswordActivity.class);
                 startActivity(intent);
             }
         });
@@ -98,7 +98,7 @@ public class loginActivity extends AppCompatActivity  {
         postData.put("email", email);
         postData.put("password", password);
 
-        PostResponseAsyncTask task = new PostResponseAsyncTask(loginActivity.this, postData , new AsyncResponse() {
+        PostResponseAsyncTask task = new PostResponseAsyncTask(loginActivity.this, postData, false, new AsyncResponse() {
             @Override
             public void processFinish(String result) {
                 if(result.equals("fail")) {
@@ -182,10 +182,11 @@ public class loginActivity extends AppCompatActivity  {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         Intent intent = new Intent(loginActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
-        finish();
+
+        super.onBackPressed();
     }
 
 }

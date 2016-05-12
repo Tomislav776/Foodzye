@@ -38,6 +38,10 @@ public class addNewFoodActivity extends AppCompatActivity {
                 data.put("name", NewFoodType);
                 db = new Database(c);
                 db.insert(data, postFood);
+
+                Intent intent = new Intent(addNewFoodActivity.this, addFoodActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -59,9 +63,10 @@ public class addNewFoodActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(addNewFoodActivity.this, MainActivity.class);
+        Intent intent = new Intent(addNewFoodActivity.this, addFoodActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
-        finish();
+
+        super.onBackPressed();
     }
 }

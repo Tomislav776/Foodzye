@@ -19,6 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight=".70"
+            android:layout_gravity="center_horizontal"
             android:background="@drawable/input"
             android:hint="Search..."
             android:textColor="#000000"
@@ -31,11 +32,10 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight=".30"
-            android:background="@drawable/logo_mini"
+            android:background="@drawable/input"
             android:popupBackground="@color/white"
             android:id="@+id/place_fragment_sort"
-            android:padding="10dp"
-            android:layout_toRightOf="@+id/food_fragment_search" />
+            android:padding="10dp" />
 
 
 

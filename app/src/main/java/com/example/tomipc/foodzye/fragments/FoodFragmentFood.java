@@ -109,12 +109,7 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
         return view;
     }
 
-
-
-
-
-
-           private void setSpinner (){
+    private void setSpinner (){
         // Spinner Drop down elements
         sort.setOnItemSelectedListener(this);
 
@@ -125,10 +120,7 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
         currency.add("Rating");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, currency);
-
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simple_spinner_item, currency);
 
         // attaching data adapter to spinner
         sort.setAdapter(dataAdapter);

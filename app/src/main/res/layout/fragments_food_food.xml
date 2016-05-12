@@ -36,8 +36,7 @@
             android:background="@drawable/input"
             android:popupBackground="@color/white"
             android:id="@+id/food_fragment_sort"
-            android:padding="10dp"
-            android:layout_toRightOf="@+id/food_fragment_search" />
+            android:padding="10dp" />
 
 
 

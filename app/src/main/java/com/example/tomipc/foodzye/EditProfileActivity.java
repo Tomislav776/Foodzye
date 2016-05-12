@@ -455,9 +455,10 @@ public class EditProfileActivity extends Navigation {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
-        finish();
+
+        super.onBackPressed();
     }
 }

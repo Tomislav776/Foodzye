@@ -190,7 +190,12 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
                 price = FoodPrice.getText().toString();
                 description = FoodDescription.getText().toString();
                 progressDialog.show();
-                new Upload_Food().execute(Database.URL + "postMenu");
+
+                try{
+                    new Upload_Food().execute(Database.URL + "postMenu").get();
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
 
                 Intent intent = new Intent(addFoodActivity.this, ProfileActivity.class);
                 startActivity(intent);
@@ -625,10 +630,11 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         Intent intent = new Intent(addFoodActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
-        finish();
+
+        super.onBackPressed();
     }
 
 }
