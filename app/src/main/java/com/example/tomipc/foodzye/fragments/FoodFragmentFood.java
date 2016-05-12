@@ -109,7 +109,8 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
         return view;
     }
 
-    private void setSpinner (){
+
+           private void setSpinner (){
         // Spinner Drop down elements
         sort.setOnItemSelectedListener(this);
 
@@ -175,8 +176,12 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
 
             for (Menu value : arrayOfFood) {
 
-                distance = MainActivity.hashMap.get(value.getUser_id());
-                menu = new Menu(value.getId(), value.getName(), value.getDescription(), value.getCurrency(), value.getImage(), value.getRate(), value.getPrice(), value.getFood_id(), value.getNameFood(), value.getUser_id(), distance);
+                if (MainActivity.hashMap.isEmpty()){
+                    menu = new Menu(value.getId(), value.getName(), value.getDescription(), value.getCurrency(), value.getImage(), value.getRate(), value.getPrice(), value.getFood_id(), value.getNameFood(), value.getUser_id());
+                }else{
+                    distance = MainActivity.hashMap.get(value.getUser_id());
+                    menu = new Menu(value.getId(), value.getName(), value.getDescription(), value.getCurrency(), value.getImage(), value.getRate(), value.getPrice(), value.getFood_id(), value.getNameFood(), value.getUser_id(), distance);
+                }
                 menuList.add(menu);
             }
             recyclerView.addOnItemTouchListener(new RecyclerTouchListener(c, recyclerView, new ClickListener() {
@@ -184,10 +189,12 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
                 public void onClick(View view, int position) {
                     Menu menu = menuList.get(position);
 
+                    Intent openMainActivity= new Intent(getActivity(), FoodActivity.class);
+                    openMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    openMainActivity.putExtra("Menu", menu);
+                    startActivity(openMainActivity);
 
-                    Intent foodActivity = new Intent(getActivity(), FoodActivity.class);
-                    foodActivity.putExtra("Menu", menu);
-                    startActivity(foodActivity);
+
 
                 }
 

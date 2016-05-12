@@ -1,14 +1,23 @@
 package com.example.tomipc.foodzye;
 
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 
 import com.example.tomipc.foodzye.adapter.DrawerAdapter;
@@ -19,7 +28,14 @@ import com.example.tomipc.foodzye.model.Place;
 import com.example.tomipc.foodzye.model.User;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.SphericalUtil;
 
@@ -50,8 +66,9 @@ public class MainActivity extends Navigation implements GoogleApiClient.Connecti
     private Database baza;
     private List<Place> placeList = new ArrayList<>();
 
-    public static HashMap<Integer, String> hashMap;
-
+    public static HashMap<Integer, String> hashMap  = new HashMap<Integer, String>();
+    public static boolean locationOnBool = false;
+    private static final int REQUEST_LOCATION = 0;
 
 
     @Override
@@ -63,15 +80,81 @@ public class MainActivity extends Navigation implements GoogleApiClient.Connecti
         user = userLocalStore.getLoggedInUser();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        mGoogleApiClient = new GoogleApiClient.Builder( this )
-                .addConnectionCallbacks( this )
-                .addOnConnectionFailedListener(this)
-                .addApi( LocationServices.API )
-                .build();
 
-        mGoogleApiClient.connect();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Check Permissions Now
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_LOCATION);
 
+            setMainScreen();
+        } else {
+            // permission has been granted, continue as usual
+            if (!((LocationManager) this.getSystemService(this.LOCATION_SERVICE))
+                    .isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                alertDialogBuilder
+                        .setMessage(
+                                "GPS is disabled in your device, distance and maps won't be able to show. Would you like to enable it?")
+                        .setCancelable(false)
+                        .setPositiveButton("Goto Settings Page To Enable GPS",
+
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Intent callGPSSettingIntent = new Intent(
+                                                android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                        MainActivity.this.startActivity(callGPSSettingIntent);
+
+                                        android.os.Process.killProcess(android.os.Process.myPid());
+                                        System.exit(1);
+                                    }
+                                });
+                alertDialogBuilder.setNegativeButton("Cancel",
+                    new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        setMainScreen();
+                  }
+              });
+                AlertDialog alert = alertDialogBuilder.create();
+                alert.show();
+
+            }else{
+                locationOnBool = true;
+                mGoogleApiClient = new GoogleApiClient.Builder( this )
+                        .addConnectionCallbacks( this )
+                        .addOnConnectionFailedListener(this)
+                        .addApi( LocationServices.API )
+                        .build();
+                mGoogleApiClient.connect();
+            }
+        }
     }
+
+
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions,
+                                           int[] grantResults) {
+        if (requestCode == REQUEST_LOCATION) {
+            if(grantResults.length == 1
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // We can now safely use the API we requested access to
+                mGoogleApiClient = new GoogleApiClient.Builder( this )
+                        .addConnectionCallbacks( this )
+                        .addOnConnectionFailedListener(this)
+                        .addApi( LocationServices.API )
+                        .build();
+
+                mGoogleApiClient.connect();
+
+            } else {
+                // Permission was denied or request was cancelled
+            }
+        }
+    }
+
 
     private LatLng convertAdressToLocation (String location){
         Geocoder geocoder = new Geocoder(this);
@@ -101,7 +184,6 @@ public class MainActivity extends Navigation implements GoogleApiClient.Connecti
         baza = new Database(this);
         placeList = baza.readPlace("getPlace");
 
-        hashMap = new HashMap<Integer, String>();
         for(Place value: placeList) {
             if (!(value.getLocation().equals("null"))){
                 dist = SphericalUtil.computeDistanceBetween(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()), convertAdressToLocation(value.getLocation()));
@@ -113,7 +195,7 @@ public class MainActivity extends Navigation implements GoogleApiClient.Connecti
                 hashMap.put(value.getId(), distS);
             }
         }
-        System.out.println("LokacijaM:"+hashMap.get(16));
+        System.out.println("LokacijaM:" + hashMap.get(16));
     }
 
     @Override
@@ -122,8 +204,11 @@ public class MainActivity extends Navigation implements GoogleApiClient.Connecti
             displayUserDetails();
         }
 
-        mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        setHashMap();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            setHashMap();
+        }
         setMainScreen();
 
     }
@@ -232,8 +317,10 @@ public class MainActivity extends Navigation implements GoogleApiClient.Connecti
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        //finish();
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
     }
 
     @Override

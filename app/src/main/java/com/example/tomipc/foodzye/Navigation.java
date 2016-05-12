@@ -183,45 +183,50 @@ public class Navigation extends AppCompatActivity {
     private void displayView(int position) {
         switch (pressed) {
             case "Home":
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                Intent openMainActivity= new Intent(this, MainActivity.class);
+                openMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(openMainActivity);
 
                 //    finish();
                 break;
             case "Profile":
-                Intent intent1 = new Intent(this, ProfileActivity.class);
-                startActivity(intent1);
+                Intent openMainActivity1= new Intent(this, ProfileActivity.class);
+                openMainActivity1.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(openMainActivity1);
 
              //       finish();
                 break;
             case "Edit Profile":
-                Intent intent2 = new Intent(this, EditProfileActivity.class);
-                startActivity(intent2);
+                Intent openMainActivity2= new Intent(this, EditProfileActivity.class);
+                openMainActivity2.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(openMainActivity2);
 
                   //  finish();
                 break;
             case "Upgrade your profile":
-                Intent intent3 = new Intent(this, GetPremiumAccountActivity.class);
-                startActivity(intent3);
-
+                Intent openMainActivity3= new Intent(this, GetPremiumAccountActivity.class);
+                openMainActivity3.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(openMainActivity3);
               //  finish();
                 break;
             case "Add Food":
-                Intent intent4 = new Intent(this, addFoodActivity.class);
-                startActivity(intent4);
+                Intent openMainActivity4= new Intent(this, addFoodActivity.class);
+                openMainActivity4.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(openMainActivity4);
 
               //      finish();
                 break;
             case "Edit your food":
-                Intent intent5 = new Intent(this, ChooseFoodForEditActivity.class);
-                startActivity(intent5);
+                Intent openMainActivity5= new Intent(this, ChooseFoodForEditActivity.class);
+                openMainActivity5.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(openMainActivity5);
 
                //     finish();
                 break;
             case "Login":
-                Intent intent6 = new Intent(this, loginActivity.class);
-                startActivity(intent6);
-
+                Intent openMainActivity6= new Intent(this, loginActivity.class);
+                openMainActivity6.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(openMainActivity6);
                 //    finish();
                 break;
             case "Logout":
@@ -230,8 +235,9 @@ public class Navigation extends AppCompatActivity {
                 userLocalStore.setUserLoggedIn(false);
                 set(toolbar);
 
-                Intent intent7 = new Intent(this, MainActivity.class);
-                startActivity(intent7);
+                Intent openMainActivity7= new Intent(this, MainActivity.class);
+                openMainActivity7.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(openMainActivity7);
              //   finish();
                 break;
             default:

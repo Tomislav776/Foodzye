@@ -20,6 +20,7 @@ import android.widget.Spinner;
 
 import com.example.tomipc.foodzye.Database;
 import com.example.tomipc.foodzye.DividerItemDecoration;
+import com.example.tomipc.foodzye.FoodActivity;
 import com.example.tomipc.foodzye.MainActivity;
 import com.example.tomipc.foodzye.ProfileActivity;
 import com.example.tomipc.foodzye.R;
@@ -95,10 +96,11 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
                 Place place = placeList.get(position);
 
                 //Mine improv
-                Intent profileActivity = new Intent(getActivity(), ProfileActivity.class);
-                profileActivity.putExtra("Place", place);
 
-                startActivity(profileActivity);
+                Intent openMainActivity= new Intent(getActivity(), ProfileActivity.class);
+                openMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                openMainActivity.putExtra("Place", place);
+                startActivity(openMainActivity);
             }
 
             @Override
@@ -173,8 +175,13 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
             }
 
             for (Place value : arrayOfPlace) {
-                distance = MainActivity.hashMap.get(value.getId());
-                place = new Place(value.getId(), value.getRole(), value.getName(), value.getEmail(), value.getSlug(), value.getLocation(), value.getPhone(), value.getPicture(), value.getWork_time(), value.getRate(), value.getDescription(), distance);
+                if (MainActivity.hashMap.isEmpty()) {
+                    place = new Place(value.getId(), value.getRole(), value.getName(), value.getEmail(), value.getSlug(), value.getLocation(), value.getPhone(), value.getPicture(), value.getWork_time(), value.getRate(), value.getDescription());
+
+                }else{
+                    distance = MainActivity.hashMap.get(value.getId());
+                    place = new Place(value.getId(), value.getRole(), value.getName(), value.getEmail(), value.getSlug(), value.getLocation(), value.getPhone(), value.getPicture(), value.getWork_time(), value.getRate(), value.getDescription(), distance);
+                }
 
                 placeList.add(place);
             }

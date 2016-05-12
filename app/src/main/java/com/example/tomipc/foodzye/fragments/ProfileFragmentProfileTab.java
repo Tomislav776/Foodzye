@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.tomipc.foodzye.Database;
 import com.example.tomipc.foodzye.DividerItemDecoration;
+import com.example.tomipc.foodzye.MainActivity;
 import com.example.tomipc.foodzye.location.LocationActivity;
 import com.example.tomipc.foodzye.ProfileActivity;
 import com.example.tomipc.foodzye.R;
@@ -148,9 +149,11 @@ public class ProfileFragmentProfileTab extends Fragment {
         AdressTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), LocationActivity.class);
-                i.putExtra("Location", user.getLocation());
-                startActivity(i);
+                if (MainActivity.locationOnBool) {
+                    Intent i = new Intent(getActivity(), LocationActivity.class);
+                    i.putExtra("Location", user.getLocation());
+                    startActivity(i);
+                }
             }
         });
 
