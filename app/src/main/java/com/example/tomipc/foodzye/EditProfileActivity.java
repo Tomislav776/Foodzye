@@ -20,11 +20,15 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.tomipc.foodzye.adapter.TypeOfPlaceAdapter;
+import com.example.tomipc.foodzye.model.TypeOfPlace;
 import com.example.tomipc.foodzye.model.User;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -35,11 +39,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
-public class EditProfileActivity extends Navigation {
+public class EditProfileActivity extends Navigation implements AdapterView.OnItemSelectedListener {
 
     private static String getRoute = "getUser";
     private static String postRoute = "postUserUpdate";
@@ -48,11 +54,16 @@ public class EditProfileActivity extends Navigation {
     private static final int REQUEST_CAMERA = 0;
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 1;
 
-    int CameraPermission, StoragePermission;
+    int CameraPermission, StoragePermission, typeplaceid;
 
     EditText EmailEditText, DescriptionEditText , LocationEditText, PhoneEditText, WorkTimeEditText;
     Button EditProfileButton, TakePictureButton, ChoosePictureButton;
     RoundedImageView imgPreview;
+    AutoCompleteTextView typeOfPlaceSpinner;
+    ArrayList<TypeOfPlace> arrayOfTypeofPlaces;
+    private TypeOfPlace typeOfPlace;
+
+    TypeOfPlaceAdapter adapter;
     String email, description, location, phone, workTime, foodImage, filePath;
     String encoded_picture_string = null;
     UserLocalStore userLocalStore;
@@ -94,6 +105,29 @@ public class EditProfileActivity extends Navigation {
         ChoosePictureButton = (Button) findViewById(R.id.ChoosePictureButton);
         EditProfileButton = (Button) findViewById(R.id.EditProfileButton);
         imgPreview = (RoundedImageView) findViewById(R.id.imageView2);
+
+        db = new Database(this);
+        arrayOfTypeofPlaces = db.readTypeOfPlaces("getTypeOfPlaces");
+
+        typeplaceid = 1;
+
+        typeOfPlaceSpinner = (AutoCompleteTextView) findViewById(R.id.TypeOfPlaceSpinner);
+
+        // Spinner Drop down elements
+        typeOfPlaceSpinner.setOnItemSelectedListener(this);
+
+        List<String> currency = new ArrayList<String>();
+        currency.add("Name");
+        currency.add("Rating");
+        if (MainActivity.locationOnBool)
+            currency.add("Distance");
+
+        // Creating adapter for spinner
+        adapter = new TypeOfPlaceAdapter(this, R.layout.item_food2, arrayOfTypeofPlaces);
+        //ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.simple_spinner_item, currency);
+
+        // attaching data adapter to spinner
+        typeOfPlaceSpinner.setAdapter(adapter);
 
         if(user.getRole() == 1){
             WorkTimeEditText.setVisibility(View.GONE);
@@ -156,6 +190,7 @@ public class EditProfileActivity extends Navigation {
                 data.put("phone", phone);
                 data.put("work_time", workTime);
                 data.put("user_id", Integer.toString(user.getId()));
+                data.put("typeplaceid", Integer.toString(typeplaceid));
                 if(encoded_picture_string != null)
                 {
                     data.put("encoded_string", encoded_picture_string);
@@ -168,6 +203,18 @@ public class EditProfileActivity extends Navigation {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a item
+        TypeOfPlace typeOfPlaceSelected = (TypeOfPlace) parent.getItemAtPosition(position);
+        typeOfPlaceSpinner.setText(typeOfPlaceSelected.getType());
+        typeplaceid = typeOfPlaceSelected.getId();
+    }
+
+    public void onNothingSelected(AdapterView<?> arg0) {
+
     }
 
     // Called when the user wants to take a picture
