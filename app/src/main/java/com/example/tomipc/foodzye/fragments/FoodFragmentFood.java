@@ -119,6 +119,8 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
         currency.add("Price ASC");
         currency.add("Price DSC");
         currency.add("Rating");
+        if (MainActivity.locationOnBool)
+        currency.add("Distance");
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simple_spinner_item, currency);
@@ -140,6 +142,41 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
             }
             else if (sortBy.equals("Rating")){
                 return String.valueOf(right.getRate()).compareTo(String.valueOf(left.getRate()));
+            }
+            else if (sortBy.equals("Distance") && MainActivity.locationOnBool){
+
+                int i;
+                String leftD="", rightD="";
+                double leftDD, rightDD;
+                double times1 = 1, times2 = 1;
+
+                for ( i = 0; i < right.getDistance().length(); i++){
+                    if (!(right.getDistance().charAt(i) == 'k' || right.getDistance().charAt(i) == 'm')){
+                        rightD += right.getDistance().charAt(i);
+                    }
+                    else{
+                        break;
+                    }
+                }
+
+                if (right.getDistance().charAt(i)=='k')
+                    times2=1000;
+
+                for ( i = 0; i < left.getDistance().length(); i++){
+                    if (!(left.getDistance().charAt(i) == 'k' || left.getDistance().charAt(i) == 'm')){
+                        leftD += left.getDistance().charAt(i);
+                    }else{
+                        break;
+                    }
+
+                }
+                if (left.getDistance().charAt(i)=='k')
+                    times1=1000;
+
+                leftDD = Double.parseDouble(leftD) * times1;
+                rightDD = Double.parseDouble(rightD) * times2;
+
+                return (leftDD < rightDD) ? -1 : (leftDD < rightDD) ? 1:0 ;
             }
             else {
                 return left.getName().compareTo(right.getName());
