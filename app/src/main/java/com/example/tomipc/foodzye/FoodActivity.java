@@ -154,7 +154,7 @@ public class FoodActivity extends AppCompatActivity {
             rating.setVisibility(View.VISIBLE);
             textAddYour.setVisibility(View.VISIBLE);
 
-            arrayOfReview = data.readUserReview("getUsersReview", String.valueOf(food.getId()), String.valueOf(user.id));
+            arrayOfReview = data.readUserReview("getUsersReview", String.valueOf(food.getId()), String.valueOf(user.getId()));
 
             if (!(arrayOfReview.isEmpty())) {
                 rating.setRating((float) arrayOfReview.get(0).getRate());
@@ -181,7 +181,7 @@ public class FoodActivity extends AppCompatActivity {
 
                 HashMap<String, String> dataSend = new HashMap<>();
                 //TODO: tu stavi ako nije logiran da se logira
-                dataSend.put("user_id", Integer.toString(user.id));
+                dataSend.put("user_id", Integer.toString(user.getId()));
                 dataSend.put("menu_id", Integer.toString(food.getId()));
                 dataSend.put("rate", Float.toString(ratingSelected));
                 dataSend.put("comment", String.valueOf(review.getText()));
@@ -259,7 +259,7 @@ public class FoodActivity extends AppCompatActivity {
             textAddYour.setVisibility(View.VISIBLE);
 
 
-            arrayOfReview = data.readUserReview("getUsersReview", String.valueOf(food.getId()), String.valueOf(user.id));
+            arrayOfReview = data.readUserReview("getUsersReview", String.valueOf(food.getId()), String.valueOf(user.getId()));
 
             if (!(arrayOfReview.isEmpty())) {
                 rating.setRating((float) arrayOfReview.get(0).getRate());

@@ -5,8 +5,8 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
-    public int id, role;
-    public String username, email, slug, location, phone, picture, work_time, description;
+    private int id, role, premium;
+    private String username, email, slug, location, phone, picture, work_time, description, premium_until;
     private double rate;
 
     public User(String username, String email, int role){
@@ -27,12 +27,14 @@ public class User implements Serializable {
         this.rate = rate;
     }
 
-    public User(int id, String name, String slug, String email, int role){
+    public User(int id, String name, String slug, String email, int role, int premium, String premium_until){
         this.id = id;
         username = name;
         this.email = email;
         this.role = role;
         this.slug = slug;
+        this.premium = premium;
+        this.premium_until = premium_until;
     }
 
     public User(int id, String name, String slug, String email, int role, String location, String phone, String work_time, String user_picture, String description, float rate){
@@ -47,6 +49,22 @@ public class User implements Serializable {
         picture = user_picture;
         this.description = description;
         this.rate = rate;
+    }
+
+    public User(int id, String name, String slug, String email, int role, String location, String phone, String work_time, String user_picture, String description, float rate, int premium, String premium_until){
+        this.id = id;
+        username = name;
+        this.email = email;
+        this.role = role;
+        this.slug = slug;
+        this.location = location;
+        this.phone = phone;
+        this.work_time = work_time;
+        picture = user_picture;
+        this.description = description;
+        this.rate = rate;
+        this.premium = premium;
+        this.premium_until = premium_until;
     }
 
     public User(String username, String email, String location, String phone, String picture, String work_time, String description, double rate, String slug){
@@ -148,5 +166,21 @@ public class User implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getPremium() {
+        return premium;
+    }
+
+    public void setPremium(int premium) {
+        this.premium = premium;
+    }
+
+    public String getPremium_until() {
+        return premium_until;
+    }
+
+    public void setPremium_until(String premium_until) {
+        this.premium_until = premium_until;
     }
 }

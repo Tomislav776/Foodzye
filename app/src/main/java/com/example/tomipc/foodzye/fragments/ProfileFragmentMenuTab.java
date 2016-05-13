@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.tomipc.foodzye.Database;
 import com.example.tomipc.foodzye.DividerItemDecoration;
@@ -66,7 +65,6 @@ public class ProfileFragmentMenuTab extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 Menu menu = menuList.get(position);
-                Toast.makeText(c, menu.getName() + " is selected!", Toast.LENGTH_SHORT).show();
 
 
                 Intent foodActivity = new Intent(getActivity(), FoodActivity.class);

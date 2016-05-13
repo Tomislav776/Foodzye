@@ -155,7 +155,7 @@ public class EditProfileActivity extends Navigation {
                 data.put("location", location);
                 data.put("phone", phone);
                 data.put("work_time", workTime);
-                data.put("user_id", Integer.toString(user.id));
+                data.put("user_id", Integer.toString(user.getId()));
                 if(encoded_picture_string != null)
                 {
                     data.put("encoded_string", encoded_picture_string);

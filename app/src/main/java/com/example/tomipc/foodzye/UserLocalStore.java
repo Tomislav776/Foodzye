@@ -22,6 +22,8 @@ public class UserLocalStore {
         userLocalDatabaseEditor.putString("username", user.getUsername());
         userLocalDatabaseEditor.putString("email", user.getEmail());
         userLocalDatabaseEditor.putInt("role", user.getRole());
+        userLocalDatabaseEditor.putInt("premium", user.getPremium());
+        userLocalDatabaseEditor.putString("premium_until", user.getPremium_until());
         userLocalDatabaseEditor.putString("location", user.getLocation());
         userLocalDatabaseEditor.putString("phone", user.getPhone());
         userLocalDatabaseEditor.putString("work_time", user.getWork_time());
@@ -53,6 +55,8 @@ public class UserLocalStore {
         String slug = userLocalDatabase.getString("slug", "");
         String email = userLocalDatabase.getString("email", "");
         int role = userLocalDatabase.getInt("role", 1);
+        int premium = userLocalDatabase.getInt("premium", 0);
+        String premium_until = userLocalDatabase.getString("premium_until", "0");
 
 
         String location = userLocalDatabase.getString("location", "");
@@ -62,7 +66,7 @@ public class UserLocalStore {
         String description = userLocalDatabase.getString("description", "");
         float rate = userLocalDatabase.getFloat("rate_total", 0);
 
-        User user = new User(id, username, slug, email, role, location, phone, work_time, user_picture, description, rate);
+        User user = new User(id, username, slug, email, role, location, phone, work_time, user_picture, description, rate, premium, premium_until);
         return user;
     }
 

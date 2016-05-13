@@ -117,7 +117,9 @@ public class SignupActivity extends AppCompatActivity {
                         int role = jObject.getInt("role");
                         String user_slug = jObject.getString("slug");
                         int user_id = jObject.getInt("id");
-                        User user = new User(user_id, name, user_slug, email, role);
+                        int premium = 0;
+                        String premium_until = "0";
+                        User user = new User(user_id, name, user_slug, email, role, premium, premium_until);
                         logUserIn(user);
                     }catch (JSONException e){
                         e.printStackTrace();
