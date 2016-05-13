@@ -62,7 +62,7 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
     Menu menu;
 
 
-    Database baza;
+    Database db;
     Context c;
 
            private double latitude, longitude;
@@ -70,14 +70,12 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragments_food_food,null);
+        View view = inflater.inflate(R.layout.fragments_food_food, null);
 
-        baza = new Database(c);
+        db = new Database(c);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         sort = (Spinner) view.findViewById(R.id.food_fragment_sort);
-
-        setSpinner();
 
         mAdapter = new MenuAdapter(menuList, c);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(c);
@@ -86,10 +84,8 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
         recyclerView.addItemDecoration(new DividerItemDecoration(c, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
 
-
-
-        //Autocomplete
-        prepareFoodData();
+        food = new String[1];
+        food[0] = "";
         search = (AutoCompleteTextView) view.findViewById(R.id.food_fragment_search);
         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, food);
         search.setAdapter(adapter);
@@ -102,28 +98,38 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
             }
         });
 
-        prepareMenuData("");
-
 
 
         return view;
     }
 
+    @Override
+    public void onResume() {
+        setSpinner();
+        //Autocomplete
+        prepareFoodData();
+        menuList.clear();
+        mAdapter.notifyDataSetChanged();
+        prepareMenuData("");
 
-           private void setSpinner (){
+        super.onResume();
+    }
+
+
+    private void setSpinner (){
         // Spinner Drop down elements
         sort.setOnItemSelectedListener(this);
 
-        List<String> currency = new ArrayList<String>();
-        currency.add("Name");
-        currency.add("Price ASC");
-        currency.add("Price DSC");
-        currency.add("Rating");
+        List<String> sortParameters = new ArrayList<String>();
+        sortParameters.add("Name");
+        sortParameters.add("Price ASC");
+        sortParameters.add("Price DSC");
+        sortParameters.add("Rating");
         if (MainActivity.locationOnBool)
-        currency.add("Distance");
+            sortParameters.add("Distance");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simple_spinner_item, currency);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simple_spinner_item, sortParameters);
 
         // attaching data adapter to spinner
         sort.setAdapter(dataAdapter);
@@ -208,8 +214,8 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
         String distance;
 
         if (search.equals("")) {
-            baza = new Database(c);
-            arrayOfFood = baza.readMenu("getMenu");
+            db = new Database(c);
+            arrayOfFood = db.readMenu("getMenu");
 
             for (Menu value : arrayOfFood) {
 
@@ -257,9 +263,9 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
     private void prepareFoodData() {
         int i=0;
         ArrayList<Food> arrayOfFood2;
-        baza = new Database(c);
+        db = new Database(c);
 
-        arrayOfFood2 = baza.readFood("getFood");
+        arrayOfFood2 = db.readFood("getFood");
 
         food = new String[arrayOfFood2.size()];
 

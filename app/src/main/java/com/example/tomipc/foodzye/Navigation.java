@@ -183,50 +183,48 @@ public class Navigation extends AppCompatActivity {
     private void displayView(int position) {
         switch (pressed) {
             case "Home":
-                Intent openMainActivity= new Intent(this, MainActivity.class);
-                openMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(openMainActivity);
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
 
                 //    finish();
                 break;
             case "Profile":
-                Intent openMainActivity1= new Intent(this, ProfileActivity.class);
-                openMainActivity1.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(openMainActivity1);
-
-             //       finish();
+                Intent intent1 = new Intent(this, ProfileActivity.class);
+                startActivity(intent1);
+                //finish();
                 break;
             case "Edit Profile":
-                Intent openMainActivity2= new Intent(this, EditProfileActivity.class);
-                openMainActivity2.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(openMainActivity2);
+                Intent intent2 = new Intent(this, EditProfileActivity.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent2);
 
                   //  finish();
                 break;
             case "Upgrade your profile":
-                Intent openMainActivity3= new Intent(this, GetPremiumAccountActivity.class);
-                openMainActivity3.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(openMainActivity3);
+                Intent intent3 = new Intent(this, GetPremiumAccountActivity.class);
+                intent3.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent3);
               //  finish();
                 break;
             case "Add Food":
-                Intent openMainActivity4= new Intent(this, addFoodActivity.class);
-                openMainActivity4.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(openMainActivity4);
+                Intent intent4 = new Intent(this, addFoodActivity.class);
+                intent4.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent4);
 
               //      finish();
                 break;
             case "Edit your food":
-                Intent openMainActivity5= new Intent(this, ChooseFoodForEditActivity.class);
-                openMainActivity5.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(openMainActivity5);
+                Intent intent5 = new Intent(this, ChooseFoodForEditActivity.class);
+                intent5.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent5);
 
                //     finish();
                 break;
             case "Login":
-                Intent openMainActivity6= new Intent(this, loginActivity.class);
-                openMainActivity6.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(openMainActivity6);
+                Intent intent6 = new Intent(this, loginActivity.class);
+                intent6.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent6);
                 //    finish();
                 break;
             case "Logout":
@@ -235,9 +233,9 @@ public class Navigation extends AppCompatActivity {
                 userLocalStore.setUserLoggedIn(false);
                 set(toolbar);
 
-                Intent openMainActivity7= new Intent(this, MainActivity.class);
-                openMainActivity7.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(openMainActivity7);
+                Intent intent7 = new Intent(this, MainActivity.class);
+                intent7.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent7);
              //   finish();
                 break;
             default:

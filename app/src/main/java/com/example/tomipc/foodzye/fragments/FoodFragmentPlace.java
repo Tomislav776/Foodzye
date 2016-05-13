@@ -52,19 +52,20 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
 
     Place place;
 
-    Database baza;
+    Database db;
     Context c;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragments_food_place,null);
+        View view = inflater.inflate(R.layout.fragments_food_place, null);
 
-        baza = new Database(c);
+        db = new Database(c);
 
         sort = (Spinner) view.findViewById(R.id.place_fragment_sort);
 
-        setSpinner();
+        arrayOfPlace = db.readPlace("getPlace");
+        placeSearch = new String[arrayOfPlace.size()];
 
         recyclerView = (RecyclerView) view.findViewById(R.id.place_fragment_recycler_view);
 
@@ -75,7 +76,6 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
         recyclerView.addItemDecoration(new DividerItemDecoration(c, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
 
-        preparePlaceData("");
 
         search = (AutoCompleteTextView) view.findViewById(R.id.place_fragment_search);
         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, placeSearch);
@@ -94,12 +94,9 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
             public void onClick(View view, int position) {
                 Place place = placeList.get(position);
 
-                //Mine improv
-
-                Intent openMainActivity= new Intent(getActivity(), ProfileActivity.class);
-                openMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                openMainActivity.putExtra("Place", place);
-                startActivity(openMainActivity);
+                Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                intent.putExtra("Place", place);
+                startActivity(intent);
             }
 
             @Override
@@ -110,6 +107,18 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
 
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        setSpinner();
+
+        placeList.clear();
+        mAdapter.notifyDataSetChanged();
+
+        preparePlaceData("");
+
+        super.onResume();
     }
 
     private void setSpinner (){
@@ -215,8 +224,8 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
     String distance;
 
         if (search.equals("")) {
-            baza = new Database(c);
-            arrayOfPlace = baza.readPlace("getPlace");
+            db = new Database(c);
+            arrayOfPlace = db.readPlace("getPlace");
 
             placeSearch = new String[arrayOfPlace.size()];
             for(Place value: arrayOfPlace) {

@@ -199,7 +199,6 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
 
                 Intent intent = new Intent(addFoodActivity.this, ProfileActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -215,8 +214,8 @@ public class addFoodActivity extends Navigation implements AdapterView.OnItemSel
                 if (chosenFood.name.equals("There is no such food. Click me if you want to add it.")) {
                     //addNewFoodButton.setVisibility(View.VISIBLE);
                     Intent i = new Intent(view.getContext(), addNewFoodActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(i);
-                    finish();
 
                 } else {
                     Toast.makeText(addFoodActivity.this, chosenFood.name, Toast.LENGTH_LONG).show();

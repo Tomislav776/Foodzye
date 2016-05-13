@@ -45,11 +45,6 @@ public class ProfileFragmentMenuTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragments_profile_menu, null);
 
-        ProfileActivity activity = (ProfileActivity) getActivity();
-        user_id = activity.getUserId();
-
-        db = new Database(c);
-
         recyclerView = (RecyclerView) view.findViewById(R.id.MenuRecyclerView);
 
         mAdapter = new MenuAdapter(menuList, c);
@@ -58,8 +53,6 @@ public class ProfileFragmentMenuTab extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(c, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
-
-        prepareMenuData();
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(c, recyclerView, new ClickListener() {
             @Override
@@ -80,6 +73,17 @@ public class ProfileFragmentMenuTab extends Fragment {
         }));
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        ProfileActivity activity = (ProfileActivity) getActivity();
+        user_id = activity.getUserId();
+
+        db = new Database(c);
+        prepareMenuData();
+
+        super.onResume();
     }
 
     @Override

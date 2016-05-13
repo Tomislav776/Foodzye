@@ -27,10 +27,10 @@ import android.widget.Toast;
 import com.example.tomipc.foodzye.Database;
 import com.example.tomipc.foodzye.DividerItemDecoration;
 import com.example.tomipc.foodzye.MainActivity;
-import com.example.tomipc.foodzye.location.LocationActivity;
 import com.example.tomipc.foodzye.ProfileActivity;
 import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.adapter.ReviewAdapter;
+import com.example.tomipc.foodzye.location.LocationActivity;
 import com.example.tomipc.foodzye.loginActivity;
 import com.example.tomipc.foodzye.model.Review;
 import com.example.tomipc.foodzye.model.User;
@@ -71,12 +71,6 @@ public class ProfileFragmentProfileTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragments_profile_food_service_provider, null);
-        ProfileActivity activity = (ProfileActivity) getActivity();
-        user_id = activity.getUserId();
-        logged_in_user_id = activity.getLoggedInUserId();
-        user = activity.getUser();
-
-        db = new Database(c);
 
         logInButton = (Button) view.findViewById(R.id.profile_review_login_button);
         SendReviewButton = (Button) view.findViewById(R.id.SendPlaceReviewButton);
@@ -94,8 +88,10 @@ public class ProfileFragmentProfileTab extends Fragment {
             @Override
             public void onClick(View v) {
                 getPermissionForCalling();
-                Intent i = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + PhoneTextView.getText().toString()));
-                startActivity(i);
+                if(CallingPermission == 1) {
+                    Intent i = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + PhoneTextView.getText().toString()));
+                    startActivity(i);
+                }
             }
         });
         WorkHoursTextView = (TextView) view.findViewById(R.id.WorkHoursTextView);
@@ -103,48 +99,6 @@ public class ProfileFragmentProfileTab extends Fragment {
         ReviewTextView2 = (TextView) view.findViewById(R.id.ReviewTextView2);
         AdressTextView = (TextView) view.findViewById(R.id.AdressTextView);
 
-        DescriptionTextView.setText(user.getDescription());
-        EmailTextView.setText(user.getEmail());
-        PhoneTextView.setText(user.getPhone());
-        WorkHoursTextView.setText(user.getWork_time());
-        AdressTextView.setText(user.getLocation());
-
-        if (user_id == logged_in_user_id || logged_in_user_id == 0){
-            SendReviewButton.setVisibility(View.GONE);
-            ReviewEditText.setVisibility(View.GONE);
-
-            if (user_id == logged_in_user_id)
-                logInButton.setVisibility(View.GONE);
-            else
-                logInButton.setVisibility(View.VISIBLE);
-
-            ReviewTextView.setVisibility(View.GONE);
-            FoodServiceProviderUserReviewRatingBar.setVisibility(View.GONE);
-
-            logInButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(getActivity(), loginActivity.class);
-                    startActivity(i);
-                }
-            });
-
-
-        }
-        else{
-            SendReviewButton.setVisibility(View.VISIBLE);
-            ReviewEditText.setVisibility(View.VISIBLE);
-            logInButton.setVisibility(View.GONE);
-            FoodServiceProviderUserReviewRatingBar.setVisibility(View.VISIBLE);
-            ReviewTextView.setVisibility(View.VISIBLE);
-
-            arrayOfReview = db.readUserReview("getUsersReviewPlace", String.valueOf(user_id), String.valueOf(logged_in_user_id));
-
-            if (!(arrayOfReview.isEmpty())) {
-                FoodServiceProviderUserReviewRatingBar.setRating((float) arrayOfReview.get(0).getRate());
-                ReviewEditText.setText(arrayOfReview.get(0).getComment());
-            }
-        }
 
         AdressTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,9 +140,64 @@ public class ProfileFragmentProfileTab extends Fragment {
         recycleReviewList.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         recycleReviewList.setAdapter(mAdapter);
 
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        ProfileActivity activity = (ProfileActivity) getActivity();
+        user_id = activity.getUserId();
+        logged_in_user_id = activity.getLoggedInUserId();
+        user = activity.getUser();
+        db = new Database(c);
+
+        DescriptionTextView.setText(user.getDescription());
+        EmailTextView.setText(user.getEmail());
+        PhoneTextView.setText(user.getPhone());
+        WorkHoursTextView.setText(user.getWork_time());
+        AdressTextView.setText(user.getLocation());
+
+
+        if (user_id == logged_in_user_id || logged_in_user_id == 0){
+            SendReviewButton.setVisibility(View.GONE);
+            ReviewEditText.setVisibility(View.GONE);
+
+            if (user_id == logged_in_user_id)
+                logInButton.setVisibility(View.GONE);
+            else
+                logInButton.setVisibility(View.VISIBLE);
+
+            ReviewTextView.setVisibility(View.GONE);
+            FoodServiceProviderUserReviewRatingBar.setVisibility(View.GONE);
+
+            logInButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getActivity(), loginActivity.class);
+                    startActivity(i);
+                }
+            });
+
+
+        }
+        else{
+            SendReviewButton.setVisibility(View.VISIBLE);
+            ReviewEditText.setVisibility(View.VISIBLE);
+            logInButton.setVisibility(View.GONE);
+            FoodServiceProviderUserReviewRatingBar.setVisibility(View.VISIBLE);
+            ReviewTextView.setVisibility(View.VISIBLE);
+
+            arrayOfReview = db.readUserReview("getUsersReviewPlace", String.valueOf(user_id), String.valueOf(logged_in_user_id));
+
+            if (!(arrayOfReview.isEmpty())) {
+                FoodServiceProviderUserReviewRatingBar.setRating((float) arrayOfReview.get(0).getRate());
+                ReviewEditText.setText(arrayOfReview.get(0).getComment());
+            }
+        }
+
         prepareReviewData();
 
-        return view;
+        super.onResume();
     }
 
     private void prepareReviewData() {

@@ -197,7 +197,6 @@ public class EditFoodActivity extends Navigation implements AdapterView.OnItemSe
 
                 Intent intent = new Intent(EditFoodActivity.this, ProfileActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 

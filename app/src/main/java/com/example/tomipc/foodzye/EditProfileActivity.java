@@ -166,8 +166,6 @@ public class EditProfileActivity extends Navigation {
 
                 Intent intent = new Intent(EditProfileActivity.this, ProfileActivity.class);
                 startActivity(intent);
-
-                finish();
             }
         });
     }
