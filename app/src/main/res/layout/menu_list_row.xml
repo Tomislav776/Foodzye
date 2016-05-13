@@ -68,20 +68,20 @@
         android:text="20kn"
         android:textColor="@color/counter_text_color"
         android:padding="5dp"
-        android:layout_below="@+id/distance_food_menu_list_row"
-        android:layout_alignRight="@+id/distance_food_menu_list_row"
-        android:layout_alignEnd="@+id/distance_food_menu_list_row" />
+        android:layout_alignTop="@+id/name_food"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+         />
 
     <TextView android:id="@+id/distance_food_menu_list_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#ecf0f1"
         android:text="Distance"
         android:textColor="@color/counter_text_color"
         android:padding="5dp"
-        android:layout_alignTop="@+id/name_food"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/price_food"
+        android:layout_alignRight="@+id/price_food"
+        android:layout_alignEnd="@+id/price_food" />
 
 
 </RelativeLayout>
