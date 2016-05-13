@@ -64,7 +64,6 @@
     <TextView android:id="@+id/price_food"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#ecf0f1"
         android:text="20kn"
         android:textColor="@color/counter_text_color"
         android:padding="5dp"
