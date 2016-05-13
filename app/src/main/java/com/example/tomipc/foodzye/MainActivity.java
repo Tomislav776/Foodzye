@@ -9,13 +9,11 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -28,14 +26,7 @@ import com.example.tomipc.foodzye.model.Place;
 import com.example.tomipc.foodzye.model.User;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResult;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.SphericalUtil;
 
@@ -185,7 +176,7 @@ public class MainActivity extends Navigation implements GoogleApiClient.Connecti
         placeList = baza.readPlace("getPlace");
 
         for(Place value: placeList) {
-            if (!(value.getLocation().equals("null"))){
+            if (!(value.getLocation().equals("null")) && !(value.getLocation().equals(""))){
                 dist = SphericalUtil.computeDistanceBetween(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()), convertAdressToLocation(value.getLocation()));
                 if( dist < 1000 ) {
                     distS = String.format( "%4.2f%s", dist, "m" );
