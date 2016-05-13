@@ -171,7 +171,7 @@ public class MainActivity extends Navigation implements GoogleApiClient.Connecti
 
     private void setHashMap(){
         double dist;
-        String distS;
+        String distS="";
         baza = new Database(this);
         placeList = baza.readPlace("getPlace");
 
