@@ -183,10 +183,9 @@ public class MainActivity extends Navigation implements GoogleApiClient.Connecti
                 } else {
                     distS = String.format("%4.3f%s", dist/1000, "km");
                 }
-                if ((distS.equals("null")) || (distS.equals("")))
-                    distS="0m";
+                hashMap.put(value.getId(), distS);
 
-                if ((distS.equals("null")) || (distS.equals("")))
+            }else{
                     distS="0m";
                 hashMap.put(value.getId(), distS);
             }
