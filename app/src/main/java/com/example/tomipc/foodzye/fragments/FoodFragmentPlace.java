@@ -134,6 +134,11 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
         @Override
         public int compare(Place left, Place right) {
             if (sortBy.equals("Rating")){
+                if(left.getPremium() == 1){
+                    return -1;
+                }else if (right.getPremium() == 1){
+                    return 1;
+                }else
                 return String.valueOf(right.getRate()).compareTo(String.valueOf(left.getRate()));
             }else if (sortBy.equals("Distance") && MainActivity.locationOnBool){
 
@@ -168,9 +173,19 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
                 leftDD = Double.parseDouble(leftD) * times1;
                 rightDD = Double.parseDouble(rightD) * times2;
 
+                if(left.getPremium() == 1){
+                    return -1;
+                }else if (right.getPremium() == 1){
+                    return 1;
+                }else
                 return (leftDD < rightDD) ? -1 : (leftDD < rightDD) ? 1:0 ;
             }
             else {
+                if(left.getPremium() == 1){
+                    return -1;
+                }else if (right.getPremium() == 1){
+                    return 1;
+                }else
                 return left.getName().compareTo(right.getName());
             }
         }
