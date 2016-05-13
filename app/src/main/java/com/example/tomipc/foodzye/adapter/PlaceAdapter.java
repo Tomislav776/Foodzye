@@ -62,6 +62,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
 
         if (place.getPremium()==1){
             holder.placeImage.setBackground(ContextCompat.getDrawable(c, R.drawable.round_red));
+            //holder.rowBackgorund.setBackgroundColor(ContextCompat.getColor(c, R.color.accent));
         }
 
         holder.name.setText(place.getName());
