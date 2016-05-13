@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,7 @@ public class ProfileFragmentProfileTab extends Fragment {
     private AppCompatRatingBar FoodServiceProviderUserReviewRatingBar;
     private EditText ReviewEditText;
     private TextView DescriptionTextView, EmailTextView, PhoneTextView, WorkHoursTextView, ReviewTextView, ReviewTextView2, AdressTextView;
+    private RelativeLayout locationClickableView;
 
     private Review reviewObj;
     private int user_id, logged_in_user_id, CallingPermission;
@@ -78,6 +80,7 @@ public class ProfileFragmentProfileTab extends Fragment {
 
         db = new Database(c);
 
+        locationClickableView = (RelativeLayout) view.findViewById(R.id.place_location_relative_click);
         logInButton = (Button) view.findViewById(R.id.profile_review_login_button);
         SendReviewButton = (Button) view.findViewById(R.id.SendPlaceReviewButton);
         FoodServiceProviderUserReviewRatingBar = (AppCompatRatingBar) view.findViewById(R.id.FoodServiceProviderUserReviewRatingBar);
@@ -146,7 +149,7 @@ public class ProfileFragmentProfileTab extends Fragment {
             }
         }
 
-        AdressTextView.setOnClickListener(new View.OnClickListener() {
+        locationClickableView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (MainActivity.locationOnBool) {
