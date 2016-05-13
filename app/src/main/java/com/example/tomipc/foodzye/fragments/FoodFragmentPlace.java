@@ -24,7 +24,9 @@ import com.example.tomipc.foodzye.MainActivity;
 import com.example.tomipc.foodzye.ProfileActivity;
 import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.adapter.PlaceAdapter;
+import com.example.tomipc.foodzye.adapter.TypeOfPlaceAdapter;
 import com.example.tomipc.foodzye.model.Place;
+import com.example.tomipc.foodzye.model.TypeOfPlace;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,9 +47,10 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
 
     AutoCompleteTextView search;
     ArrayList<Place> arrayOfPlace;
+    ArrayList<TypeOfPlace> arrayOfTypeofPlaces;
+    private TypeOfPlace typeOfPlace;
 
-    ArrayAdapter<String> adapter;
-    private String[] placeSearch;
+    TypeOfPlaceAdapter adapter;
     String sortBy="";
 
     Place place;
@@ -65,7 +68,7 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
         sort = (Spinner) view.findViewById(R.id.place_fragment_sort);
 
         arrayOfPlace = db.readPlace("getPlace");
-        placeSearch = new String[arrayOfPlace.size()];
+        arrayOfTypeofPlaces = db.readTypeOfPlaces("getTypeOfPlaces");
 
         recyclerView = (RecyclerView) view.findViewById(R.id.place_fragment_recycler_view);
 
@@ -78,13 +81,16 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
 
 
         search = (AutoCompleteTextView) view.findViewById(R.id.place_fragment_search);
-        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, placeSearch);
+        //adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, placeSearch);
+        adapter = new TypeOfPlaceAdapter(getActivity(), R.layout.item_food2, arrayOfTypeofPlaces);
         search.setAdapter(adapter);
 
         search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String s = parent.getItemAtPosition(position).toString();
+                typeOfPlace = (TypeOfPlace) parent.getItemAtPosition(position);
+                search.setText(typeOfPlace.getType());
+                String s = Integer.toString(typeOfPlace.getId());
                 preparePlaceData(s);
             }
         });
@@ -226,20 +232,15 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
         if (search.equals("")) {
             db = new Database(c);
             arrayOfPlace = db.readPlace("getPlace");
-
-            placeSearch = new String[arrayOfPlace.size()];
-            for(Place value: arrayOfPlace) {
-                placeSearch[i]=value.getName();
-                i++;
-            }
+            arrayOfTypeofPlaces = db.readTypeOfPlaces("getTypeOfPlaces");
 
             for (Place value : arrayOfPlace) {
                 if (MainActivity.hashMap.isEmpty()) {
-                    place = new Place(value.getId(), value.getRole(), value.getName(), value.getEmail(), value.getSlug(), value.getLocation(), value.getPhone(), value.getPicture(), value.getWork_time(), value.getRate(), value.getDescription(), value.getPremium(), value.getPremium_until());
+                    place = new Place(value.getId(), value.getRole(), value.getName(), value.getEmail(), value.getSlug(), value.getLocation(), value.getPhone(), value.getPicture(), value.getWork_time(), value.getRate(), value.getDescription(), value.getPremium(), value.getPremium_until(), value.getType());
 
                 }else{
                     distance = MainActivity.hashMap.get(value.getId());
-                    place = new Place(value.getId(), value.getRole(), value.getName(), value.getEmail(), value.getSlug(), value.getLocation(), value.getPhone(), value.getPicture(), value.getWork_time(), value.getRate(), value.getDescription(), distance, value.getPremium(), value.getPremium_until());
+                    place = new Place(value.getId(), value.getRole(), value.getName(), value.getEmail(), value.getSlug(), value.getLocation(), value.getPhone(), value.getPicture(), value.getWork_time(), value.getRate(), value.getDescription(), distance, value.getPremium(), value.getPremium_until(), value.getType());
                 }
 
                 placeList.add(place);
@@ -248,7 +249,7 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
         {
             placeList.clear();
             for (i = 0 ; i<arrayOfPlace.size();i++){
-                if (search.equals(arrayOfPlace.get(i).getName()))
+                if (search.equals(Integer.toString(arrayOfPlace.get(i).getType())))
                     placeList.add(arrayOfPlace.get(i));
             }
         }

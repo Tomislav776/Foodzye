@@ -4,12 +4,12 @@ package com.example.tomipc.foodzye.model;
 import java.io.Serializable;
 
 public class Place implements Serializable {
-    private int id, role, premium;
+    private int id, role, premium, type;
     private String name, email, location, phone, picture, work_time, description, slug, distance, premium_until;
     private double rate;
 
 
-    public Place(int id, int role, String name, String email, String slug, String location, String phone, String picture, String work_time, double rate, String description, int premium, String premium_until){
+    public Place(int id, int role, String name, String email, String slug, String location, String phone, String picture, String work_time, double rate, String description, int premium, String premium_until, int type){
         this.id = id;
         this.role = role;
         this.name = name;
@@ -23,9 +23,10 @@ public class Place implements Serializable {
         this.description = description;
         this.premium = premium;
         this.premium_until = premium_until;
+        this.type = type;
     }
 
-    public Place(int id, int role, String name, String email, String slug, String location, String phone, String picture, String work_time, double rate, String description, String distance, int premium, String premium_until){
+    public Place(int id, int role, String name, String email, String slug, String location, String phone, String picture, String work_time, double rate, String description, String distance, int premium, String premium_until, int type){
         this.id = id;
         this.role = role;
         this.name = name;
@@ -40,6 +41,7 @@ public class Place implements Serializable {
         this.distance = distance;
         this.premium = premium;
         this.premium_until = premium_until;
+        this.type = type;
     }
 
     public String getDistance() {
@@ -152,5 +154,13 @@ public class Place implements Serializable {
 
     public void setPremium_until(String premium_until) {
         this.premium_until = premium_until;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

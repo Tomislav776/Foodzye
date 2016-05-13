@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
-    private int id, role, premium;
+    private int id, role, premium, type;
     private String username, email, slug, location, phone, picture, work_time, description, premium_until;
     private double rate;
 
@@ -67,17 +67,17 @@ public class User implements Serializable {
         this.premium_until = premium_until;
     }
 
-    public User(String username, String email, String location, String phone, String picture, String work_time, String description, double rate, String slug){
+    public User(String username, String email, String location, String phone, String picture, String work_time, String description, double rate, String slug, int type){
         this.email = email;
         this.location = location;
         this.phone = phone;
         this.picture = picture;
         this.work_time = work_time;
         this.description = description;
-        this.username=username;
-        this.rate=rate;
-        this.slug=slug;
-
+        this.username = username;
+        this.rate = rate;
+        this.slug = slug;
+        this.type = type;
     }
 
     public int getId() {
@@ -182,5 +182,13 @@ public class User implements Serializable {
 
     public void setPremium_until(String premium_until) {
         this.premium_until = premium_until;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

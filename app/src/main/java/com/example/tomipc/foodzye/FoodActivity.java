@@ -235,7 +235,7 @@ public class FoodActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent profileActivity = new Intent(FoodActivity.this, ProfileActivity.class);
-                userdataP = new Place(food.getUser_id(), 2, userdata.getUsername(), userdata.getEmail(), userdata.getSlug(), userdata.getLocation(), userdata.getPhone(), userdata.getPicture(), userdata.getWork_time(), userdata.getRate(), userdata.getDescription(), userdata.getPremium(), userdata.getPremium_until());
+                userdataP = new Place(food.getUser_id(), 2, userdata.getUsername(), userdata.getEmail(), userdata.getSlug(), userdata.getLocation(), userdata.getPhone(), userdata.getPicture(), userdata.getWork_time(), userdata.getRate(), userdata.getDescription(), userdata.getPremium(), userdata.getPremium_until(), userdata.getType());
 
                 profileActivity.putExtra("Place", userdataP);
                 startActivity(profileActivity);

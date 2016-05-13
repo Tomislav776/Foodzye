@@ -10,6 +10,7 @@ import com.example.tomipc.foodzye.model.Menu;
 import com.example.tomipc.foodzye.model.Place;
 import com.example.tomipc.foodzye.model.Premium;
 import com.example.tomipc.foodzye.model.Review;
+import com.example.tomipc.foodzye.model.TypeOfPlace;
 import com.example.tomipc.foodzye.model.User;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
@@ -38,6 +39,7 @@ public class Database {
     private ArrayList<Review> arrayOfReview = new ArrayList<>();
     private ArrayList<Review> arrayOfSingleReview = new ArrayList<>();
     private ArrayList<Premium> arrayOfPremiumTypes = new ArrayList<>();
+    private ArrayList<TypeOfPlace> arrayOfTypeofPlaces = new ArrayList<>();
 
     public Database(){
     }
@@ -94,8 +96,9 @@ public class Database {
                 String name = jObject.getString("name");
                 double rate = jObject.getDouble("rate_total");
                 String slug = jObject.getString("slug");
+                int type = jObject.getInt("type");
 
-                user = new User(name,email, location, phone, picture, work_time, description,rate,slug);
+                user = new User(name, email, location, phone, picture, work_time, description, rate, slug, type);
             }
 
         }
@@ -133,6 +136,31 @@ public class Database {
         }
 
         return arrayOfPremiumTypes;
+    }
+
+    public ArrayList<TypeOfPlace> readTypeOfPlaces (String route) {
+        try {
+            String TypeOfPlaceJSON;
+            TypeOfPlaceJSON = new Read().execute(URL+route+"/").get();
+            JSONArray obj = new JSONArray(TypeOfPlaceJSON);
+
+            for (int i = 0; i < obj.length(); i++) {
+                JSONObject jObject = obj.getJSONObject(i);
+
+                int id = jObject.getInt("id");
+                String type = jObject.getString("type");
+
+                TypeOfPlace typeOfPlace = new TypeOfPlace(id, type);
+
+                arrayOfTypeofPlaces.add(typeOfPlace);
+            }
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return arrayOfTypeofPlaces;
     }
 
 
@@ -376,8 +404,9 @@ public class Database {
                 String time = jObject.getString("work_time");
                 String description = jObject.getString("description");
                 double rate = jObject.getDouble("rate_total");
+                int type = jObject.getInt("type");
 
-                Place place = new Place(id, role, name, email, slug, address, phone, picture, time, rate, description, premium, premium_until);
+                Place place = new Place(id, role, name, email, slug, address, phone, picture, time, rate, description, premium, premium_until, type);
 
                 arrayOfPlace.add(place);
             }

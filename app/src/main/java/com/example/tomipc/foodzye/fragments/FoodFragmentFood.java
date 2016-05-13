@@ -2,7 +2,6 @@ package com.example.tomipc.foodzye.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,8 +26,6 @@ import com.example.tomipc.foodzye.R;
 import com.example.tomipc.foodzye.adapter.MenuAdapter;
 import com.example.tomipc.foodzye.model.Food;
 import com.example.tomipc.foodzye.model.Menu;
-import com.example.tomipc.foodzye.model.User;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,9 +39,6 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
         return new FoodFragmentFood();
     }
 
-    private GoogleApiClient mGoogleApiClient;
-    private Location mCurrentLocation;
-
     private List<Menu> menuList = new ArrayList<>();
     private RecyclerView recyclerView;
     private MenuAdapter mAdapter;
@@ -52,20 +46,15 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
 
     AutoCompleteTextView search;
     ArrayList<Menu> arrayOfFood;
-    ArrayList<Menu> arrayOfFoodHolder;
 
     ArrayAdapter<String> adapter;
     private String[] food;
     String sortBy="";
-
-           User user;
     Menu menu;
 
 
     Database db;
     Context c;
-
-           private double latitude, longitude;
 
     @Nullable
     @Override
@@ -84,8 +73,7 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
         recyclerView.addItemDecoration(new DividerItemDecoration(c, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
 
-        food = new String[1];
-        food[0] = "";
+        prepareFoodData();
         search = (AutoCompleteTextView) view.findViewById(R.id.food_fragment_search);
         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, food);
         search.setAdapter(adapter);
@@ -107,7 +95,6 @@ public class FoodFragmentFood extends Fragment implements AdapterView.OnItemSele
     public void onResume() {
         setSpinner();
         //Autocomplete
-        prepareFoodData();
         menuList.clear();
         mAdapter.notifyDataSetChanged();
         prepareMenuData("");
