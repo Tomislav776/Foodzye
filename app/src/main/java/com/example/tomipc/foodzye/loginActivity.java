@@ -113,6 +113,7 @@ public class loginActivity extends AppCompatActivity  {
                         String email = jObject.getString("email");
                         int role = jObject.getInt("role");
                         int premium = jObject.getInt("premium");
+                        int type = jObject.getInt("type");
                         String premium_until = jObject.getString("premium_until");
                         String user_slug = jObject.getString("slug");
                         String user_picture = jObject.getString("user_picture");
@@ -122,7 +123,7 @@ public class loginActivity extends AppCompatActivity  {
                         String description = jObject.getString("description");
                         float rate = (float)jObject.getDouble("rate_total");
                         int user_id = jObject.getInt("id");
-                        User user = new User(user_id, name, user_slug, email, role, location, phone, work_time, user_picture, description, rate, premium, premium_until);
+                        User user = new User(user_id, name, user_slug, email, role, location, phone, work_time, user_picture, description, rate, premium, premium_until, type);
                         logUserIn(user);
                     }catch (JSONException e){
                         e.printStackTrace();

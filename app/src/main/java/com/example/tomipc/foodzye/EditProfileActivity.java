@@ -42,10 +42,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
-public class EditProfileActivity extends Navigation implements AdapterView.OnItemSelectedListener {
+public class EditProfileActivity extends Navigation {
 
     private static String getRoute = "getUser";
     private static String postRoute = "postUserUpdate";
@@ -59,9 +58,8 @@ public class EditProfileActivity extends Navigation implements AdapterView.OnIte
     EditText EmailEditText, DescriptionEditText , LocationEditText, PhoneEditText, WorkTimeEditText;
     Button EditProfileButton, TakePictureButton, ChoosePictureButton;
     RoundedImageView imgPreview;
-    AutoCompleteTextView typeOfPlaceSpinner;
+    AutoCompleteTextView typeOfPlaceAC;
     ArrayList<TypeOfPlace> arrayOfTypeofPlaces;
-    private TypeOfPlace typeOfPlace;
 
     TypeOfPlaceAdapter adapter;
     String email, description, location, phone, workTime, foodImage, filePath;
@@ -111,23 +109,32 @@ public class EditProfileActivity extends Navigation implements AdapterView.OnIte
 
         typeplaceid = 1;
 
-        typeOfPlaceSpinner = (AutoCompleteTextView) findViewById(R.id.TypeOfPlaceSpinner);
+        if(user.getRole() == 2){
+            typeOfPlaceAC = (AutoCompleteTextView) findViewById(R.id.TypeOfPlaceSpinner);
+            typeOfPlaceAC.setVisibility(View.VISIBLE);
 
-        // Spinner Drop down elements
-        typeOfPlaceSpinner.setOnItemSelectedListener(this);
+            if(user.getType() == 1) typeOfPlaceAC.setText("Restaurant");
+            else if(user.getType() == 2) typeOfPlaceAC.setText("Grill / Bistro");
+            else if(user.getType() == 3) typeOfPlaceAC.setText("Pizzeria");
+            else if(user.getType() == 4) typeOfPlaceAC.setText("Pastry / Bake shop");
+            else if(user.getType() == 5) typeOfPlaceAC.setText("Tavern");
 
-        List<String> currency = new ArrayList<String>();
-        currency.add("Name");
-        currency.add("Rating");
-        if (MainActivity.locationOnBool)
-            currency.add("Distance");
+            typeOfPlaceAC.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    TypeOfPlace typeOfPlaceSelected = (TypeOfPlace) parent.getItemAtPosition(position);
+                    typeOfPlaceAC.setText(typeOfPlaceSelected.getType());
+                    typeplaceid = typeOfPlaceSelected.getId();
+                }
+            });
 
-        // Creating adapter for spinner
-        adapter = new TypeOfPlaceAdapter(this, R.layout.item_food2, arrayOfTypeofPlaces);
-        //ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.simple_spinner_item, currency);
+            // Creating adapter for spinner
+            adapter = new TypeOfPlaceAdapter(this, R.layout.item_food2, arrayOfTypeofPlaces);
 
-        // attaching data adapter to spinner
-        typeOfPlaceSpinner.setAdapter(adapter);
+            // attaching data adapter to autocompletetextview
+            typeOfPlaceAC.setAdapter(adapter);
+        }
+
 
         if(user.getRole() == 1){
             WorkTimeEditText.setVisibility(View.GONE);
@@ -203,18 +210,6 @@ public class EditProfileActivity extends Navigation implements AdapterView.OnIte
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // On selecting a item
-        TypeOfPlace typeOfPlaceSelected = (TypeOfPlace) parent.getItemAtPosition(position);
-        typeOfPlaceSpinner.setText(typeOfPlaceSelected.getType());
-        typeplaceid = typeOfPlaceSelected.getId();
-    }
-
-    public void onNothingSelected(AdapterView<?> arg0) {
-
     }
 
     // Called when the user wants to take a picture
