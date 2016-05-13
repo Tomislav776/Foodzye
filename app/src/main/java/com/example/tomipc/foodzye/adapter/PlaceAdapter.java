@@ -2,12 +2,14 @@ package com.example.tomipc.foodzye.adapter;
 
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -26,6 +28,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
         public TextView name, address, distance;
         public ImageView placeImage;
         public AppCompatRatingBar rate;
+        public RelativeLayout rowBackgorund;
 
         public MyViewHolder(View view) {
             super(view);
@@ -34,6 +37,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
             placeImage = (ImageView) view.findViewById(R.id.row_place_picture);
             rate = (android.support.v7.widget.AppCompatRatingBar) view.findViewById(R.id.row_place_rating_bar);
             distance = (TextView) view.findViewById(R.id.distance_place_place_list_row);
+            rowBackgorund = (RelativeLayout) view.findViewById(R.id.row_place_picture_background);
 
         }
     }
@@ -55,6 +59,10 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Place place = placeList.get(position);
+
+        if (place.getPremium()==1){
+            holder.placeImage.setBackground(ContextCompat.getDrawable(c, R.drawable.round_red));
+        }
 
         holder.name.setText(place.getName());
 
