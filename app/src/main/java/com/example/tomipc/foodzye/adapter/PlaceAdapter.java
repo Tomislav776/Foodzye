@@ -2,7 +2,7 @@ package com.example.tomipc.foodzye.adapter;
 
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import android.graphics.Color;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -61,7 +61,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
         Place place = placeList.get(position);
 
         if (place.getPremium()==1){
-            holder.placeImage.setBackground(ContextCompat.getDrawable(c, R.drawable.round_red));
+            holder.placeImage.setBackgroundColor(Color.parseColor("#c0392b"));
             //holder.rowBackgorund.setBackgroundColor(ContextCompat.getColor(c, R.color.accent));
         }
 
