@@ -20,7 +20,6 @@ import android.widget.Spinner;
 
 import com.example.tomipc.foodzye.Database;
 import com.example.tomipc.foodzye.DividerItemDecoration;
-import com.example.tomipc.foodzye.FoodActivity;
 import com.example.tomipc.foodzye.MainActivity;
 import com.example.tomipc.foodzye.ProfileActivity;
 import com.example.tomipc.foodzye.R;
@@ -212,11 +211,11 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
 
             for (Place value : arrayOfPlace) {
                 if (MainActivity.hashMap.isEmpty()) {
-                    place = new Place(value.getId(), value.getRole(), value.getName(), value.getEmail(), value.getSlug(), value.getLocation(), value.getPhone(), value.getPicture(), value.getWork_time(), value.getRate(), value.getDescription());
+                    place = new Place(value.getId(), value.getRole(), value.getName(), value.getEmail(), value.getSlug(), value.getLocation(), value.getPhone(), value.getPicture(), value.getWork_time(), value.getRate(), value.getDescription(), value.getPremium(), value.getPremium_until());
 
                 }else{
                     distance = MainActivity.hashMap.get(value.getId());
-                    place = new Place(value.getId(), value.getRole(), value.getName(), value.getEmail(), value.getSlug(), value.getLocation(), value.getPhone(), value.getPicture(), value.getWork_time(), value.getRate(), value.getDescription(), distance);
+                    place = new Place(value.getId(), value.getRole(), value.getName(), value.getEmail(), value.getSlug(), value.getLocation(), value.getPhone(), value.getPicture(), value.getWork_time(), value.getRate(), value.getDescription(), distance, value.getPremium(), value.getPremium_until());
                 }
 
                 placeList.add(place);

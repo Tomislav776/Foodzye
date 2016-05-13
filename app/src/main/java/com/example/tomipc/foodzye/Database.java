@@ -367,6 +367,8 @@ public class Database {
                 int role = jObject.getInt("role");
                 String name = jObject.getString("name");
                 String email = jObject.getString("email");
+                int premium = jObject.getInt("premium");
+                String premium_until = jObject.getString("premium_until");
                 String slug = jObject.getString("slug");
                 String address = jObject.getString("location");
                 String phone = jObject.getString("phone");
@@ -375,7 +377,7 @@ public class Database {
                 String description = jObject.getString("description");
                 double rate = jObject.getDouble("rate_total");
 
-                Place place = new Place(id, role, name, email, slug, address, phone, picture, time, rate, description);
+                Place place = new Place(id, role, name, email, slug, address, phone, picture, time, rate, description, premium, premium_until);
 
                 arrayOfPlace.add(place);
             }
