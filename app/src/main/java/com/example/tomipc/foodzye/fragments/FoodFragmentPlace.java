@@ -157,11 +157,6 @@ public class FoodFragmentPlace extends Fragment implements AdapterView.OnItemSel
                 return String.valueOf(right.getRate()).compareTo(String.valueOf(left.getRate()));
             }else if (sortBy.equals("Distance") && MainActivity.locationOnBool){
 
-                if ((right.getLocation().equals("null")) || (right.getLocation().equals("")))
-                    right.setDistance("0m");
-
-                if ((left.getLocation().equals("null")) || (left.getLocation().equals("")))
-                    left.setDistance("0m");
 
                 int i;
                 String leftD="", rightD="";
