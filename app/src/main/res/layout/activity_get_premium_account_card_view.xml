@@ -26,23 +26,12 @@
                 android:layout_alignParentTop="true"/>
 
             <TextView
-                android:id="@+id/PremiumDescriptionTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#fff"
-                android:layout_marginLeft="80dp"
-                android:layout_marginTop="-70dp"
-
-                android:layout_below="@id/PremiumImageView"/>
-
-            <TextView
                 android:id="@+id/PremiumPriceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="80dp"
-                android:textColor="#fff"
-                android:layout_below="@id/PremiumDescriptionTextView"/>
+                android:textColor="#fff" />
 
             <TextView
                 android:id="@+id/PremiumDurationTextView"

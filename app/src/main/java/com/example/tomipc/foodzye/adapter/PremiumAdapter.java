@@ -27,7 +27,7 @@ public class PremiumAdapter extends RecyclerView.Adapter<PremiumAdapter.PremiumH
 
         public PremiumHolder(View itemView) {
             super(itemView);
-            description = (TextView) itemView.findViewById(R.id.PremiumDescriptionTextView);
+            //description = (TextView) itemView.findViewById(R.id.PremiumDescriptionTextView);
             price = (TextView) itemView.findViewById(R.id.PremiumPriceTextView);
             duration = (TextView) itemView.findViewById(R.id.PremiumDurationTextView);
             image = (ImageView) itemView.findViewById(R.id.PremiumImageView);
@@ -57,7 +57,7 @@ public class PremiumAdapter extends RecyclerView.Adapter<PremiumAdapter.PremiumH
     @Override
     public void onBindViewHolder(PremiumHolder holder, int position) {
         Premium premium = mDataset.get(position);
-        holder.description.setText(premium.getDescription());
+        //holder.description.setText(premium.getDescription());
         String price = premium.getPrice() + " " + premium.getCurrency();
         holder.price.setText(price);
         String x;

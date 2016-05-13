@@ -15,6 +15,7 @@
     <color name="iron">#CCCCCC</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#c0392b</color>
+    <color name="blue">#ecf0fc</color>
 
     <!-- Navigacija -->
         <color name="list_item_title">#c0392b</color>

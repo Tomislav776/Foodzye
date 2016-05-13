@@ -3,6 +3,7 @@ package com.example.tomipc.foodzye;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tomipc.foodzye.adapter.PremiumAdapter;
@@ -47,9 +49,11 @@ public class GetPremiumAccountActivity extends Navigation {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Premium> premiumList;
+    private TextView textview;
     private Context c;
     UserLocalStore userLocalStore;
     User user;
+    String months;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,10 @@ public class GetPremiumAccountActivity extends Navigation {
 
         toolbar = (Toolbar) findViewById(R.id.PremiumToolbar);
         set(toolbar);
+
+        textview = (TextView) findViewById(R.id.textView13);
+        textview.setTextColor(getResources().getColor(R.color.primary));
+        textview.setText("For the duration of your premium account, your profile is featured at the top on the main screen.");
 
         Intent intent = new Intent(this, PayPalService.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
@@ -84,6 +92,8 @@ public class GetPremiumAccountActivity extends Navigation {
 
                 PayPalPayment premiumAccount = new PayPalPayment(new BigDecimal(premium.getPrice()), premium.getCurrency(), "Premium account",
                         PayPalPayment.PAYMENT_INTENT_SALE);
+
+                months = premium.getMonths_duration();
 
                 Intent intent = new Intent(GetPremiumAccountActivity.this, PaymentActivity.class);
 
@@ -187,7 +197,10 @@ public class GetPremiumAccountActivity extends Navigation {
                         Database db = new Database(this);
                         db.insert(postData, "postPayment");
 
-                        Toast.makeText(c, "Thank you for buying a premium account.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(c, "Thank you for buying a premium account. Duration - " + months + " months", Toast.LENGTH_LONG).show();
+                        SharedPreferences.Editor userLocalDatabaseEditor = userLocalStore.userLocalDatabase.edit();
+                        userLocalDatabaseEditor.putInt("premium", 1);
+                        userLocalDatabaseEditor.commit();
 
                     } catch (JSONException e) {
                         Log.e(TAG, "an extremely unlikely failure occurred: ", e);

@@ -63,7 +63,6 @@
     <TextView android:id="@+id/row_place_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#ecf0f1"
         android:text="Makismirska"
         android:textColor="@color/counter_text_color"
         android:padding="5dp"
